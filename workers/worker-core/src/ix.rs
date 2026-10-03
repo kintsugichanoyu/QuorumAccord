@@ -115,7 +115,10 @@ pub fn submit_weights(
             AccountMeta::new(consensus, false),
             AccountMeta::new_readonly(*operator, true),
         ],
-        data: encode("submit_weights", &[&round.to_le_bytes(), &weights_bytes(weights)]),
+        data: encode(
+            "submit_weights",
+            &[&round.to_le_bytes(), &weights_bytes(weights)],
+        ),
     }
 }
 
@@ -169,12 +172,18 @@ impl DataFeedConfig {
 
 pub fn init_registry(program_id: &Pubkey, admin: &Pubkey) -> Instruction {
     let registry = pda::registry(program_id).0;
+    let loader: Pubkey = "BPFLoaderUpgradeab1e11111111111111111111111"
+        .parse()
+        .unwrap();
+    let program_data = Pubkey::find_program_address(&[program_id.as_ref()], &loader).0;
     Instruction {
         program_id: *program_id,
         accounts: vec![
             AccountMeta::new(registry, false),
             AccountMeta::new(*admin, true),
             AccountMeta::new_readonly(system_program::ID, false),
+            AccountMeta::new_readonly(*program_id, false),
+            AccountMeta::new_readonly(program_data, false),
         ],
         data: encode("init_registry", &[]),
     }
@@ -188,7 +197,12 @@ pub fn remove_operator(program_id: &Pubkey, admin: &Pubkey, operator: &Pubkey) -
     mutate_operator(program_id, admin, operator, "remove_operator")
 }
 
-fn mutate_operator(program_id: &Pubkey, admin: &Pubkey, operator: &Pubkey, name: &str) -> Instruction {
+fn mutate_operator(
+    program_id: &Pubkey,
+    admin: &Pubkey,
+    operator: &Pubkey,
+    name: &str,
+) -> Instruction {
     let registry = pda::registry(program_id).0;
     Instruction {
         program_id: *program_id,
@@ -217,7 +231,10 @@ pub fn init_data_feed(
             AccountMeta::new(*admin, true),
             AccountMeta::new_readonly(system_program::ID, false),
         ],
-        data: encode("init_data_feed", &[&[pool_id], &[data_id], &config.to_bytes()]),
+        data: encode(
+            "init_data_feed",
+            &[&[pool_id], &[data_id], &config.to_bytes()],
+        ),
     }
 }
 

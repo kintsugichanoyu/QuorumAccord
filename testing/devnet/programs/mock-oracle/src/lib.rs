@@ -1,4 +1,4 @@
-//! Mock oracle — a deliberately tiny program whose only purpose is **devnet
+//! TEST ONLY. Mock oracle — a deliberately tiny program whose only purpose is **devnet
 //! end-to-end testing** of `reflect-allocation`.
 //!
 //! On devnet there is no venue account whose value we control and can predict, so
@@ -14,7 +14,7 @@
 
 use anchor_lang::prelude::*;
 
-declare_id!("8hZA4nxK7iQbMYtPFbyhHkeQ9u77PHKdKqDwULzXiY88");
+declare_id!("3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N");
 
 /// PDA seed prefix; an account is `[MOCK_SEED, &[id]]`.
 pub const MOCK_SEED: &[u8] = b"mock";

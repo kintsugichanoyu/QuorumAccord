@@ -22,7 +22,9 @@ impl OperatorRegistry {
     pub const LEN: usize = core::mem::size_of::<Self>();
 
     pub fn is_operator(&self, key: &Pubkey) -> bool {
-        self.operators[..self.count as usize].iter().any(|k| k == key)
+        self.operators[..self.count as usize]
+            .iter()
+            .any(|k| k == key)
     }
 
     pub fn add(&mut self, key: Pubkey) -> Result<()> {

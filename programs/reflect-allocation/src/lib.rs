@@ -22,7 +22,7 @@ pub mod state;
 use constants::N_VENUES;
 pub use instructions::*;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz");
 
 #[program]
 pub mod reflect_allocation {
@@ -48,10 +48,7 @@ pub mod reflect_allocation {
     ) -> Result<()> {
         instructions::init_data_feed(ctx, pool_id, data_id, config)
     }
-    pub fn update_thresholds(
-        ctx: Context<UpdateThresholds>,
-        config: DataFeedConfig,
-    ) -> Result<()> {
+    pub fn update_thresholds(ctx: Context<UpdateThresholds>, config: DataFeedConfig) -> Result<()> {
         instructions::update_thresholds(ctx, config)
     }
 
@@ -72,10 +69,7 @@ pub mod reflect_allocation {
     ) -> Result<()> {
         instructions::corroborate_sample(ctx, window_index, value, slot_at_read)
     }
-    pub fn finalize_sample(
-        ctx: Context<FinalizeSample>,
-        window_index: u64,
-    ) -> Result<()> {
+    pub fn finalize_sample(ctx: Context<FinalizeSample>, window_index: u64) -> Result<()> {
         instructions::finalize_sample(ctx, window_index)
     }
 
@@ -100,10 +94,7 @@ pub mod reflect_allocation {
     ) -> Result<()> {
         instructions::submit_weights(ctx, round, weights)
     }
-    pub fn finalize_allocation(
-        ctx: Context<FinalizeAllocation>,
-        round: u64,
-    ) -> Result<()> {
+    pub fn finalize_allocation(ctx: Context<FinalizeAllocation>, round: u64) -> Result<()> {
         instructions::finalize_allocation(ctx, round)
     }
 }

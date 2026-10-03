@@ -28,6 +28,14 @@ impl DataFeedView {
             "account too small to be a DataFeed ({} bytes)",
             data.len()
         );
+        ensure!(
+            data[..DISC] == crate::anchor_codec::account_discriminator("DataFeed"),
+            "wrong DataFeed discriminator"
+        );
+        ensure!(
+            (u16_at(data, DISC + 38) as usize) < RING_LEN,
+            "invalid ring head"
+        );
         Ok(Self {
             tick: u64_at(data, DISC),
             last_finalized_slot: u64_at(data, DISC + 8),
@@ -69,6 +77,10 @@ impl AllocationStateView {
             data.len() >= DISC + 8 + 8 + N_VENUES * 2 + 1,
             "account too small to be an AllocationState ({} bytes)",
             data.len()
+        );
+        ensure!(
+            data[..DISC] == crate::anchor_codec::account_discriminator("AllocationState"),
+            "wrong AllocationState discriminator"
         );
         let mut weights = [0u16; N_VENUES];
         for (i, w) in weights.iter_mut().enumerate() {

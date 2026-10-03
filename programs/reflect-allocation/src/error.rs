@@ -12,7 +12,7 @@ pub enum ReflectError {
     OperatorAlreadyRegistered,
     #[msg("Operator not found")]
     OperatorNotFound,
-    #[msg("min_number must be <= MAX_SUBMISSIONS")]
+    #[msg("min_number must be between 1 and MAX_OPERATORS (64)")]
     InvalidQuorum,
     #[msg("Invalid configuration value")]
     InvalidConfig,
@@ -38,4 +38,6 @@ pub enum ReflectError {
     InvalidRatios,
     #[msg("Arithmetic overflow")]
     MathOverflow,
+    #[msg("An older round cannot overwrite more recent published state")]
+    StaleRound,
 }

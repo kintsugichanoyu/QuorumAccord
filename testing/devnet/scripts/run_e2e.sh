@@ -7,7 +7,7 @@
 #     cd workers && cargo run -p e2e -- run-happy
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 [[ -f "$ROOT/.env.devnet" ]] || { echo "missing .env.devnet — run 00_deploy.sh first"; exit 1; }
 set -a; source "$ROOT/.env.devnet"; set +a
 
@@ -28,7 +28,7 @@ while read -r pool data _mock_id mock_pda _venue _role; do
   for op in 1 2 3; do
     POOL_ID="$pool" DATA_ID="$data" TARGET_ACCOUNT="$mock_pda" \
       OFFSET=8 SCALE_NUM=1 SCALE_DEN=1 POLL_MS=2000 \
-      KEYPAIR="$(cat "$ROOT/keys/op$op.json")" \
+      KEYPAIR="$(cat "$ROOT/testing/devnet/.state/keys/op$op.json")" \
       "$BIN/producer" >/dev/null 2>&1 &
     PIDS+=($!)
   done
@@ -44,7 +44,7 @@ echo "==> open allocation round"
 echo "==> launch 2 consumers"
 FEEDS_JSON="$("$BIN/e2e" consumer-feeds)"
 for op in 1 2; do
-  FEEDS="$FEEDS_JSON" POLL_MS=5000 KEYPAIR="$(cat "$ROOT/keys/op$op.json")" \
+  FEEDS="$FEEDS_JSON" POLL_MS=5000 KEYPAIR="$(cat "$ROOT/testing/devnet/.state/keys/op$op.json")" \
     "$BIN/consumer" >/dev/null 2>&1 &
   PIDS+=($!)
 done

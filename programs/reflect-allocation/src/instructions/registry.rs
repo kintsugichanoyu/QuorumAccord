@@ -17,6 +17,10 @@ pub struct InitRegistry<'info> {
     #[account(mut)]
     pub admin: Signer<'info>,
     pub system_program: Program<'info, System>,
+    #[account(constraint = program.programdata_address()? == Some(program_data.key()) @ ReflectError::Unauthorized)]
+    pub program: Program<'info, crate::program::ReflectAllocation>,
+    #[account(constraint = program_data.upgrade_authority_address == Some(admin.key()) @ ReflectError::Unauthorized)]
+    pub program_data: Account<'info, ProgramData>,
 }
 
 pub fn init_registry(ctx: Context<InitRegistry>) -> Result<()> {

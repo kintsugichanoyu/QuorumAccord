@@ -1,8 +1,8 @@
-//! RPC client pool with endpoint failover and slot-pinned reads.
+//! RPC client pool with endpoint failover and minimum-context-slot reads.
 //!
-//! Slot pinning (`min_context_slot`) is what makes operators deterministic: every
-//! honest RPC must return identical bytes for an account at a given slot, so two
-//! operators reading the same anchor slot see the same input.
+//! `min_context_slot` is a freshness lower bound, NOT an exact historical snapshot.
+//! Callers that need coherent snapshots must preserve context slots and implement
+//! a shared anchor / latest-before history selection independently.
 
 use anyhow::{anyhow, Result};
 use solana_client::{rpc_client::RpcClient, rpc_config::RpcAccountInfoConfig};
@@ -31,6 +31,15 @@ impl RpcPool {
 
     /// Read an account as of (at least) `min_slot`, trying each endpoint in turn.
     pub fn get_account_pinned(&self, key: &Pubkey, min_slot: u64) -> Result<Option<Account>> {
+        self.get_account_with_context(key, min_slot)
+            .map(|(_, account)| account)
+    }
+
+    pub fn get_account_with_context(
+        &self,
+        key: &Pubkey,
+        min_slot: u64,
+    ) -> Result<(u64, Option<Account>)> {
         let cfg = RpcAccountInfoConfig {
             commitment: Some(CommitmentConfig::confirmed()),
             min_context_slot: Some(min_slot),
@@ -39,7 +48,7 @@ impl RpcPool {
         };
         self.try_each(|c| {
             c.get_account_with_config(key, cfg.clone())
-                .map(|resp| resp.value)
+                .map(|resp| (resp.context.slot, resp.value))
                 .map_err(|e| anyhow!(e))
         })
     }

@@ -5,15 +5,15 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-reflect_allocation = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
-mock_oracle = "8hZA4nxK7iQbMYtPFbyhHkeQ9u77PHKdKqDwULzXiY88"
+reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"
 
 # Devnet ids are placeholders until `anchor keys sync` rewrites them (and the
 # matching `declare_id!`s) from the generated target/deploy keypairs — see
 # scripts/devnet/00_deploy.sh.
 [programs.devnet]
-reflect_allocation = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
-mock_oracle = "8hZA4nxK7iQbMYtPFbyhHkeQ9u77PHKdKqDwULzXiY88"
+reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"
 
 [registry]
 url = "https://api.apr.dev"

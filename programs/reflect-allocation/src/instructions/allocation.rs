@@ -71,11 +71,15 @@ pub fn open_allocation_round(
         ReflectError::Unauthorized
     );
     require!(
-        (min_number as usize) <= MAX_SUBMISSIONS,
+        min_number > 0 && (min_number as usize) <= MAX_OPERATORS,
         ReflectError::InvalidQuorum
     );
     require!(rule <= rule_flags::TRIMMED_MEAN, ReflectError::InvalidRule);
     require!(trim_pct < 50, ReflectError::InvalidConfig);
+    require!(
+        closes_at_slot > Clock::get()?.slot,
+        ReflectError::InvalidConfig
+    );
 
     let mut c = ctx.accounts.consensus.load_init()?;
     c.round = round;
@@ -144,16 +148,21 @@ pub struct FinalizeAllocation<'info> {
     pub cranker: Signer<'info>,
 }
 
-pub fn finalize_allocation(
-    ctx: Context<FinalizeAllocation>,
-    _round: u64,
-) -> Result<()> {
+pub fn finalize_allocation(ctx: Context<FinalizeAllocation>, _round: u64) -> Result<()> {
     let clock = Clock::get()?;
     let mut c = ctx.accounts.consensus.load_mut()?;
-    require!(c.status == state_flags::OPEN, ReflectError::AlreadyFinalized);
+    require!(
+        c.status == state_flags::OPEN,
+        ReflectError::AlreadyFinalized
+    );
     require!(
         clock.slot >= c.closes_at_slot,
         ReflectError::WindowStillOpen
+    );
+    require!(
+        ctx.accounts.allocation_state.updated_slot == 0
+            || c.round > ctx.accounts.allocation_state.round,
+        ReflectError::StaleRound
     );
 
     if (c.count as usize) < (c.min_number as usize) {

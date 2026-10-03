@@ -57,7 +57,7 @@ pub fn propose_sample(
         ReflectError::WindowClosed
     );
     require!(
-        slot_at_read >= opens_at && slot_at_read < closes_at,
+        slot_at_read >= opens_at && slot_at_read < closes_at && slot_at_read <= clock.slot,
         ReflectError::SlotOutsideWindow
     );
 
@@ -116,9 +116,14 @@ pub fn corroborate_sample(
     );
     require!(clock.slot < c.closes_at_slot, ReflectError::WindowClosed);
 
-    let opens_at = c.closes_at_slot - window_slots;
+    // Derive the original window width from the round, not mutable feed config.
+    let original_width = c.closes_at_slot
+        / c.window_index
+            .checked_add(1)
+            .ok_or(ReflectError::MathOverflow)?;
+    let opens_at = c.closes_at_slot - original_width;
     require!(
-        slot_at_read >= opens_at && slot_at_read < c.closes_at_slot,
+        slot_at_read >= opens_at && slot_at_read < c.closes_at_slot && slot_at_read <= clock.slot,
         ReflectError::SlotOutsideWindow
     );
 
@@ -152,14 +157,14 @@ pub enum FinalizeOutcome {
     NoTrigger,
 }
 
-pub fn finalize_sample(
-    ctx: Context<FinalizeSample>,
-    window_index: u64,
-) -> Result<()> {
+pub fn finalize_sample(ctx: Context<FinalizeSample>, window_index: u64) -> Result<()> {
     let clock = Clock::get()?;
     let mut c = ctx.accounts.consensus.load_mut()?;
 
-    require!(c.status == state_flags::OPEN, ReflectError::AlreadyFinalized);
+    require!(
+        c.status == state_flags::OPEN,
+        ReflectError::AlreadyFinalized
+    );
     require!(
         c.data_feed == ctx.accounts.data_feed.key() && c.window_index == window_index,
         ReflectError::IdentityMismatch
@@ -185,11 +190,15 @@ pub fn finalize_sample(
     let agg = aggregation::aggregate_scalar(&mut buf[..n], c.rule, c.trim_pct);
 
     let mut df = ctx.accounts.data_feed.load_mut()?;
+    require!(
+        c.closes_at_slot > df.last_finalized_slot,
+        ReflectError::StaleRound
+    );
     let first = df.last_finalized_slot == 0 && df.tick == 0;
 
     // Brake: min_interval_slots since the last finalize must have elapsed.
     if !first {
-        let elapsed = clock.slot.saturating_sub(df.last_finalized_slot);
+        let elapsed = c.closes_at_slot.saturating_sub(df.last_finalized_slot);
         if elapsed < df.min_interval_slots as u64 {
             c.status = state_flags::CLOSED;
             msg!("finalize: {:?}", FinalizeOutcome::Brake);
@@ -198,7 +207,7 @@ pub fn finalize_sample(
     }
 
     // Trigger: forced refresh (max_interval) OR ratio divergence.
-    let idle = clock.slot.saturating_sub(df.last_finalized_slot);
+    let idle = c.closes_at_slot.saturating_sub(df.last_finalized_slot);
     let advance = first
         || idle >= df.max_interval_slots as u64
         || aggregation::divergence_bps(agg, df.last_value) >= df.threshold_bps as u64;

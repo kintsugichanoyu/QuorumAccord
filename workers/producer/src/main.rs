@@ -13,7 +13,9 @@ use std::{thread, time::Duration};
 
 use anyhow::{anyhow, bail, Result};
 use solana_sdk::signer::Signer;
-use worker_core::{config::WorkerConfig, feed_view::DataFeedView, ix, pda, rpc::RpcPool, tx, window};
+use worker_core::{
+    config::WorkerConfig, feed_view::DataFeedView, ix, pda, rpc::RpcPool, tx, window,
+};
 
 use driver::Driver;
 
@@ -22,7 +24,10 @@ fn env(key: &str) -> Result<String> {
 }
 
 fn env_parse<T: std::str::FromStr>(key: &str, default: T) -> T {
-    std::env::var(key).ok().and_then(|s| s.parse().ok()).unwrap_or(default)
+    std::env::var(key)
+        .ok()
+        .and_then(|s| s.parse().ok())
+        .unwrap_or(default)
 }
 
 /// Build the configured driver. The MVP exposes the generic offset decoder; real
@@ -62,8 +67,14 @@ fn main() -> Result<()> {
 
     let mut last_finalized_window: Option<u64> = None;
     loop {
-        if let Err(e) = tick(&pool, &cfg, driver.as_ref(), &feed_pda, &operator, &mut last_finalized_window)
-        {
+        if let Err(e) = tick(
+            &pool,
+            &cfg,
+            driver.as_ref(),
+            &feed_pda,
+            &operator,
+            &mut last_finalized_window,
+        ) {
             tracing::warn!("tick error: {e}");
         }
         thread::sleep(poll);
@@ -95,12 +106,30 @@ fn tick(
         let consensus = pda::tick_consensus(&cfg.program_id, feed_pda, widx).0;
         let exists = pool.primary().get_account(&consensus).is_ok();
         let instruction = if exists {
-            ix::corroborate_sample(&cfg.program_id, driver.pool_id(), driver.data_id(), widx, operator, value, slot)
+            ix::corroborate_sample(
+                &cfg.program_id,
+                driver.pool_id(),
+                driver.data_id(),
+                widx,
+                operator,
+                value,
+                slot,
+            )
         } else {
-            ix::propose_sample(&cfg.program_id, driver.pool_id(), driver.data_id(), widx, operator, value, slot)
+            ix::propose_sample(
+                &cfg.program_id,
+                driver.pool_id(),
+                driver.data_id(),
+                widx,
+                operator,
+                value,
+                slot,
+            )
         };
         match tx::send_with_retry(pool.primary(), &cfg.keypair, &[instruction], 3) {
-            Ok(sig) => tracing::info!("submit window={widx} value={value} exists={exists} sig={sig}"),
+            Ok(sig) => {
+                tracing::info!("submit window={widx} value={value} exists={exists} sig={sig}")
+            }
             Err(e) => tracing::warn!("submit failed (window={widx}): {e}"),
         }
     }
@@ -111,7 +140,13 @@ fn tick(
         if *last_finalized_window != Some(prev) {
             let prev_consensus = pda::tick_consensus(&cfg.program_id, feed_pda, prev).0;
             if pool.primary().get_account(&prev_consensus).is_ok() {
-                let fin = ix::finalize_sample(&cfg.program_id, driver.pool_id(), driver.data_id(), prev, operator);
+                let fin = ix::finalize_sample(
+                    &cfg.program_id,
+                    driver.pool_id(),
+                    driver.data_id(),
+                    prev,
+                    operator,
+                );
                 if let Ok(sig) = tx::send_with_retry(pool.primary(), &cfg.keypair, &[fin], 2) {
                     tracing::info!("finalize window={prev} sig={sig}");
                     *last_finalized_window = Some(prev);

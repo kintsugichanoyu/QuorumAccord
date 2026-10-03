@@ -1,5 +1,5 @@
 [workspace]
-members = ["programs/*"]
+members = ["programs/reflect-allocation", "testing/devnet/programs/mock-oracle"]
 exclude = ["workers"]
 resolver = "2"
 

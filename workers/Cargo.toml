@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["rubric", "worker-core", "producer", "consumer", "e2e"]
+members = ["rubric", "worker-core", "producer", "consumer", "../testing/devnet/allocation-e2e", "../testing/devnet/price-lab"]
 
 [workspace.package]
 version = "0.1.0"

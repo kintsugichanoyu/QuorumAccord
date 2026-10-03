@@ -2,7 +2,7 @@
 # One image builds both daemons; the role + driver are selected at runtime by env,
 # so a single image powers all ~10 producers and the consumer.
 
-FROM rust:1.83-slim AS build
+FROM rust:1.96-slim AS build
 RUN apt-get update && apt-get install -y --no-install-recommends \
         pkg-config libssl-dev libudev-dev protobuf-compiler \
     && rm -rf /var/lib/apt/lists/*

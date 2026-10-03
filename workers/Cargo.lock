@@ -940,6 +940,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "devnet-price-lab"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "solana-sdk",
+ "worker-core",
+]
+
+[[package]]
 name = "digest"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

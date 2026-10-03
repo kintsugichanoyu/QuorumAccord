@@ -10,3 +10,8 @@ sdk/rust/generated
 *.so
 .env*
 graphify-out
+/keys/
+/testing/devnet/.state/
+**/__pycache__/
+!*.env.example
+!.env.devnet.example

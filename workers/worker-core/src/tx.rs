@@ -20,12 +20,8 @@ pub fn send_with_retry(
     let mut last = None;
     for attempt in 0..max_attempts.max(1) {
         let blockhash = rpc.get_latest_blockhash().map_err(|e| anyhow!(e))?;
-        let tx = Transaction::new_signed_with_payer(
-            ixs,
-            Some(&payer.pubkey()),
-            &[payer],
-            blockhash,
-        );
+        let tx =
+            Transaction::new_signed_with_payer(ixs, Some(&payer.pubkey()), &[payer], blockhash);
         match rpc.send_and_confirm_transaction(&tx) {
             Ok(sig) => return Ok(sig),
             Err(e) => {

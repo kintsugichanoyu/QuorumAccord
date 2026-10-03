@@ -26,7 +26,7 @@ pub struct DataFeed {
     pub last_finalized_slot: u64, // closing slot of the most recent tick window
     pub last_value: u64,          // scalar value at head
     // 4-byte — trigger config
-    pub window_slots: u32,       // width of a tick's Solana slot range (consensus window)
+    pub window_slots: u32, // width of a tick's Solana slot range (consensus window)
     pub min_interval_slots: u32, // brake: refuse a new tick sooner than this
     pub max_interval_slots: u32, // floor: force a new tick after this idle interval
     // 2-byte
@@ -87,17 +87,11 @@ impl DataFeedConsensus {
 
     /// Append a submission, enforcing open status, capacity and one-per-operator.
     pub fn add_submission(&mut self, submitter: Pubkey, value: u64) -> Result<()> {
-        require!(
-            self.status == state_flags::OPEN,
-            ReflectError::RoundNotOpen
-        );
+        require!(self.status == state_flags::OPEN, ReflectError::RoundNotOpen);
         let n = self.count as usize;
         require!(n < MAX_SUBMISSIONS, ReflectError::SubmissionBufferFull);
         for s in &self.submissions[..n] {
-            require!(
-                s.submitter != submitter,
-                ReflectError::DuplicateSubmission
-            );
+            require!(s.submitter != submitter, ReflectError::DuplicateSubmission);
         }
         self.submissions[n].submitter = submitter;
         self.submissions[n].value = value;

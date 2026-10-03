@@ -3,11 +3,11 @@
 # Run from anywhere; requires solana-cli + anchor (Solana 2.1 / Anchor 1.0.2).
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 cd "$ROOT"
 
 CLUSTER_URL="${SOLANA_RPC_URL:-https://api.devnet.solana.com}"
-KEYS_DIR="$ROOT/keys"
+KEYS_DIR="$ROOT/testing/devnet/.state/keys"
 mkdir -p "$KEYS_DIR"
 
 echo "==> solana config -> $CLUSTER_URL"

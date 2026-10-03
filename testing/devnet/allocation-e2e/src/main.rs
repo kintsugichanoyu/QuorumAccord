@@ -1,4 +1,4 @@
-//! Devnet end-to-end harness for the reflect allocation flow.
+//! TEST ONLY: devnet end-to-end harness for the reflect allocation flow.
 //!
 //! Drives the whole pipeline against a controlled data source (the `mock-oracle`
 //! program) and then *fetches the resulting on-chain accounts and asserts they
@@ -64,7 +64,10 @@ fn happy_cfg() -> ix::DataFeedConfig {
     // Window generous enough that all 20 sample txs land inside one window on devnet.
     ix::DataFeedConfig {
         measurand: 0,
-        window_slots: 300,
+        window_slots: std::env::var("E2E_WINDOW_SLOTS")
+            .ok()
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(300),
         threshold_bps: 30,
         min_interval_slots: 0,
         max_interval_slots: 3000,
@@ -86,8 +89,22 @@ struct FeedDef {
 fn happy_feeds() -> Vec<FeedDef> {
     let mut out = Vec::new();
     for (v, &(pool, apy, crr)) in VENUES.iter().enumerate() {
-        out.push(FeedDef { pool_id: pool, data_id: DATA_APY, venue: v, is_apy: true, value: apy, mock_id: (v as u8) * 2 });
-        out.push(FeedDef { pool_id: pool, data_id: DATA_CRR, venue: v, is_apy: false, value: crr, mock_id: (v as u8) * 2 + 1 });
+        out.push(FeedDef {
+            pool_id: pool,
+            data_id: DATA_APY,
+            venue: v,
+            is_apy: true,
+            value: apy,
+            mock_id: (v as u8) * 2,
+        });
+        out.push(FeedDef {
+            pool_id: pool,
+            data_id: DATA_CRR,
+            venue: v,
+            is_apy: false,
+            value: crr,
+            mock_id: (v as u8) * 2 + 1,
+        });
     }
     out
 }
@@ -129,12 +146,34 @@ impl Cfg {
             .map(|s| s.trim().to_string())
             .filter(|s| !s.is_empty())
             .collect();
-        ensure!(op_paths.len() >= 2, "need at least 2 OP_KEYPAIRS (got {})", op_paths.len());
-        let ops = op_paths.iter().map(|p| load_kp(p)).collect::<Result<Vec<_>>>()?;
+        ensure!(
+            op_paths.len() >= 2,
+            "need at least 2 OP_KEYPAIRS (got {})",
+            op_paths.len()
+        );
+        let ops = op_paths
+            .iter()
+            .map(|p| load_kp(p))
+            .collect::<Result<Vec<_>>>()?;
         let outsider = load_kp(&env("OUTSIDER_KEYPAIR")?)?;
-        let round = std::env::var("ROUND").ok().and_then(|s| s.parse().ok()).unwrap_or(0u64);
-        let staleness = std::env::var("STALENESS_SLOTS").ok().and_then(|s| s.parse().ok()).unwrap_or(150_000u64);
-        Ok(Self { pool: RpcPool::new(&rpc_urls), reflect, mock, admin, ops, outsider, round, staleness })
+        let round = std::env::var("ROUND")
+            .ok()
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(0u64);
+        let staleness = std::env::var("STALENESS_SLOTS")
+            .ok()
+            .and_then(|s| s.parse().ok())
+            .unwrap_or(150_000u64);
+        Ok(Self {
+            pool: RpcPool::new(&rpc_urls),
+            reflect,
+            mock,
+            admin,
+            ops,
+            outsider,
+            round,
+            staleness,
+        })
     }
 }
 
@@ -176,7 +215,9 @@ fn airdrop_if_low(cfg: &Cfg, key: &Pubkey, target: u64) -> Result<()> {
             }
             tracing::warn!("airdrop not yet reflected for {key}; continuing");
         }
-        Err(e) => tracing::warn!("airdrop failed (devnet faucet rate-limited?): {e}; fund {key} manually"),
+        Err(e) => {
+            tracing::warn!("airdrop failed (devnet faucet rate-limited?): {e}; fund {key} manually")
+        }
     }
     Ok(())
 }
@@ -207,7 +248,12 @@ fn ensure_registry(cfg: &Cfg) -> Result<()> {
     if exists(cfg, &p) {
         return Ok(());
     }
-    tx::send_with_retry(cfg.pool.primary(), &cfg.admin, &[ix::init_registry(&cfg.reflect, &cfg.admin.pubkey())], 3)?;
+    tx::send_with_retry(
+        cfg.pool.primary(),
+        &cfg.admin,
+        &[ix::init_registry(&cfg.reflect, &cfg.admin.pubkey())],
+        3,
+    )?;
     tracing::info!("init_registry");
     Ok(())
 }
@@ -219,7 +265,12 @@ fn ensure_operators(cfg: &Cfg) -> Result<()> {
         if registry_has(&data, &k) {
             continue;
         }
-        tx::send_with_retry(cfg.pool.primary(), &cfg.admin, &[ix::add_operator(&cfg.reflect, &cfg.admin.pubkey(), &k)], 3)?;
+        tx::send_with_retry(
+            cfg.pool.primary(),
+            &cfg.admin,
+            &[ix::add_operator(&cfg.reflect, &cfg.admin.pubkey(), &k)],
+            3,
+        )?;
         tracing::info!("add_operator {k}");
     }
     Ok(())
@@ -230,7 +281,12 @@ fn ensure_alloc_state(cfg: &Cfg) -> Result<()> {
     if exists(cfg, &p) {
         return Ok(());
     }
-    tx::send_with_retry(cfg.pool.primary(), &cfg.admin, &[ix::init_allocation_state(&cfg.reflect, &cfg.admin.pubkey())], 3)?;
+    tx::send_with_retry(
+        cfg.pool.primary(),
+        &cfg.admin,
+        &[ix::init_allocation_state(&cfg.reflect, &cfg.admin.pubkey())],
+        3,
+    )?;
     tracing::info!("init_allocation_state");
     Ok(())
 }
@@ -243,7 +299,13 @@ fn ensure_feed(cfg: &Cfg, pool_id: u8, data_id: u8, c: &ix::DataFeedConfig) -> R
     tx::send_with_retry(
         cfg.pool.primary(),
         &cfg.admin,
-        &[ix::init_data_feed(&cfg.reflect, &cfg.admin.pubkey(), pool_id, data_id, c)],
+        &[ix::init_data_feed(
+            &cfg.reflect,
+            &cfg.admin.pubkey(),
+            pool_id,
+            data_id,
+            c,
+        )],
         3,
     )?;
     tracing::info!("init_data_feed ({pool_id},{data_id})");
@@ -255,7 +317,12 @@ fn ensure_mock(cfg: &Cfg, id: u8) -> Result<()> {
     if exists(cfg, &p) {
         return Ok(());
     }
-    tx::send_with_retry(cfg.pool.primary(), &cfg.admin, &[ix::init_mock(&cfg.mock, &cfg.admin.pubkey(), id)], 3)?;
+    tx::send_with_retry(
+        cfg.pool.primary(),
+        &cfg.admin,
+        &[ix::init_mock(&cfg.mock, &cfg.admin.pubkey(), id)],
+        3,
+    )?;
     Ok(())
 }
 
@@ -330,15 +397,38 @@ fn wait_open_window(cfg: &Cfg, window_slots: u64, headroom: u64) -> Result<(u64,
 
 /// Submit one sample for `op_idx`: propose if the window's consensus PDA does not
 /// yet exist, otherwise corroborate.
-fn submit_sample(cfg: &Cfg, op_idx: usize, pool_id: u8, data_id: u8, widx: u64, value: u64) -> Result<()> {
+fn submit_sample(
+    cfg: &Cfg,
+    op_idx: usize,
+    pool_id: u8,
+    data_id: u8,
+    widx: u64,
+    value: u64,
+) -> Result<()> {
     let feed = pda::data_feed(&cfg.reflect, pool_id, data_id).0;
     let consensus = pda::tick_consensus(&cfg.reflect, &feed, widx).0;
     let op = &cfg.ops[op_idx];
     let slot = current_slot(cfg)?;
     let i = if exists(cfg, &consensus) {
-        ix::corroborate_sample(&cfg.reflect, pool_id, data_id, widx, &op.pubkey(), value, slot)
+        ix::corroborate_sample(
+            &cfg.reflect,
+            pool_id,
+            data_id,
+            widx,
+            &op.pubkey(),
+            value,
+            slot,
+        )
     } else {
-        ix::propose_sample(&cfg.reflect, pool_id, data_id, widx, &op.pubkey(), value, slot)
+        ix::propose_sample(
+            &cfg.reflect,
+            pool_id,
+            data_id,
+            widx,
+            &op.pubkey(),
+            value,
+            slot,
+        )
     };
     tx::send_with_retry(cfg.pool.primary(), op, &[i], 3)?;
     Ok(())
@@ -348,7 +438,13 @@ fn finalize_sample(cfg: &Cfg, pool_id: u8, data_id: u8, widx: u64) -> Result<()>
     tx::send_with_retry(
         cfg.pool.primary(),
         &cfg.admin,
-        &[ix::finalize_sample(&cfg.reflect, pool_id, data_id, widx, &cfg.admin.pubkey())],
+        &[ix::finalize_sample(
+            &cfg.reflect,
+            pool_id,
+            data_id,
+            widx,
+            &cfg.admin.pubkey(),
+        )],
         2,
     )?;
     Ok(())
@@ -394,7 +490,12 @@ fn consumer_compute(cfg: &Cfg) -> Result<[u16; N_VENUES]> {
         }
     }
     let venues: Vec<VenueInput> = (0..N_VENUES)
-        .map(|v| VenueInput { apy_bps: apy[v], crr_bps: crr[v], cap_bps: cap[v], stale: stale[v] })
+        .map(|v| VenueInput {
+            apy_bps: apy[v],
+            crr_bps: crr[v],
+            cap_bps: cap[v],
+            stale: stale[v],
+        })
         .collect();
     let w = compute_weights(&venues, &RubricConfig::default());
     let mut out = [0u16; N_VENUES];
@@ -416,7 +517,15 @@ fn open_round(cfg: &Cfg) -> Result<()> {
     tx::send_with_retry(
         cfg.pool.primary(),
         &cfg.admin,
-        &[ix::open_allocation_round(&cfg.reflect, &cfg.admin.pubkey(), cfg.round, closes_at, 2, RULE_MEAN, 0)],
+        &[ix::open_allocation_round(
+            &cfg.reflect,
+            &cfg.admin.pubkey(),
+            cfg.round,
+            closes_at,
+            2,
+            RULE_MEAN,
+            0,
+        )],
         3,
     )?;
     tracing::info!("open_allocation_round {} closes_at {closes_at}", cfg.round);
@@ -427,7 +536,11 @@ fn crank_alloc(cfg: &Cfg) -> Result<()> {
     tx::send_with_retry(
         cfg.pool.primary(),
         &cfg.admin,
-        &[ix::finalize_allocation(&cfg.reflect, cfg.round, &cfg.admin.pubkey())],
+        &[ix::finalize_allocation(
+            &cfg.reflect,
+            cfg.round,
+            &cfg.admin.pubkey(),
+        )],
         3,
     )?;
     tracing::info!("finalize_allocation {}", cfg.round);
@@ -495,39 +608,94 @@ fn cmd_verify(cfg: &Cfg) -> Result<()> {
         let data = match cfg.pool.primary().get_account(&p) {
             Ok(a) => a.data,
             Err(e) => {
-                check(&mut f, false, format!("feed ({},{}) missing: {e}", fd.pool_id, fd.data_id));
+                check(
+                    &mut f,
+                    false,
+                    format!("feed ({},{}) missing: {e}", fd.pool_id, fd.data_id),
+                );
                 continue;
             }
         };
         let view = DataFeedView::parse(&data)?;
         let scalar = view.scalar(&data);
-        check(&mut f, view.tick >= 1, format!("feed ({},{}) tick={} (>=1)", fd.pool_id, fd.data_id, view.tick));
-        check(&mut f, scalar == fd.value, format!("feed ({},{}) scalar={scalar} (want {})", fd.pool_id, fd.data_id, fd.value));
-        check(&mut f, view.last_finalized_slot > 0, format!("feed ({},{}) last_finalized_slot>0", fd.pool_id, fd.data_id));
-        check(&mut f, !view.is_stale(now, cfg.staleness), format!("feed ({},{}) not stale", fd.pool_id, fd.data_id));
+        check(
+            &mut f,
+            view.tick >= 1,
+            format!(
+                "feed ({},{}) tick={} (>=1)",
+                fd.pool_id, fd.data_id, view.tick
+            ),
+        );
+        check(
+            &mut f,
+            scalar == fd.value,
+            format!(
+                "feed ({},{}) scalar={scalar} (want {})",
+                fd.pool_id, fd.data_id, fd.value
+            ),
+        );
+        check(
+            &mut f,
+            view.last_finalized_slot > 0,
+            format!("feed ({},{}) last_finalized_slot>0", fd.pool_id, fd.data_id),
+        );
+        check(
+            &mut f,
+            !view.is_stale(now, cfg.staleness),
+            format!("feed ({},{}) not stale", fd.pool_id, fd.data_id),
+        );
     }
 
     let expected = consumer_compute(cfg)?;
-    match cfg.pool.primary().get_account(&pda::allocation_state(&cfg.reflect).0) {
+    match cfg
+        .pool
+        .primary()
+        .get_account(&pda::allocation_state(&cfg.reflect).0)
+    {
         Ok(a) => {
             let st = AllocationStateView::parse(&a.data)?;
-            tracing::info!("allocation weights = {:?} (round {}, slot {})", st.weights, st.round, st.updated_slot);
-            check(&mut f, st.weights == expected, format!("weights {:?} == expected {:?}", st.weights, expected));
+            tracing::info!(
+                "allocation weights = {:?} (round {}, slot {})",
+                st.weights,
+                st.round,
+                st.updated_slot
+            );
+            check(
+                &mut f,
+                st.weights == expected,
+                format!("weights {:?} == expected {:?}", st.weights, expected),
+            );
             let sum: u32 = st.weights.iter().map(|&x| x as u32).sum();
-            check(&mut f, sum == 10_000, format!("weight sum={sum} (want 10000)"));
-            check(&mut f, st.round == cfg.round, format!("round={} (want {})", st.round, cfg.round));
+            check(
+                &mut f,
+                sum == 10_000,
+                format!("weight sum={sum} (want 10000)"),
+            );
+            check(
+                &mut f,
+                st.round == cfg.round,
+                format!("round={} (want {})", st.round, cfg.round),
+            );
             check(&mut f, st.updated_slot > 0, "allocation updated_slot>0");
         }
         Err(e) => check(&mut f, false, format!("allocation_state missing: {e}")),
     }
 
     // Cross-operator determinism: the two consumer submissions are identical.
-    if let Ok(a) = cfg.pool.primary().get_account(&pda::allocation_consensus(&cfg.reflect, cfg.round).0) {
+    if let Ok(a) = cfg
+        .pool
+        .primary()
+        .get_account(&pda::allocation_consensus(&cfg.reflect, cfg.round).0)
+    {
         let count = feed_view::alloc_consensus_count(&a.data);
         if count >= 2 {
             let w0 = feed_view::alloc_submission_weights(&a.data, 0);
             let w1 = feed_view::alloc_submission_weights(&a.data, 1);
-            check(&mut f, w0 == w1, format!("determinism: submission0 == submission1 ({:?})", w0));
+            check(
+                &mut f,
+                w0 == w1,
+                format!("determinism: submission0 == submission1 ({:?})", w0),
+            );
         } else {
             tracing::warn!("determinism: only {count} submission(s) present, skipping");
         }
@@ -556,7 +724,16 @@ fn warn_if_not_fresh(cfg: &Cfg, pool_id: u8, label: &str) {
 fn inv_quorum(cfg: &Cfg) -> Result<usize> {
     let mut f = 0;
     let (pool, data) = (10u8, INV_DATA);
-    let c = ix::DataFeedConfig { measurand: 0, window_slots: 60, threshold_bps: 30, min_interval_slots: 0, max_interval_slots: 100_000, min_number: 3, rule: RULE_MEDIAN, trim_pct: 0 };
+    let c = ix::DataFeedConfig {
+        measurand: 0,
+        window_slots: 60,
+        threshold_bps: 30,
+        min_interval_slots: 0,
+        max_interval_slots: 100_000,
+        min_number: 3,
+        rule: RULE_MEDIAN,
+        trim_pct: 0,
+    };
     ensure_feed(cfg, pool, data, &c)?;
     warn_if_not_fresh(cfg, pool, "quorum");
     let before = feed_view_of(cfg, pool, data)?;
@@ -566,71 +743,169 @@ fn inv_quorum(cfg: &Cfg) -> Result<usize> {
     wait_until_slot(cfg, closes + 2)?;
     finalize_sample(cfg, pool, data, widx)?;
     let after = feed_view_of(cfg, pool, data)?;
-    check(&mut f, after.tick == before.tick, format!("[quorum] tick {} -> {} (unchanged)", before.tick, after.tick));
-    let cdata = get_data(cfg, &pda::tick_consensus(&cfg.reflect, &pda::data_feed(&cfg.reflect, pool, data).0, widx).0)?;
-    check(&mut f, feed_view::sample_consensus_status(&cdata) == STATUS_CLOSED, "[quorum] consensus CLOSED");
+    check(
+        &mut f,
+        after.tick == before.tick,
+        format!(
+            "[quorum] tick {} -> {} (unchanged)",
+            before.tick, after.tick
+        ),
+    );
+    let cdata = get_data(
+        cfg,
+        &pda::tick_consensus(
+            &cfg.reflect,
+            &pda::data_feed(&cfg.reflect, pool, data).0,
+            widx,
+        )
+        .0,
+    )?;
+    check(
+        &mut f,
+        feed_view::sample_consensus_status(&cdata) == STATUS_CLOSED,
+        "[quorum] consensus CLOSED",
+    );
     Ok(f)
 }
 
 fn inv_brake(cfg: &Cfg) -> Result<usize> {
     let mut f = 0;
     let (pool, data) = (11u8, INV_DATA);
-    let c = ix::DataFeedConfig { measurand: 0, window_slots: 60, threshold_bps: 30, min_interval_slots: 1000, max_interval_slots: 1_000_000, min_number: 2, rule: RULE_MEDIAN, trim_pct: 0 };
+    let c = ix::DataFeedConfig {
+        measurand: 0,
+        window_slots: 60,
+        threshold_bps: 30,
+        min_interval_slots: 1000,
+        max_interval_slots: 1_000_000,
+        min_number: 2,
+        rule: RULE_MEDIAN,
+        trim_pct: 0,
+    };
     ensure_feed(cfg, pool, data, &c)?;
     warn_if_not_fresh(cfg, pool, "brake");
     round_and_finalize(cfg, pool, data, 1000)?; // first finalize advances
     let a = feed_view_of(cfg, pool, data)?;
     round_and_finalize(cfg, pool, data, 5000)?; // divergent, but braked (min_interval not elapsed)
     let b = feed_view_of(cfg, pool, data)?;
-    check(&mut f, b.tick == a.tick, format!("[brake] tick {} -> {} (braked, unchanged)", a.tick, b.tick));
-    check(&mut f, b.last_finalized_slot == a.last_finalized_slot, "[brake] last_finalized_slot unchanged");
+    check(
+        &mut f,
+        b.tick == a.tick,
+        format!("[brake] tick {} -> {} (braked, unchanged)", a.tick, b.tick),
+    );
+    check(
+        &mut f,
+        b.last_finalized_slot == a.last_finalized_slot,
+        "[brake] last_finalized_slot unchanged",
+    );
     Ok(f)
 }
 
 fn inv_notrig(cfg: &Cfg) -> Result<usize> {
     let mut f = 0;
     let (pool, data) = (12u8, INV_DATA);
-    let c = ix::DataFeedConfig { measurand: 0, window_slots: 60, threshold_bps: 500, min_interval_slots: 0, max_interval_slots: 1_000_000, min_number: 2, rule: RULE_MEDIAN, trim_pct: 0 };
+    let c = ix::DataFeedConfig {
+        measurand: 0,
+        window_slots: 60,
+        threshold_bps: 500,
+        min_interval_slots: 0,
+        max_interval_slots: 1_000_000,
+        min_number: 2,
+        rule: RULE_MEDIAN,
+        trim_pct: 0,
+    };
     ensure_feed(cfg, pool, data, &c)?;
     warn_if_not_fresh(cfg, pool, "no-trigger");
     round_and_finalize(cfg, pool, data, 10_000)?; // first → last_value 10000
     let a = feed_view_of(cfg, pool, data)?;
     round_and_finalize(cfg, pool, data, 10_200)?; // divergence 200bps < 500, idle < max → no trigger
     let b = feed_view_of(cfg, pool, data)?;
-    check(&mut f, b.tick == a.tick, format!("[no-trigger] tick {} -> {} (unchanged)", a.tick, b.tick));
-    check(&mut f, b.last_value == a.last_value, format!("[no-trigger] last_value {} unchanged", a.last_value));
+    check(
+        &mut f,
+        b.tick == a.tick,
+        format!("[no-trigger] tick {} -> {} (unchanged)", a.tick, b.tick),
+    );
+    check(
+        &mut f,
+        b.last_value == a.last_value,
+        format!("[no-trigger] last_value {} unchanged", a.last_value),
+    );
     Ok(f)
 }
 
 fn inv_force(cfg: &Cfg) -> Result<usize> {
     let mut f = 0;
     let (pool, data) = (13u8, INV_DATA);
-    let c = ix::DataFeedConfig { measurand: 0, window_slots: 60, threshold_bps: 60_000, min_interval_slots: 0, max_interval_slots: 30, min_number: 2, rule: RULE_MEDIAN, trim_pct: 0 };
+    let c = ix::DataFeedConfig {
+        measurand: 0,
+        window_slots: 60,
+        threshold_bps: 60_000,
+        min_interval_slots: 0,
+        max_interval_slots: 30,
+        min_number: 2,
+        rule: RULE_MEDIAN,
+        trim_pct: 0,
+    };
     ensure_feed(cfg, pool, data, &c)?;
     warn_if_not_fresh(cfg, pool, "forced-refresh");
     round_and_finalize(cfg, pool, data, 5000)?; // first → tick 1
     let a = feed_view_of(cfg, pool, data)?;
     round_and_finalize(cfg, pool, data, 5000)?; // same value; idle (~window) >= max_interval 30 → forced
     let b = feed_view_of(cfg, pool, data)?;
-    check(&mut f, b.tick == a.tick + 1, format!("[forced-refresh] tick {} -> {} (advanced on idle)", a.tick, b.tick));
-    check(&mut f, b.last_value == 5000, "[forced-refresh] last_value still 5000");
+    check(
+        &mut f,
+        b.tick == a.tick + 1,
+        format!(
+            "[forced-refresh] tick {} -> {} (advanced on idle)",
+            a.tick, b.tick
+        ),
+    );
+    check(
+        &mut f,
+        b.last_value == 5000,
+        "[forced-refresh] last_value still 5000",
+    );
     Ok(f)
 }
 
 fn inv_unauth(cfg: &Cfg) -> Result<usize> {
     let mut f = 0;
     let (pool, data) = (14u8, INV_DATA);
-    let c = ix::DataFeedConfig { measurand: 0, window_slots: 120, threshold_bps: 30, min_interval_slots: 0, max_interval_slots: 100_000, min_number: 2, rule: RULE_MEDIAN, trim_pct: 0 };
+    let c = ix::DataFeedConfig {
+        measurand: 0,
+        window_slots: 120,
+        threshold_bps: 30,
+        min_interval_slots: 0,
+        max_interval_slots: 100_000,
+        min_number: 2,
+        rule: RULE_MEDIAN,
+        trim_pct: 0,
+    };
     ensure_feed(cfg, pool, data, &c)?;
     let window = feed_view_of(cfg, pool, data)?.window_slots as u64;
     let (widx, _) = wait_open_window(cfg, window, window / 2)?;
     let feed = pda::data_feed(&cfg.reflect, pool, data).0;
     let consensus = pda::tick_consensus(&cfg.reflect, &feed, widx).0;
     let slot = current_slot(cfg)?;
-    let i = ix::propose_sample(&cfg.reflect, pool, data, widx, &cfg.outsider.pubkey(), 1234, slot);
+    let i = ix::propose_sample(
+        &cfg.reflect,
+        pool,
+        data,
+        widx,
+        &cfg.outsider.pubkey(),
+        1234,
+        slot,
+    );
     let res = tx::send_with_retry(cfg.pool.primary(), &cfg.outsider, &[i], 1);
-    check(&mut f, res.is_err(), format!("[unauth] outsider propose rejected (ok={})", res.is_ok()));
-    check(&mut f, !exists(cfg, &consensus), "[unauth] consensus PDA not created");
+    check(
+        &mut f,
+        res.is_err(),
+        format!("[unauth] outsider propose rejected (ok={})", res.is_ok()),
+    );
+    check(
+        &mut f,
+        !exists(cfg, &consensus),
+        "[unauth] consensus PDA not created",
+    );
     Ok(f)
 }
 
@@ -657,7 +932,8 @@ where
     <T as FromStr>::Err: std::fmt::Display,
 {
     let s = args.get(i).ok_or_else(|| anyhow!("missing arg #{i}"))?;
-    s.parse::<T>().map_err(|e| anyhow!("bad arg #{i} '{s}': {e}"))
+    s.parse::<T>()
+        .map_err(|e| anyhow!("bad arg #{i} '{s}': {e}"))
 }
 
 fn usage() {
@@ -671,7 +947,10 @@ fn usage() {
 
 fn main() -> Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env().add_directive(tracing::Level::INFO.into()))
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::from_default_env()
+                .add_directive(tracing::Level::INFO.into()),
+        )
         .init();
 
     let cfg = Cfg::from_env()?;
@@ -705,7 +984,12 @@ fn main() -> Result<()> {
                 let mock_pda = pda::mock(&cfg.mock, f.mock_id).0;
                 println!(
                     "{} {} {} {} {} {}",
-                    f.pool_id, f.data_id, f.mock_id, mock_pda, f.venue, if f.is_apy { "apy" } else { "crr" }
+                    f.pool_id,
+                    f.data_id,
+                    f.mock_id,
+                    mock_pda,
+                    f.venue,
+                    if f.is_apy { "apy" } else { "crr" }
                 );
             }
             Ok(())
@@ -717,7 +1001,10 @@ fn main() -> Result<()> {
                 .map(|f| {
                     format!(
                         "{{\"pool_id\":{},\"data_id\":{},\"venue\":{},\"role\":\"{}\"}}",
-                        f.pool_id, f.data_id, f.venue, if f.is_apy { "apy" } else { "crr" }
+                        f.pool_id,
+                        f.data_id,
+                        f.venue,
+                        if f.is_apy { "apy" } else { "crr" }
                     )
                 })
                 .collect();

@@ -1,7 +1,7 @@
 [package]
 name = "mock-oracle"
 version = "0.1.0"
-description = "Tiny writable-u64 oracle program: lets the devnet e2e harness inject controlled values that producers read via OffsetU64Driver"
+description = "TEST ONLY: writable mock protocol for localnet/devnet allocation integration tests"
 edition = "2021"
 
 [lib]

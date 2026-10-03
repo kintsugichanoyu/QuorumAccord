@@ -69,7 +69,7 @@ pub fn compute_weights(venues: &[VenueInput], cfg: &RubricConfig) -> Vec<u16> {
     // 1. screen + risk-adjusted yield
     let mut raw = vec![0u128; n];
     for (i, v) in venues.iter().enumerate() {
-        if v.stale || v.crr_bps > cfg.max_crr_bps {
+        if v.stale || v.crr_bps >= cfg.max_crr_bps {
             continue;
         }
         raw[i] = risk_adjusted_yield_bps(v.apy_bps, v.crr_bps) as u128;
@@ -103,7 +103,7 @@ pub fn compute_weights(venues: &[VenueInput], cfg: &RubricConfig) -> Vec<u16> {
     }
 
     // 3. caps
-    apply_caps(&mut weights, venues);
+    apply_caps(&mut weights, venues, &raw);
     weights
 }
 
@@ -111,7 +111,7 @@ pub fn compute_weights(venues: &[VenueInput], cfg: &RubricConfig) -> Vec<u16> {
 /// survivors with headroom, proportional to that headroom. Bounded passes keep it
 /// deterministic and terminating; any final rounding remainder goes to the venue
 /// with the most headroom (ties → lowest index).
-fn apply_caps(weights: &mut [u16], venues: &[VenueInput]) {
+fn apply_caps(weights: &mut [u16], venues: &[VenueInput], raw: &[u128]) {
     const MAX_PASSES: usize = 16;
     let n = weights.len();
 
@@ -133,12 +133,12 @@ fn apply_caps(weights: &mut [u16], venues: &[VenueInput]) {
         let mut headroom = vec![0u128; n];
         let mut total_headroom: u128 = 0;
         for i in 0..n {
-            if venues[i].stale {
+            if venues[i].stale || raw[i] == 0 {
                 continue;
             }
             let cap = venues[i].cap_bps as u32;
             let w = weights[i] as u32;
-            if w > 0 && cap > w {
+            if cap > w {
                 headroom[i] = (cap - w) as u128;
                 total_headroom += headroom[i];
             }
@@ -182,7 +182,12 @@ mod tests {
     use super::*;
 
     fn v(apy_bps: u64, crr_bps: u64) -> VenueInput {
-        VenueInput { apy_bps, crr_bps, cap_bps: MAX_BPS as u16, stale: false }
+        VenueInput {
+            apy_bps,
+            crr_bps,
+            cap_bps: MAX_BPS as u16,
+            stale: false,
+        }
     }
 
     fn sum(w: &[u16]) -> u32 {
@@ -217,6 +222,24 @@ mod tests {
         let cfg = RubricConfig { max_crr_bps: 6_000 };
         let w = compute_weights(&[v(500, 0), v(500, 7000)], &cfg);
         assert_eq!(w, vec![10_000, 0]);
+    }
+
+    #[test]
+    fn screen_excludes_exact_boundary() {
+        assert_eq!(
+            compute_weights(&[v(500, 6000)], &RubricConfig::default()),
+            vec![0]
+        );
+    }
+
+    #[test]
+    fn cap_redistribution_includes_eligible_zero_rounded_weight() {
+        let mut a = v(1_000_000, 0);
+        a.cap_bps = 3000;
+        assert_eq!(
+            compute_weights(&[a, v(1, 0)], &RubricConfig::default()),
+            vec![3000, 7000]
+        );
     }
 
     #[test]
@@ -266,7 +289,13 @@ mod tests {
     #[test]
     fn e2e_dataset_golden_vector() {
         // (apy_bps, crr_bps) per the e2e VENUES table.
-        let inputs = [(1000u64, 2000u64), (1200, 4000), (800, 1000), (1500, 7000), (600, 3000)];
+        let inputs = [
+            (1000u64, 2000u64),
+            (1200, 4000),
+            (800, 1000),
+            (1500, 7000),
+            (600, 3000),
+        ];
         let mut venues: Vec<VenueInput> = inputs.iter().map(|&(a, c)| v(a, c)).collect();
         venues.resize(16, v(0, 0)); // venues 5..15 contribute zero
 

@@ -6,7 +6,15 @@ use sha2::{Digest, Sha256};
 
 /// 8-byte Anchor instruction discriminator for `name` (the snake_case method).
 pub fn ix_discriminator(name: &str) -> [u8; 8] {
-    let digest = Sha256::digest(format!("global:{name}").as_bytes());
+    discriminator("global", name)
+}
+
+pub fn account_discriminator(name: &str) -> [u8; 8] {
+    discriminator("account", name)
+}
+
+fn discriminator(namespace: &str, name: &str) -> [u8; 8] {
+    let digest = Sha256::digest(format!("{namespace}:{name}").as_bytes());
     let mut out = [0u8; 8];
     out.copy_from_slice(&digest[..8]);
     out

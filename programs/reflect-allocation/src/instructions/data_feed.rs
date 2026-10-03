@@ -39,10 +39,13 @@ impl DataFeedConfig {
     fn validate(&self) -> Result<()> {
         require!(self.window_slots > 0, ReflectError::InvalidConfig);
         require!(
-            (self.min_number as usize) <= MAX_SUBMISSIONS,
+            self.min_number > 0 && (self.min_number as usize) <= MAX_OPERATORS,
             ReflectError::InvalidQuorum
         );
-        require!(self.rule <= rule_flags::TRIMMED_MEAN, ReflectError::InvalidRule);
+        require!(
+            self.rule <= rule_flags::TRIMMED_MEAN,
+            ReflectError::InvalidRule
+        );
         require!(self.trim_pct < 50, ReflectError::InvalidConfig);
         Ok(())
     }
@@ -89,10 +92,7 @@ pub struct UpdateThresholds<'info> {
     pub admin: Signer<'info>,
 }
 
-pub fn update_thresholds(
-    ctx: Context<UpdateThresholds>,
-    config: DataFeedConfig,
-) -> Result<()> {
+pub fn update_thresholds(ctx: Context<UpdateThresholds>, config: DataFeedConfig) -> Result<()> {
     require_keys_eq!(
         ctx.accounts.registry.load()?.admin,
         ctx.accounts.admin.key(),

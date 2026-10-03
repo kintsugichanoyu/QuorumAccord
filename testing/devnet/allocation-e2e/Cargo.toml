@@ -1,5 +1,6 @@
 [package]
 name = "e2e"
+workspace = "../../../workers"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -10,8 +11,8 @@ name = "e2e"
 path = "src/main.rs"
 
 [dependencies]
-worker-core = { path = "../worker-core" }
-rubric = { path = "../rubric" }
+worker-core = { path = "../../../workers/worker-core" }
+rubric = { path = "../../../workers/rubric" }
 anyhow = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }

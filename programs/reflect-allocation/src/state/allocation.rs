@@ -33,15 +33,8 @@ pub struct AllocationConsensus {
 impl AllocationConsensus {
     pub const LEN: usize = core::mem::size_of::<Self>();
 
-    pub fn add_submission(
-        &mut self,
-        submitter: Pubkey,
-        weights: [u16; N_VENUES],
-    ) -> Result<()> {
-        require!(
-            self.status == state_flags::OPEN,
-            ReflectError::RoundNotOpen
-        );
+    pub fn add_submission(&mut self, submitter: Pubkey, weights: [u16; N_VENUES]) -> Result<()> {
+        require!(self.status == state_flags::OPEN, ReflectError::RoundNotOpen);
         require!(
             aggregation::valid_ratios(&weights),
             ReflectError::InvalidRatios
@@ -49,10 +42,7 @@ impl AllocationConsensus {
         let n = self.count as usize;
         require!(n < MAX_SUBMISSIONS, ReflectError::SubmissionBufferFull);
         for s in &self.submissions[..n] {
-            require!(
-                s.submitter != submitter,
-                ReflectError::DuplicateSubmission
-            );
+            require!(s.submitter != submitter, ReflectError::DuplicateSubmission);
         }
         self.submissions[n].submitter = submitter;
         self.submissions[n].weights = weights;

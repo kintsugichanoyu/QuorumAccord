@@ -12,7 +12,11 @@ pub fn data_feed(program_id: &Pubkey, pool_id: u8, data_id: u8) -> (Pubkey, u8) 
 
 pub fn tick_consensus(program_id: &Pubkey, data_feed: &Pubkey, window_index: u64) -> (Pubkey, u8) {
     Pubkey::find_program_address(
-        &[b"tick_consensus", data_feed.as_ref(), &window_index.to_le_bytes()],
+        &[
+            b"tick_consensus",
+            data_feed.as_ref(),
+            &window_index.to_le_bytes(),
+        ],
         program_id,
     )
 }

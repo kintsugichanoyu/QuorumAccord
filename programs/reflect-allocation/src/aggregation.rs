@@ -62,17 +62,21 @@ pub fn valid_ratios(weights: &[u16; N_VENUES]) -> bool {
 
 /// Force a weight vector to sum to exactly `MAX_BPS`.
 ///
-/// Per the spec: a deficit is added to the *smallest* weight, an excess removed
+/// A deficit is added to the smallest *positive* weight, an excess removed
 /// from the *largest*; ties broken by lowest index (= lowest `venue_id`). The
 /// loops handle the pathological case where a single slot cannot absorb the whole
 /// adjustment without `u16` under/overflow.
 pub fn renormalize_to_bps(weights: &mut [u16; N_VENUES]) {
+    // Never create an allocation where every aggregate weight is zero.
+    if weights.iter().all(|&w| w == 0) {
+        return;
+    }
     let sum = |w: &[u16; N_VENUES]| -> i64 { w.iter().map(|&x| x as i64).sum() };
 
     let mut s = sum(weights);
     while s < MAX_BPS as i64 {
         let deficit = (MAX_BPS as i64 - s) as u64;
-        let idx = argmin(weights);
+        let idx = argmin_positive(weights);
         let headroom = u16::MAX as u64 - weights[idx] as u64;
         let add = deficit.min(headroom);
         if add == 0 {
@@ -94,10 +98,10 @@ pub fn renormalize_to_bps(weights: &mut [u16; N_VENUES]) {
 }
 
 /// Index of the smallest weight; ties resolve to the lowest index.
-fn argmin(weights: &[u16; N_VENUES]) -> usize {
-    let mut idx = 0;
-    for i in 1..N_VENUES {
-        if weights[i] < weights[idx] {
+fn argmin_positive(weights: &[u16; N_VENUES]) -> usize {
+    let mut idx = weights.iter().position(|&w| w > 0).unwrap_or(0);
+    for i in 0..N_VENUES {
+        if weights[i] > 0 && weights[i] < weights[idx] {
             idx = i;
         }
     }
@@ -164,8 +168,16 @@ mod tests {
         w[1] = 5000;
         renormalize_to_bps(&mut w);
         assert!(valid_ratios(&w));
-        // smallest is the first zero, at index 2 (lowest index among ties)
-        assert_eq!(w[2], 1000);
+        assert_eq!(w[0], 5000);
+        assert!(w[2..].iter().all(|&x| x == 0));
+    }
+
+    #[test]
+    fn renorm_empty_does_not_invent_an_allocation() {
+        let mut w = zeros();
+        renormalize_to_bps(&mut w);
+        assert_eq!(w, zeros());
+        assert!(!valid_ratios(&w));
     }
 
     #[test]
