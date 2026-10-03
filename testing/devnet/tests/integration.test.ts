@@ -2,7 +2,7 @@ import test from 'node:test';
 import { SigningClient, loadConfig } from '../src/client.js';
 import { Suite, type Check } from '../src/suite.js';
 
-test('production SBF program: TypeScript multi-provider integration', { timeout: 20 * 60_000 }, async t => {
+test('production SBF program: TypeScript multi-provider integration', { timeout: 40 * 60_000 }, async t => {
   const client = await SigningClient.load(await loadConfig());
   const suite = new Suite(client);
   const check: Check = async <T>(name: string, fn: () => Promise<T>) => {

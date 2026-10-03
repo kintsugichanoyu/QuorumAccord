@@ -49,6 +49,8 @@ export class Suite {
     for (const asset of c.config.assets) {
       if (!await c.exists(c.ix.feed(asset.pool_id, asset.data_id)))
         await c.send(c.admin, c.ix.initFeed(c.admin.publicKey, asset.pool_id, asset.data_id, feedConfig(c.config.window_slots)));
+      else if ((await c.feed(asset)).window_slots !== c.config.window_slots)
+        await c.send(c.admin, c.ix.updateFeed(c.admin.publicKey, asset.pool_id, asset.data_id, feedConfig(c.config.window_slots)));
       assert.equal((await c.feed(asset)).window_slots, c.config.window_slots, 'incompatible pre-existing feed');
     }
     for (const [pool, quorum] of [[190, 0], [191, 65]] as const)

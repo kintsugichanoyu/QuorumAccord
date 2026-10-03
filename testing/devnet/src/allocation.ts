@@ -93,7 +93,7 @@ export async function allocationGolden(c: SigningClient) {
 }
 
 export function invariantCases(c: SigningClient): [string, () => Promise<unknown>][] {
-  const width = c.config.window_slots;
+  const width = c.config.network === 'devnet' ? 120 : c.config.window_slots;
   return [
     ['allocation fixture quorum miss', async () => {
       const a = asset(10);
@@ -136,7 +136,7 @@ export function invariantCases(c: SigningClient): [string, () => Promise<unknown
     ['unauthorized opener cannot create consensus', async () => {
       const a = asset(14);
       await ensureFeed(c, a, config(width));
-      const { window } = await c.nextWindow();
+      const { window } = await c.nextWindow(width);
       await c.reject(c.outsider, c.ix.sample('propose_sample', c.outsider.publicKey, a.pool_id, a.data_id, window, 1234n, await c.slot()), 6001);
       assert.equal(await c.exists(c.ix.samplePda(a.pool_id, a.data_id, window)), false);
       return { error_code: 6001, consensus_created: false };

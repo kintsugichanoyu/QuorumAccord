@@ -20,7 +20,7 @@ const STATE = join(LAB, '.state');
 const { values } = parseArgs({ options: {
   network: { type: 'string', default: 'devnet' }, 'skip-build': { type: 'boolean' }, 'skip-deploy': { type: 'boolean' },
   'prices-only': { type: 'boolean' }, 'allocation': { type: 'boolean' }, 'legacy-allocation': { type: 'boolean' },
-  'window-slots': { type: 'string', default: '120' }, 'backend-port': { type: 'string', default: '18787' },
+  'window-slots': { type: 'string' }, 'backend-port': { type: 'string', default: '18787' },
   'local-ledger': { type: 'string' }, 'sbf-arch': { type: 'string', default: 'v3' },
   'deploy-transport': { type: 'string', default: 'rpc' },
 } });
@@ -39,6 +39,7 @@ const children: ChildProcess[] = [];
 const fds: number[] = [];
 const backend = createBackend();
 let gateway: Awaited<ReturnType<typeof startRpcGateway>> | undefined;
+let restoreConfig: (() => Promise<void>) | undefined;
 const report: Record<string, unknown> = { schema_version: 2, language: 'typescript', status: 'started', network, started_at: new Date().toISOString() };
 function logFile(name: string) { const fd = openSync(join(networkState, name), 'w', 0o600); fds.push(fd); return fd; }
 async function stop(child: ChildProcess) {
@@ -93,7 +94,7 @@ try {
   const connection = new Connection(rpc, { commitment: 'confirmed', disableRetryOnRateLimit: true });
   const config: Config = { network, rpc_url: rpc, program_id: program, mock_program_id: mock,
     backend_url: `http://127.0.0.1:${values['backend-port']}`, admin_keypair: keys.admin!, outsider_keypair: keys.outsider!,
-    operator_keypairs: [keys.op1!, keys.op2!, keys.op3!], window_slots: Number(values['window-slots']),
+    operator_keypairs: [keys.op1!, keys.op2!, keys.op3!], window_slots: Number(values['window-slots'] ?? (network === 'devnet' ? '240' : '120')),
     assets: (Object.entries(PRICES) as [Symbol, bigint][]).map(([symbol, price], i) => ({ symbol, pool_id: 160 + i, data_id: 240, base_price_micro_usd: price.toString() })) };
   validateConfig(config);
   assert(Number.isInteger(Number(values['backend-port'])) && Number(values['backend-port']) > 0 && Number(values['backend-port']) <= 65535);
@@ -148,10 +149,24 @@ try {
     }
   }
   if (network === 'devnet') {
+    if (values['skip-deploy']) {
+      const programs = [];
+      for (const id of [program, ...(withAllocation ? [mock] : [])]) {
+        const account = await connection.getAccountInfo(new PublicKey(id), 'confirmed');
+        assert(account?.executable && account.owner.toBase58() === 'BPFLoaderUpgradeab1e11111111111111111111111', 'skip-deploy requires deployed upgradeable programs');
+        programs.push({ program: id, executable: true, owner: account.owner.toBase58() });
+      }
+      report.reused_programs = programs;
+    }
     gateway = await startRpcGateway(rpc);
     config.rpc_url = gateway.url;
     config.rpc_ws_url = 'wss://api.devnet.solana.com';
     await writeFile(configPath, json(config) + '\n', { mode: 0o600 });
+    restoreConfig = async () => {
+      config.rpc_url = rpc;
+      delete config.rpc_ws_url;
+      await writeFile(configPath, json(config) + '\n', { mode: 0o600 });
+    };
     report.rpc_gateway = { upstream: rpc, url: gateway.url, stats: gateway.stats };
   }
   await new Promise<void>((done, reject) => { backend.once('error', reject); backend.listen(Number(values['backend-port']), '127.0.0.1', done); });
@@ -177,5 +192,6 @@ try {
   await mkdir(networkState, { recursive: true });
   await writeFile(join(networkState, 'result-typescript.json'), json(report) + '\n', { mode: 0o600 });
   await cleanup();
+  if (restoreConfig) await restoreConfig();
   console.log(json({ status: report.status, network, admin: report.admin, error: report.error, evidence: join(networkState, 'result-typescript.json') }));
 }
