@@ -100,6 +100,9 @@ stale/error states. No wallet, signing, backend price access or automatic pollin
   At context slot 507106192 it displayed SOL $198.25, BTC $64,000 and ETH $3,200
   as fresh, using exactly three read-only RPC calls.
 - [Public live-browser evidence](evidence/typescript-frontend-live-2026-10-03.json).
+- A second actual browser check after the suite passed at context slot 507110467,
+  correctly displaying all three prices as **STALE**; see
+  [post-suite browser evidence](evidence/typescript-frontend-live-post-suite-2026-10-03.json).
 - The completed protocol run deliberately leaves published prices stale; later
   frontend reads should label them stale rather than claim they are fresh.
 - Marginfi, Kamino, Save, Jupiter and Loopscale pages describe integration

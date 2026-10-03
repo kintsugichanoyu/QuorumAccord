@@ -20,7 +20,8 @@ freshness checks passed. See the [recorded full report](evidence/latest-devnet.j
 The final stale-consumer scenario intentionally leaves prices stale for later reads.
 
 The mdBook frontend passed nine TypeScript model/navigation tests, five browser
-checks and one actual read-only public-devnet browser check. Real named protocol
+checks and actual read-only public-devnet browser checks, both during the suite
+(fresh prices) and afterward (correctly labeled stale prices). Real named protocol
 adapters are still unimplemented; a green mock run does not validate their inputs.
 
 ## Fully featured TypeScript scenarios

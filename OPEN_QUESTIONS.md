@@ -77,8 +77,8 @@ actually run. A successful mock test does not establish production readiness.
     normalization/cap invariants and repeatable multi-operator tests.
 17. **mdBook integration frontend — implemented, adapters remain open.** Searchable
     documentation and a read-only devnet inspector pass nine TypeScript model
-    tests, five desktop/mobile browser checks and one actual public-devnet browser
-    read. The reader validates network, owners/layouts and price freshness; it has
+    tests, five desktop/mobile browser checks and actual public-devnet browser
+    reads during and after the suite. The reader validates network, owners/layouts and price freshness; it has
     no wallet/signing or backend price access. Named protocol pages describe
     integration requirements, not implemented adapters. Production account
     mappings, generated SDK integration, allocation freshness and deployment
@@ -102,8 +102,9 @@ setup. The new read-only inspector is a test-deployment view, not a capital UI.
   transactions; 17 Node tests including the parent, no failures or skips.
   Both program deployment signatures, literal output and public snapshots are
   saved in [the full results](testing/devnet/RESULTS.md).
-- mdBook frontend: **9 model/navigation + 5 browser + 1 actual devnet browser
-  read passed**, entirely TypeScript testing; static book build verified.
+- mdBook frontend: **9 model/navigation + 5 browser tests passed**; its live
+  browser case passed in two actual devnet runs (fresh during the suite, stale
+  afterward). Entirely TypeScript testing; static book build verified.
 - [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md) separates current
   TypeScript execution, historical checks and public devnet execution evidence.
   Python and Rust off-chain test harnesses were removed; on-chain programs and
