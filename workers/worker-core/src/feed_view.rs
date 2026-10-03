@@ -147,3 +147,51 @@ fn u16_at(d: &[u8], off: usize) -> u16 {
 fn pubkey_at(d: &[u8], off: usize) -> Pubkey {
     Pubkey::new_from_array(d[off..off + 32].try_into().unwrap())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn feed() -> Vec<u8> {
+        let mut data = vec![0; RING_OFFSET + RING_LEN * SAMPLE_SIZE];
+        data[..DISC].copy_from_slice(&crate::anchor_codec::account_discriminator("DataFeed"));
+        data
+    }
+
+    #[test]
+    fn feed_rejects_truncation_wrong_discriminator_and_invalid_head() {
+        let mut data = feed();
+        assert!(DataFeedView::parse(&data).is_ok());
+        assert!(DataFeedView::parse(&data[..data.len() - 1]).is_err());
+        data[0] ^= 1;
+        assert!(DataFeedView::parse(&data).is_err());
+        data[0] ^= 1;
+        data[DISC + 38..DISC + 40].copy_from_slice(&256u16.to_le_bytes());
+        assert!(DataFeedView::parse(&data).is_err());
+    }
+
+    #[test]
+    fn scalar_reads_wrapped_ring_and_staleness_boundary() {
+        let mut data = feed();
+        assert_eq!(DataFeedView::parse(&data).unwrap().scalar(&data), 0);
+        data[DISC..DISC + 8].copy_from_slice(&256u64.to_le_bytes());
+        data[DISC + 8..DISC + 16].copy_from_slice(&100u64.to_le_bytes());
+        let offset = RING_OFFSET + 255 * SAMPLE_SIZE;
+        data[offset..offset + 8].copy_from_slice(&12345u64.to_le_bytes());
+        let view = DataFeedView::parse(&data).unwrap();
+        assert_eq!(view.scalar(&data), 12345);
+        assert!(!view.is_stale(120, 20));
+        assert!(view.is_stale(121, 20));
+    }
+
+    #[test]
+    fn allocation_rejects_wrong_account_type_and_truncation() {
+        let mut data = vec![0; DISC + 16 + N_VENUES * 2 + 1];
+        assert!(AllocationStateView::parse(&data).is_err());
+        data[..DISC].copy_from_slice(&crate::anchor_codec::account_discriminator(
+            "AllocationState",
+        ));
+        assert!(AllocationStateView::parse(&data).is_ok());
+        assert!(AllocationStateView::parse(&data[..data.len() - 1]).is_err());
+    }
+}

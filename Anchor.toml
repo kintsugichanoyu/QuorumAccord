@@ -8,9 +8,8 @@ skip-lint = false
 reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
 mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"
 
-# Devnet ids are placeholders until `anchor keys sync` rewrites them (and the
-# matching `declare_id!`s) from the generated target/deploy keypairs — see
-# scripts/devnet/00_deploy.sh.
+# Public test deployment IDs, synchronized by testing/devnet/run.py from its
+# ignored test keys. These entries do not mean the devnet deployment has run.
 [programs.devnet]
 reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
 mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"

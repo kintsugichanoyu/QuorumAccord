@@ -100,6 +100,8 @@ finalizes on chain and executes a separate price consumer process.
    duplicate sample votes, unauthorized votes and premature sample finalization.
 7. Allocation checks: publish mean weights with rounding, preserve excluded zero
    venues, reject zero/65 quorum and reject an older allocation after a newer one.
+8. Sample ordering: defer a full-quorum window, finalize a later window, then
+   require exact stale-round rejection for the older window on all three assets.
 
 `--legacy-allocation` additionally deploys `testing/devnet/programs/mock-oracle/`, exercises the
 five-venue allocation golden vector and quorum/brake/no-trigger/forced-refresh/

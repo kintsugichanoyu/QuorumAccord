@@ -106,13 +106,15 @@ def fund(url, address, key, env, network):
     balance = rpc(url, "getBalance", [address, {"commitment": "confirmed"}])["value"]
     if balance >= target:
         return {"starting_lamports": balance, "airdrop": "not needed"}
-    amount = "10" if network == "localnet" else "5"
-    attempt = subprocess.run(["solana", "airdrop", amount, "--url", url, "--keypair", str(key)],
+    amount = "10" if network == "localnet" else "2"
+    attempt = subprocess.run(["solana", "airdrop", amount, "--url", url, "--keypair", str(key), "--commitment", "confirmed"],
                              env=env, text=True, capture_output=True, timeout=90)
     balance = rpc(url, "getBalance", [address, {"commitment": "confirmed"}])["value"]
     evidence = {"balance_lamports": balance, "airdrop_exit_code": attempt.returncode,
                 "airdrop_stdout": attempt.stdout.strip(), "airdrop_stderr": attempt.stderr.strip()}
     if balance < target:
+        if network == "localnet":
+            raise RuntimeError(f"localnet funding failed for {address}: {evidence}")
         raise RuntimeError(f"devnet funding unavailable: wallet {address} has {balance / 1e9} SOL; "
                            f"fund it with about 5 devnet SOL at https://faucet.solana.com/ and rerun. Evidence: {evidence}")
     return evidence
@@ -136,7 +138,8 @@ def main():
     parser.add_argument("--window-slots", type=int, default=120)
     parser.add_argument("--sbf-arch", choices=["v0", "v1", "v2", "v3"], default="v3",
                         help="Agave 4.3 local validator enables SIMD-0500; use v3 (ABIv1)")
-    parser.add_argument("--backend-port", type=int, default=8787)
+    parser.add_argument("--backend-port", type=int, default=18787)
+    parser.add_argument("--local-ledger", type=Path, help="optional dedicated local ledger path; never reset")
     args = parser.parse_args()
     os.umask(0o077)
     env = find_tools()
@@ -175,10 +178,22 @@ def main():
             except (RuntimeError, URLError, OSError):
                 log = open(network_state / "validator.log", "w")
                 handles.append(log)
-                validator = subprocess.Popen(["solana-test-validator", "--quiet", "--ledger", str(network_state / "ledger"),
+                ledger = args.local_ledger or network_state / "ledger"
+                validator = subprocess.Popen(["solana-test-validator", "--quiet", "--ledger", str(ledger),
                                                "--rpc-port", "8899", "--faucet-port", "9900"], env=env, stdout=log, stderr=log)
                 processes.append(validator)
                 wait_http(url + "/health", validator)
+                # /health can succeed while the initial/replayed bank is still
+                # at genesis. Wait for a rooted slot before funding or decoding
+                # existing accounts; otherwise the faucet may sign a duplicate
+                # transaction against the genesis blockhash.
+                deadline = time.monotonic() + 90
+                starting_slot = rpc(url, "getSlot", [{"commitment": "confirmed"}])
+                while (rpc(url, "getSlot", [{"commitment": "finalized"}]) == 0
+                       or rpc(url, "getSlot", [{"commitment": "confirmed"}]) < starting_slot + 32):
+                    if time.monotonic() >= deadline or validator.poll() is not None:
+                        raise RuntimeError("local validator did not produce a rooted slot")
+                    time.sleep(0.5)
         genesis = rpc(url, "getGenesisHash")
         if args.network == "devnet" and genesis != DEVNET_GENESIS:
             raise RuntimeError("refusing non-devnet RPC")
@@ -189,14 +204,14 @@ def main():
             capacity = deployment_capacity(url, binary, public_key(keys["program-buffer"], env))
             result = command(["solana", "program", "deploy", binary, "--url", url,
                               "--keypair", keys["admin"], "--program-id", keys["program"], "--buffer", keys["program-buffer"],
-                              "--max-len", capacity, "--use-rpc", "--output", "json"], env, capture=True)
+                              "--max-len", capacity, "--use-rpc", "--commitment", "confirmed", "--output", "json"], env, capture=True)
             report["deployment"] = json.loads(result.stdout)
             if args.legacy_allocation:
                 binary = ROOT / "target/deploy/mock_oracle.so"
                 capacity = deployment_capacity(url, binary, public_key(keys["mock-buffer"], env))
                 result = command(["solana", "program", "deploy", binary, "--url", url,
                                   "--keypair", keys["admin"], "--program-id", keys["mock-program"], "--buffer", keys["mock-buffer"],
-                                  "--max-len", capacity, "--use-rpc", "--output", "json"], env, capture=True)
+                                  "--max-len", capacity, "--use-rpc", "--commitment", "confirmed", "--output", "json"], env, capture=True)
                 report["mock_deployment"] = json.loads(result.stdout)
         log = open(network_state / "backend.log", "w")
         handles.append(log)

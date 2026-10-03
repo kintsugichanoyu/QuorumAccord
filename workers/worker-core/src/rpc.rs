@@ -5,6 +5,7 @@
 //! a shared anchor / latest-before history selection independently.
 
 use anyhow::{anyhow, Result};
+use solana_account_decoder_client_types::UiAccountEncoding;
 use solana_client::{rpc_client::RpcClient, rpc_config::RpcAccountInfoConfig};
 use solana_sdk::{account::Account, commitment_config::CommitmentConfig, pubkey::Pubkey};
 
@@ -40,12 +41,7 @@ impl RpcPool {
         key: &Pubkey,
         min_slot: u64,
     ) -> Result<(u64, Option<Account>)> {
-        let cfg = RpcAccountInfoConfig {
-            commitment: Some(CommitmentConfig::confirmed()),
-            min_context_slot: Some(min_slot),
-            encoding: None,
-            data_slice: None,
-        };
+        let cfg = account_config(min_slot);
         self.try_each(|c| {
             c.get_account_with_config(key, cfg.clone())
                 .map(|resp| (resp.context.slot, resp.value))
@@ -65,5 +61,28 @@ impl RpcPool {
             }
         }
         Err(last.unwrap_or_else(|| anyhow!("no rpc endpoints configured")))
+    }
+}
+
+fn account_config(min_slot: u64) -> RpcAccountInfoConfig {
+    RpcAccountInfoConfig {
+        commitment: Some(CommitmentConfig::confirmed()),
+        min_context_slot: Some(min_slot),
+        encoding: Some(UiAccountEncoding::Base64),
+        data_slice: None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn large_account_reads_use_base64_and_keep_context_lower_bound() {
+        let config = account_config(42);
+        assert_eq!(config.encoding, Some(UiAccountEncoding::Base64));
+        assert_eq!(config.min_context_slot, Some(42));
+        assert_eq!(config.commitment, Some(CommitmentConfig::confirmed()));
+        assert!(config.data_slice.is_none());
     }
 }

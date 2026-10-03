@@ -225,10 +225,15 @@ impl Lab {
     fn setup(&self) -> Result<Value> {
         let mut signatures = Vec::new();
         for op in self.ops.iter().chain(std::iter::once(&self.outsider)) {
-            if self.pool.primary().get_balance(&op.pubkey())? < 100_000_000 {
+            let balance = self.pool.primary().get_balance(&op.pubkey())?;
+            if balance < 300_000_000 {
                 signatures.push(self.send(
                     &self.admin,
-                    system_instruction::transfer(&self.admin.pubkey(), &op.pubkey(), 200_000_000),
+                    system_instruction::transfer(
+                        &self.admin.pubkey(),
+                        &op.pubkey(),
+                        300_000_000 - balance,
+                    ),
                 )?);
             }
         }
@@ -434,7 +439,23 @@ impl Lab {
         participants: &[usize],
         advance: bool,
         before_close_checks: bool,
+        defer_finalize: bool,
     ) -> Result<Value> {
+        // The opener pays rent for every new consensus PDA. Keep enough for
+        // this entire window even if one provider wins all opener races.
+        for operator in &self.ops {
+            let balance = self.pool.primary().get_balance(&operator.pubkey())?;
+            if balance < 300_000_000 {
+                self.send(
+                    &self.admin,
+                    system_instruction::transfer(
+                        &self.admin.pubkey(),
+                        &operator.pubkey(),
+                        300_000_000 - balance,
+                    ),
+                )?;
+            }
+        }
         self.http
             .post(format!("{}/control/state", self.cfg.backend_url))
             .json(&json!({"phase": phase}))
@@ -525,6 +546,10 @@ impl Lab {
             )?;
         }
         self.wait_slot(closes + 2)?;
+        if defer_finalize {
+            return Ok(json!({"phase": phase, "window": window, "closes": closes,
+                "providers": providers, "status": "finalization intentionally deferred"}));
+        }
         let mut signatures = Vec::new();
         for (asset, previous) in self.cfg.assets.iter().zip(before) {
             signatures.push(self.send(
@@ -684,17 +709,44 @@ impl Lab {
     fn suite(&self) -> Result<Value> {
         let setup = self.setup()?;
         let scenarios = vec![
-            self.run_window("baseline", &[0, 1, 2], true, true)?,
-            self.run_window("baseline", &[0, 1], false, false)?,
-            self.run_window("outlier", &[0, 1, 2], true, false)?,
-            self.run_window("updated", &[0, 1, 2], true, false)?,
-            self.run_window("unavailable", &[0, 1, 2], false, false)?,
+            self.run_window("baseline", &[0, 1, 2], true, true, false)?,
+            self.run_window("baseline", &[0, 1], false, false, false)?,
+            self.run_window("outlier", &[0, 1, 2], true, false, false)?,
+            self.run_window("updated", &[0, 1, 2], true, false, false)?,
+            self.run_window("unavailable", &[0, 1, 2], false, false, false)?,
         ];
+        let older = self.run_window("baseline", &[0, 1, 2], false, false, true)?;
+        let newer = self.run_window("baseline", &[0, 1, 2], true, false, false)?;
+        let old_window = older["window"]
+            .as_u64()
+            .context("missing deferred window")?;
+        for asset in &self.cfg.assets {
+            let before = self.view(asset)?;
+            self.reject(
+                &self.admin,
+                ix::finalize_sample(
+                    &self.program,
+                    asset.pool_id,
+                    asset.data_id,
+                    old_window,
+                    &self.admin.pubkey(),
+                ),
+                6018,
+            )?;
+            let after = self.view(asset)?;
+            ensure!(
+                after.tick == before.tick
+                    && after.last_finalized_slot == before.last_finalized_slot
+                    && after.last_value == before.last_value,
+                "older sample changed newer output"
+            );
+        }
         let allocation = self.allocation_checks()?;
         Ok(
             json!({"status": "passed", "network": self.cfg.network, "program": self.program.to_string(),
             "rpc": self.cfg.rpc_url, "admin": self.admin.pubkey().to_string(), "setup": setup,
-            "scenarios": scenarios, "allocation": allocation, "limitations": ["test-only HTTP data", "one centralized fixture backend", "no real lending protocol integration"]}),
+            "scenarios": scenarios, "sample_ordering": {"older": older, "newer": newer, "old_window_rejected": old_window},
+            "allocation": allocation, "limitations": ["test-only HTTP data", "one centralized fixture backend", "no real lending protocol integration"]}),
         )
     }
 }

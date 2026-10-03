@@ -228,8 +228,8 @@ fn fund(cfg: &Cfg) -> Result<()> {
     recips.push(cfg.outsider.pubkey());
     for r in recips {
         let bal = cfg.pool.primary().get_balance(&r).unwrap_or(0);
-        if bal < 100_000_000 {
-            let i = system_instruction::transfer(&cfg.admin.pubkey(), &r, 200_000_000);
+        if bal < 500_000_000 {
+            let i = system_instruction::transfer(&cfg.admin.pubkey(), &r, 500_000_000 - bal);
             tx::send_with_retry(cfg.pool.primary(), &cfg.admin, &[i], 3)?;
             tracing::info!("funded {r}");
         }
