@@ -51,15 +51,22 @@ actually run. A successful mock test does not establish production readiness.
     Jupiter and Loopscale decoders, units, owner/discriminator checks and overflow
     handling. HTTP mock price providers are test-only and not these drivers.
 14. **Provider SDK.** Generate the IDL and TS/Rust clients, compile them and test
-    their instruction/account serialization against the program.
+    their instruction/account serialization against the program. The test-only
+    TypeScript codecs now have serialization/decoding tests and actual runtime
+    coverage; they are not a generated or supported production SDK.
 15. **Deployment/toolchains — partially verified.** SBF v3 builds and actual local
     deployments run with Agave 4.3.0/platform-tools v1.57, host Rust 1.96 and
     Anchor 1.0.2. Keys and ledgers stay ignored; explicit buffer keys, base64 reads
     and rent funding are tested. Public devnet execution is funding-blocked;
-    clean container builds and a reproducible installer/CI image remain open.
-16. **CI and expanded runtime tests.** Native byte-view tests cover wrapped-ring
+    the TypeScript runner attempted funding but the wallet remains at 0 SOL.
+    Node 24.16.0/TypeScript 5.9.3, clean `npm ci`, strict compilation and the
+    pinned dependency audit passed. Clean container builds and a reproducible
+    installer/CI image remain open.
+16. **CI and expanded runtime tests.** TypeScript byte-view tests cover wrapped-ring
     reading, discriminator/head rejection, truncation and staleness boundaries;
-    not 256 on-chain appends. Cover boundary slots, missing accounts,
+    not 256 on-chain appends. The TypeScript local-validator suite now covers
+    16 scenarios with separate provider/consumer processes. Cover boundary slots,
+    missing accounts,
     restarts, RPC drift/outages, stale backend inputs under a live validator,
     normalization/cap invariants and repeatable multi-operator tests.
 
@@ -71,6 +78,12 @@ dashboards, backtesting and temporal statistics are outside this test setup.
 ## Test result ledger
 
 - Baseline: 26 native tests passed; no live validator tests had been run.
-- Current run: [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md) separates
-  local-validator execution, offline checks and public devnet funding evidence.
+- Current TypeScript workflow: 30 unit/HTTP tests and all 16 actual
+  local-validator scenarios passed (17 Node tests including the parent), with
+  219 distinct confirmed suite transactions. The verified ledger is
+  `testing/devnet/.state/localnet/ledger-typescript-2026-10-03`.
+- [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md) separates current
+  TypeScript execution, historical checks and public devnet funding evidence.
+  Python and Rust off-chain test harnesses were removed; on-chain programs and
+  supplementary native production tests remain Rust.
   A mock pass is not a financial-methodology validation or security audit.
