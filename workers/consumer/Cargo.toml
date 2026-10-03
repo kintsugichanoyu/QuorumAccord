@@ -1,0 +1,20 @@
+[package]
+name = "consumer"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Consumer daemon: reads all DataFeeds at a shared slot, runs the rubric, submits a weight vector to consensus"
+
+[[bin]]
+name = "consumer"
+path = "src/main.rs"
+
+[dependencies]
+worker-core = { path = "../worker-core" }
+rubric = { path = "../rubric" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+solana-sdk = "2.1"

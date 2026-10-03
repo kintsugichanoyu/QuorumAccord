@@ -1,0 +1,21 @@
+[package]
+name = "e2e"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Devnet end-to-end harness: setup, drive, crank and fetch-verify the full reflect flow against a mock-oracle data source"
+
+[[bin]]
+name = "e2e"
+path = "src/main.rs"
+
+[dependencies]
+worker-core = { path = "../worker-core" }
+rubric = { path = "../rubric" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+solana-sdk = "2.1"
+solana-client = "2.1"

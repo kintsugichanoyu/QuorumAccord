@@ -1,0 +1,12 @@
+[package]
+name = "rubric"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Deterministic fixed-point allocation rubric (consumer-side, MVP live-scalar)"
+
+[dependencies]
+serde = { workspace = true }
+
+[lints.rust]
+unsafe_code = "forbid"

@@ -1,0 +1,19 @@
+[package]
+name = "mock-oracle"
+version = "0.1.0"
+description = "Tiny writable-u64 oracle program: lets the devnet e2e harness inject controlled values that producers read via OffsetU64Driver"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "mock_oracle"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "1.0.2"

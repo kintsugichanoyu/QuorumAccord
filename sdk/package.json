@@ -1,0 +1,16 @@
+{
+  "name": "@reflect/allocation-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Generated TS/Rust clients for the reflect-allocation program (provider SDK)",
+  "type": "module",
+  "scripts": {
+    "generate": "node codama.mjs"
+  },
+  "devDependencies": {
+    "codama": "^1.2.0",
+    "@codama/nodes-from-anchor": "^1.1.0",
+    "@codama/renderers-js": "^1.2.0",
+    "@codama/renderers-rust": "^1.0.0"
+  }
+}
