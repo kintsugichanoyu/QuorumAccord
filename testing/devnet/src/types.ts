@@ -17,6 +17,7 @@ export interface Asset {
 export interface Config {
   network: 'localnet' | 'devnet';
   rpc_url: string;
+  rpc_ws_url?: string;
   program_id: string;
   mock_program_id: string;
   backend_url: string;

@@ -9,8 +9,9 @@ import { parseArgs } from 'node:util';
 import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import { createBackend } from './backend.js';
 import { pause, wallet } from './client.js';
-import { deploymentCapacity, FundingBlocked, fundWallet } from './deployment.js';
+import { deploymentCapacity, deploymentTransport, FundingBlocked, fundWallet } from './deployment.js';
 import { command } from './process.js';
+import { startRpcGateway } from './rpc-gateway.js';
 import { DEVNET_GENESIS, DEVNET_RPC, PRICES, json, validateConfig, type Config, type Symbol } from './types.js';
 
 const ROOT = resolve(import.meta.dirname, '../../../..');
@@ -21,9 +22,11 @@ const { values } = parseArgs({ options: {
   'prices-only': { type: 'boolean' }, 'allocation': { type: 'boolean' }, 'legacy-allocation': { type: 'boolean' },
   'window-slots': { type: 'string', default: '120' }, 'backend-port': { type: 'string', default: '18787' },
   'local-ledger': { type: 'string' }, 'sbf-arch': { type: 'string', default: 'v3' },
+  'deploy-transport': { type: 'string', default: 'rpc' },
 } });
 assert(values.network === 'devnet' || values.network === 'localnet', 'only devnet/localnet supported');
 assert(['v0', 'v1', 'v2', 'v3'].includes(values['sbf-arch']!));
+const transportFlag = deploymentTransport(values['deploy-transport']!);
 const network = values.network;
 const withAllocation = !values['prices-only'];
 const networkState = join(STATE, network);
@@ -35,6 +38,7 @@ for (const path of [join(homedir(), '.local/share/solana/install/active_release/
 const children: ChildProcess[] = [];
 const fds: number[] = [];
 const backend = createBackend();
+let gateway: Awaited<ReturnType<typeof startRpcGateway>> | undefined;
 const report: Record<string, unknown> = { schema_version: 2, language: 'typescript', status: 'started', network, started_at: new Date().toISOString() };
 function logFile(name: string) { const fd = openSync(join(networkState, name), 'w', 0o600); fds.push(fd); return fd; }
 async function stop(child: ChildProcess) {
@@ -49,6 +53,7 @@ async function cleanup() {
     backend.closeAllConnections();
     await new Promise<void>((done) => backend.close(() => done()));
   }
+  if (gateway) await gateway.close();
   for (const fd of fds.splice(0)) closeSync(fd);
 }
 for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => { void cleanup().finally(() => process.exit(130)); });
@@ -94,7 +99,7 @@ try {
   assert(Number.isInteger(Number(values['backend-port'])) && Number(values['backend-port']) > 0 && Number(values['backend-port']) <= 65535);
   const configPath = join(networkState, 'config.json');
   await writeFile(configPath, json(config) + '\n', { mode: 0o600 });
-  Object.assign(report, { program, mock_program: mock, admin, rpc, window_slots: config.window_slots, sbf_arch: values['sbf-arch'] });
+  Object.assign(report, { program, mock_program: mock, admin, rpc, window_slots: config.window_slots, sbf_arch: values['sbf-arch'], deploy_transport: values['deploy-transport'] });
   if (!values['skip-build']) {
     await syncIds(program, mock);
     await run('cargo-build-sbf', ['--arch', values['sbf-arch']!, '--manifest-path', join(ROOT, 'programs/reflect-allocation/Cargo.toml')]);
@@ -128,7 +133,7 @@ try {
   const genesis = await connection.getGenesisHash();
   if (network === 'devnet') assert.equal(genesis, DEVNET_GENESIS, 'refusing non-devnet RPC');
   report.genesis = genesis;
-  report.funding = await fundWallet(network, admin, (withAllocation ? 8 : 5) * 1e9,
+  report.funding = await fundWallet(network, admin, (values['skip-deploy'] ? (withAllocation ? 4 : 2) : (withAllocation ? 8 : 5)) * 1e9,
     () => connection.getBalance(new PublicKey(admin), 'confirmed'),
     () => command('solana', ['airdrop', network === 'localnet' ? '10' : '2', '--url', rpc, '--commitment', 'confirmed', '--keypair', keys.admin!], { env, timeout: 90_000 }));
   if (!values['skip-deploy']) {
@@ -138,9 +143,16 @@ try {
       const account = await connection.getAccountInfo(buffer, 'confirmed');
       const capacity = deploymentCapacity((await stat(path)).size, account ? account.data.length - 37 : 0);
       const deployed = await run('solana', ['program', 'deploy', path, '--url', rpc, '--keypair', keys.admin!, '--program-id', keys[name!]!, '--buffer', keys[bufferName!]!,
-        '--max-len', String(capacity), '--use-rpc', '--commitment', 'confirmed', '--output', 'json']);
+        '--max-len', String(capacity), transportFlag, '--commitment', 'confirmed', '--output', 'json']);
       report[name === 'program' ? 'deployment' : 'mock_deployment'] = JSON.parse(deployed.stdout);
     }
+  }
+  if (network === 'devnet') {
+    gateway = await startRpcGateway(rpc);
+    config.rpc_url = gateway.url;
+    config.rpc_ws_url = 'wss://api.devnet.solana.com';
+    await writeFile(configPath, json(config) + '\n', { mode: 0o600 });
+    report.rpc_gateway = { upstream: rpc, url: gateway.url, stats: gateway.stats };
   }
   await new Promise<void>((done, reject) => { backend.once('error', reject); backend.listen(Number(values['backend-port']), '127.0.0.1', done); });
   const suitePath = join(networkState, 'suite-typescript.json');

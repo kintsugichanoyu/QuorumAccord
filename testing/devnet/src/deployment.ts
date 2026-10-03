@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 
+export function deploymentTransport(transport: string): string {
+  assert(transport === 'rpc' || transport === 'tpu', 'deployment transport must be rpc or tpu');
+  return transport === 'tpu' ? '--use-tpu-client' : '--use-rpc';
+}
+
 export function deploymentCapacity(elfSize: number, bufferDataSize = 0): number {
   assert(Number.isSafeInteger(elfSize) && elfSize > 0);
   assert(Number.isSafeInteger(bufferDataSize) && bufferDataSize >= 0);

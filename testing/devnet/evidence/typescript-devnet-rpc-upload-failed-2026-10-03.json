@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "language": "typescript",
+  "status": "failed",
+  "network": "devnet",
+  "started_at": "2026-10-03T18:57:21.175Z",
+  "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "mock_program": "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N",
+  "admin": "2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc",
+  "rpc": "https://api.devnet.solana.com",
+  "window_slots": 120,
+  "sbf_arch": "v3",
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "funding": {
+    "starting_lamports": 10000000000,
+    "airdrop": "not needed"
+  },
+  "error": "solana failed (1): Error: Data writes to account failed: Custom error: Max retries exceeded\n",
+  "completed_at": "2026-10-03T19:02:33.737Z"
+}

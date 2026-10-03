@@ -1,7 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { deploymentCapacity, FundingBlocked, fundWallet } from '../../src/deployment.js';
+import { deploymentCapacity, deploymentTransport, FundingBlocked, fundWallet } from '../../src/deployment.js';
 
+test('deployment transport selects explicit RPC or TPU CLI flags', () => {
+  assert.equal(deploymentTransport('rpc'), '--use-rpc');
+  assert.equal(deploymentTransport('tpu'), '--use-tpu-client');
+});
+test('unknown deployment transports are rejected before deployment', () => {
+  assert.throws(() => deploymentTransport('udp'), /must be rpc or tpu/);
+});
 test('deployment capacity covers a larger resumed buffer', () => assert.equal(deploymentCapacity(322920, 344472), 393216));
 test('deployment capacity rounds up a fresh program', () => assert.equal(deploymentCapacity(128168), 131072));
 test('funded wallets do not make unnecessary airdrop requests', async () => {

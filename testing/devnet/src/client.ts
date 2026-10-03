@@ -23,7 +23,8 @@ export class ChainClient {
   readonly signatures: string[] = [];
   constructor(readonly config: Config) {
     validateConfig(config);
-    this.connection = new Connection(config.rpc_url, { commitment: 'confirmed', disableRetryOnRateLimit: true });
+    this.connection = new Connection(config.rpc_url, { commitment: 'confirmed', disableRetryOnRateLimit: true,
+      ...(config.rpc_ws_url ? { wsEndpoint: config.rpc_ws_url } : {}) });
     this.ix = new Instructions(new PublicKey(config.program_id));
   }
   async verifyNetwork() {

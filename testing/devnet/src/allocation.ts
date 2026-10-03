@@ -46,7 +46,7 @@ async function round(c: SigningClient, a: Asset, value: bigint) {
 }
 export async function allocationGolden(c: SigningClient) {
   const mock = new Instructions(new PublicKey(c.config.mock_program_id));
-  const width = Math.max(120, c.config.window_slots);
+  const width = Math.max(c.config.network === 'devnet' ? 240 : 120, c.config.window_slots);
   await c.fund(c.admin, c.operators, 500_000_000);
   const fixtures: { asset: Asset; id: number; value: bigint }[] = [];
   for (const [index, [pool, apy, crr]] of VENUES.entries()) {
