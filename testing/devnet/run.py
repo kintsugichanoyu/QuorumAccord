@@ -57,7 +57,7 @@ def prepare_keys(env):
     directory = STATE / "keys"
     directory.mkdir(parents=True, exist_ok=True, mode=0o700)
     paths = {}
-    for name in ["admin", "op1", "op2", "op3", "outsider", "program", "mock-program"]:
+    for name in ["admin", "op1", "op2", "op3", "outsider", "program", "mock-program", "program-buffer", "mock-buffer"]:
         path = directory / f"{name}.json"
         if not path.exists():
             command(["solana-keygen", "new", "--no-bip39-passphrase", "--silent", "-o", path], env, capture=True)
@@ -118,6 +118,15 @@ def fund(url, address, key, env, network):
     return evidence
 
 
+def deployment_capacity(url, binary, buffer_address):
+    # A resumed buffer can be a few bytes larger than a rebuilt ELF. The loader
+    # requires ProgramData capacity >= the entire buffer, not only the new ELF.
+    account = rpc(url, "getAccountInfo", [buffer_address, {"encoding": "base64", "commitment": "confirmed"}])["value"]
+    buffer_size = max(0, account["space"] - 37) if account else 0
+    required = max(binary.stat().st_size, buffer_size)
+    return ((required + 65535) // 65536) * 65536
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--network", choices=["devnet", "localnet"], default="devnet")
@@ -125,6 +134,8 @@ def main():
     parser.add_argument("--skip-deploy", action="store_true")
     parser.add_argument("--legacy-allocation", action="store_true", help="also run existing allocation happy path and brake/trigger invariants")
     parser.add_argument("--window-slots", type=int, default=120)
+    parser.add_argument("--sbf-arch", choices=["v0", "v1", "v2", "v3"], default="v3",
+                        help="Agave 4.3 local validator enables SIMD-0500; use v3 (ABIv1)")
     parser.add_argument("--backend-port", type=int, default=8787)
     args = parser.parse_args()
     os.umask(0o077)
@@ -152,9 +163,9 @@ def main():
         report.update({"program": program, "mock_program": mock, "admin": admin, "rpc": url})
         if not args.skip_build:
             sync_ids(program, mock)
-            command(["cargo-build-sbf", "--manifest-path", ROOT / "programs/reflect-allocation/Cargo.toml"], env)
+            command(["cargo-build-sbf", "--arch", args.sbf_arch, "--manifest-path", ROOT / "programs/reflect-allocation/Cargo.toml"], env)
             if args.legacy_allocation:
-                command(["cargo-build-sbf", "--manifest-path", LAB / "programs/mock-oracle/Cargo.toml"], env)
+                command(["cargo-build-sbf", "--arch", args.sbf_arch, "--manifest-path", LAB / "programs/mock-oracle/Cargo.toml"], env)
             command(["cargo", "build", "--manifest-path", ROOT / "workers/Cargo.toml", "--locked", "-p", "devnet-price-lab", "-p", "e2e"], env)
         if args.network == "localnet":
             # Never reset an existing ledger. Keep this test-owned validator in
@@ -174,12 +185,18 @@ def main():
         report["genesis"] = genesis
         report["funding"] = fund(url, admin, keys["admin"], env, args.network)
         if not args.skip_deploy:
-            result = command(["solana", "program", "deploy", ROOT / "target/deploy/reflect_allocation.so", "--url", url,
-                              "--keypair", keys["admin"], "--program-id", keys["program"], "--output", "json"], env, capture=True)
+            binary = ROOT / "target/deploy/reflect_allocation.so"
+            capacity = deployment_capacity(url, binary, public_key(keys["program-buffer"], env))
+            result = command(["solana", "program", "deploy", binary, "--url", url,
+                              "--keypair", keys["admin"], "--program-id", keys["program"], "--buffer", keys["program-buffer"],
+                              "--max-len", capacity, "--use-rpc", "--output", "json"], env, capture=True)
             report["deployment"] = json.loads(result.stdout)
             if args.legacy_allocation:
-                result = command(["solana", "program", "deploy", ROOT / "target/deploy/mock_oracle.so", "--url", url,
-                                  "--keypair", keys["admin"], "--program-id", keys["mock-program"], "--output", "json"], env, capture=True)
+                binary = ROOT / "target/deploy/mock_oracle.so"
+                capacity = deployment_capacity(url, binary, public_key(keys["mock-buffer"], env))
+                result = command(["solana", "program", "deploy", binary, "--url", url,
+                                  "--keypair", keys["admin"], "--program-id", keys["mock-program"], "--buffer", keys["mock-buffer"],
+                                  "--max-len", capacity, "--use-rpc", "--output", "json"], env, capture=True)
                 report["mock_deployment"] = json.loads(result.stdout)
         log = open(network_state / "backend.log", "w")
         handles.append(log)

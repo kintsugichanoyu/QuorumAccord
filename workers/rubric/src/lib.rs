@@ -39,7 +39,7 @@ pub struct VenueInput {
 /// Tunable rubric parameters (the on-chain `RubricConfig` analogue, off-chain).
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct RubricConfig {
-    /// Venues whose CRR is strictly greater than this are screened out entirely.
+    /// Venues whose CRR is greater than or equal to this are screened out entirely.
     pub max_crr_bps: u64,
 }
 

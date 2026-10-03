@@ -60,6 +60,11 @@ the two `declare_id!` values and `Anchor.toml` with these deployment keys, like
 `anchor keys sync`. Those public ID edits may appear in Git after a fresh checkout.
 No wallet's global CLI configuration is changed and existing ledgers are never reset.
 Devnet funding failures produce `status: blocked`, never a successful test result.
+The default build is SBPF v3 with the normal ABIv1; Agave 4.3's local feature set
+disables new v0/v1/v2 deployments (SIMD-0500). `--sbf-arch` can select an older
+format for a cluster with a different feature set. Build artifacts must match
+the current keys when using `--skip-build`. Explicit, ignored deployment buffer
+keys prevent the CLI from printing an ephemeral recovery seed on failure.
 
 ## Standalone providers and price consumer
 
@@ -96,7 +101,7 @@ finalizes on chain and executes a separate price consumer process.
 7. Allocation checks: publish mean weights with rounding, preserve excluded zero
    venues, reject zero/65 quorum and reject an older allocation after a newer one.
 
-`--legacy-allocation` additionally deploys `programs/mock-oracle/`, exercises the
+`--legacy-allocation` additionally deploys `testing/devnet/programs/mock-oracle/`, exercises the
 five-venue allocation golden vector and quorum/brake/no-trigger/forced-refresh/
 unauthorized sample scenarios using `allocation-e2e/`.
 

@@ -164,7 +164,7 @@ struct DataFeedConsensus {
     data_feed      : Pubkey,                   // parent DataFeed this consensus writes back into
     tick           : u64,                      // tick index this round is producing
     closes_at_slot : u64,                      // = (tick + 1) * window_slots
-    min_number     : u8,                       // quorum required at close; fewer = no finalize. Must be ≤ 100
+    min_number     : u8,                       // quorum required at close; fewer = no finalize. Must be 1..64
     rule           : AggregationRule,
     count          : u8,                        // populated entries in `submissions`
     submissions    : [SampleSubmission; 100],
@@ -188,7 +188,7 @@ struct AllocationConsensus {
     status         : State,                       // Open | Closed | Finalized
     round          : u64,                         // weight round index (independent of DataFeed ticks)
     closes_at_slot : u64,
-    min_number     : u8,                          // quorum required at close. Must be ≤ 100
+    min_number     : u8,                          // quorum required at close. Must be 1..64
     rule           : AggregationRule,
     count          : u8,                          // populated entries in `submissions`
     submissions    : [WeightSubmission; 100],
@@ -222,8 +222,10 @@ enum AggregationRule { Mean, Median, TrimmedMean(u8) }  // u8 = % to trim from e
 
 - **Authority.** `update_thresholds` and `OperatorRegistry` mutation use the same
   admin authority as the deployer multisig / governance.
-- **Config sanity.** The program enforces `min_number ≤ 100` on every
-  `update_thresholds` so a config that can never finalise is rejected.
+  Registry bootstrap is restricted to the deployed program's upgrade authority.
+- **Config sanity.** The program enforces `1 ≤ min_number ≤ 64` when creating or
+  updating feeds and opening allocation rounds, matching registry capacity.
+  This is a capacity bound, not a guarantee the current membership meets quorum.
 - **Submission validation.** Both producer and consumer instructions check
   `OperatorRegistry.operators.contains(signer)` **before** pushing into
   `submissions[]`. Non-registered signers are rejected at submission time, not at
@@ -248,16 +250,21 @@ weights, accumulating in `u32` to stay clear of `u16` overflow (see the downstre
 `valid_ratios` helper). The vector must sum to exactly `MAX_BPS = 10_000`:
 
 - If `sum < 10_000`: add the deficit `(10_000 − sum)` to the **smallest**
-  `VenueWeight.weight` in `output`.
+  positive `VenueWeight.weight` in `output`, preserving excluded zeros.
 - If `sum > 10_000`: subtract the excess `(sum − 10_000)` from the **largest**
   `VenueWeight.weight` in `output`.
 - Ties on smallest / largest are broken by lowest `venue_id`.
 
-The `AllocationConsensus` round is itself the **determinism boundary**: consumers
-submitting into the same account during the same window are pinned to the same time
-slice. Small per-consumer differences in which `DataFeed` entries they read are
-absorbed by per-venue averaging — the same mechanism the producer side uses for sample
-values. Output must satisfy the downstream contract `valid_ratios(output) == true`.
+An all-zero aggregate is rejected. Output must satisfy the downstream contract
+`valid_ratios(output) == true`. Aggregate venue/category cap preservation still
+needs a policy; renormalization does not enforce the off-chain rubric's caps.
+
+Allocation rounds are NOT yet an input-snapshot determinism boundary. Consumers
+may read different feed entries: RPC `minContextSlot` is only a lower bound.
+A common anchor and input commitment remain design work (see OPEN_QUESTIONS.md).
+Older sample closing slots and allocation rounds cannot overwrite newer published
+results. Sample brakes and refresh intervals use window closing slots, so delayed
+cranking does not turn an ineligible sample into an eligible one.
 
 ## 5. Ticks, Windows, Triggers, Brakes
 
