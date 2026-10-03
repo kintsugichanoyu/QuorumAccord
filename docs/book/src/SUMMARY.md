@@ -1,0 +1,17 @@
+# Summary
+
+- [Start here](index.md)
+- [Architecture and trust](architecture.md)
+- [Run the TypeScript lab](quickstart.md)
+- [Live devnet inspector](devnet.md)
+- [Integrate a protocol](integration.md)
+  - [Marginfi](protocols/marginfi.md)
+  - [Kamino](protocols/kamino.md)
+  - [Save / Solend](protocols/save.md)
+  - [Jupiter Lend](protocols/jupiter.md)
+  - [Loopscale](protocols/loopscale.md)
+- [Instruction and account contract](contract.md)
+- [Allocation consumers](consumers.md)
+- [Verification and troubleshooting](verification.md)
+- [Release blockers](blockers.md)
+- [Original specification](specification.md)

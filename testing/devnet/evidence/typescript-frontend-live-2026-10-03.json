@@ -1,0 +1,33 @@
+{
+  "network": "devnet",
+  "mock_rpc": false,
+  "observed_at": "2026-10-03T19:40:18.108Z",
+  "context": "Confirmed RPC context slot 507106192. Read-only; not an exact historical snapshot.",
+  "prices": [
+    "$198.25",
+    "$64,000",
+    "$3,200"
+  ],
+  "freshness": [
+    "FRESH",
+    "FRESH",
+    "FRESH"
+  ],
+  "rpc_methods": [
+    "getGenesisHash",
+    "getSlot",
+    "getMultipleAccounts"
+  ],
+  "status": "passed",
+  "verification": {
+    "language": "typescript",
+    "mdbook_version": "0.5.4",
+    "playwright_version": "1.63.0",
+    "typescript_version": "5.9.3",
+    "model_tests_passed": 9,
+    "mocked_browser_tests_passed": 5,
+    "actual_devnet_browser_tests_passed": 1,
+    "clean_npm_ci_passed": true,
+    "audit_vulnerabilities": 0
+  }
+}

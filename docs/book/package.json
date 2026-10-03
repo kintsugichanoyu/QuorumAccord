@@ -1,0 +1,21 @@
+{
+  "name": "@reflect/integration-book",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "npm run check && node --experimental-strip-types --test tests/*.test.ts",
+    "test:browser": "npm run build && playwright test",
+    "test:live": "npm run build && playwright test --config playwright.live.config.ts",
+    "build": "npm run check && node --experimental-strip-types scripts/build.ts",
+    "serve": "npm run build && node --experimental-strip-types scripts/serve.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.10.0",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}

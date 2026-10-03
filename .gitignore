@@ -13,6 +13,11 @@ graphify-out
 /keys/
 /testing/devnet/.state/
 /testing/devnet/dist/
+/docs/book/build/
+/docs/book/.generated/
+/docs/book/src/evidence/
+/docs/book/test-results/
+/docs/book/playwright-report/
 **/__pycache__/
 !*.env.example
 !.env.devnet.example

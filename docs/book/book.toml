@@ -1,0 +1,26 @@
+[book]
+title = "Reflect · Integration Handbook"
+authors = ["Reflect contributors"]
+language = "en"
+src = "src"
+description = "Protocol integration, consensus feeds and TypeScript verification for Reflect."
+
+[build]
+build-dir = "build"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+additional-css = ["theme/reflect.css"]
+additional-js = [".generated/inspector.js"]
+no-section-label = true
+hash-files = true
+
+[output.html.playground]
+runnable = false
+copyable = true
+
+[output.html.search]
+enable = true
+use-boolean-and = true
+

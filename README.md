@@ -8,6 +8,7 @@ restaking yet. Production drivers currently support generic on-chain u64 fields,
 not complete integrations with named lending protocols.
 
 - Contract/design: [specs/SPECIFICATION.md](specs/SPECIFICATION.md)
+- mdBook frontend: [docs/book/README.md](docs/book/README.md)
 - TypeScript test setup: [testing/devnet/README.md](testing/devnet/README.md)
 - Verification evidence: [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md)
 - Missing work and decisions: [OPEN_QUESTIONS.md](OPEN_QUESTIONS.md)
@@ -29,6 +30,7 @@ testing/devnet/               Isolated TypeScript test package
   evidence/                   Public-only verification snapshots
   .state/                     Ignored keys, ledgers, logs and generated reports
 sdk/                          Codama client-generation scaffold
+docs/book/                    mdBook integration guides and read-only devnet UI
 docker/                       Production worker fleet scaffold
 sims/                         Proposed simulation matrix
 ```
@@ -40,6 +42,10 @@ npm --prefix testing/devnet ci
 npm --prefix testing/devnet test
 npm --prefix testing/devnet run localnet
 npm --prefix testing/devnet run devnet
+
+# Documentation frontend (requires pinned mdBook 0.5.4):
+npm --prefix docs/book ci
+npm --prefix docs/book run serve
 
 # Compilation checks for production Rust, separate from TypeScript testing:
 cargo check --locked
