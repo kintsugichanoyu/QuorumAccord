@@ -1,4 +1,4 @@
-//! Consumer daemon. Reads every `DataFeed` at a shared, deterministic anchor slot,
+//! Consumer daemon. Reads each `DataFeed` with a minimum-context-slot lower bound,
 //! runs the fixed-point rubric, and submits the resulting weight vector into the
 //! active `AllocationConsensus`. Reads chain only; tolerant of producer failure
 //! (stale feeds exclude their venue).
@@ -71,7 +71,8 @@ fn run_once(
     staleness: u64,
     operator: &solana_sdk::pubkey::Pubkey,
 ) -> Result<Vec<u16>> {
-    // Shared, deterministic anchor slot: every operator pins reads to it.
+    // Local freshness lower bound only. This is not shared across operators and
+    // minContextSlot does not select an exact historical snapshot.
     let anchor_slot = pool.get_slot()?;
 
     let mut apy = [0u64; N_VENUES];

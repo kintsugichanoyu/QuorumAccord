@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-03",
+  "status": "passed",
+  "network": "localnet",
+  "genesis": "FUPdmE1kxjnVcW8VtdRZDDkMjQYrrBtPJD29h7jVno3s",
+  "tested_implementation_commit": "eb8a4df",
+  "toolchain": {
+    "agave": "4.3.0",
+    "platform_tools": "v1.57",
+    "sbf_arch": "v3 (ABIv1)",
+    "host_rust": "1.96",
+    "anchor": "1.0.2"
+  },
+  "artifact_sha256": [
+    {
+      "sha256": "13ce85d0d18aee3e958c5c904bd37f1a7ca194b62f7f058f349b5275ca1d256c",
+      "path": "target/deploy/reflect_allocation.so"
+    },
+    {
+      "sha256": "7ed6137e266668fbddadc06070e07d5c830b3d1f9ac25b5997fd3bfacd6dec43",
+      "path": "target/deploy/mock_oracle.so"
+    }
+  ],
+  "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "mock_program": "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N",
+  "admin": "2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc",
+  "deployment": {
+    "programId": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+    "signature": "4jvG22WbrvQwV6rwpV333SQjgzM99LDvzvcsYNAP6ngCaZAY4HSc3mCPSpsaUbHEqccr9dCavAgJyd8UrWQG7QWs"
+  },
+  "mock_deployment": {
+    "programId": "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N",
+    "signature": "4BoYozJAstXkUXiBniadMHEidLAzC6tEwKtNjKdVhxm2pMDoKfNBexpjtWgZX76T3URaSvbdTNXX29vZ2ZHorWgJ"
+  },
+  "local_airdrop": {
+    "sol": 10,
+    "signature": "2hJhr1CGyf3MVW2ZRx6vYAa65oZg21scABYGFMqqUpk39h9kr6ZERnC3VxU5ZLr3VvkuCgjdBH52Hi7MQfxE3ewM"
+  },
+  "ending_admin_lamports": 2672966200,
+  "providers": [
+    {
+      "protocol": "atlas",
+      "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8"
+    },
+    {
+      "protocol": "boreal",
+      "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q"
+    },
+    {
+      "protocol": "cygnus",
+      "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa"
+    }
+  ],
+  "bootstrap_authority_checked": true,
+  "invalid_quorums_rejected": [
+    0,
+    65
+  ],
+  "scenarios": [
+    {
+      "phase": "baseline",
+      "window": 1,
+      "advanced": true,
+      "backend": {
+        "phase": "baseline",
+        "requests": {
+          "atlas": 3,
+          "boreal": 3,
+          "cygnus": 3
+        }
+      },
+      "consumer": {
+        "decimals": 6,
+        "network": "localnet",
+        "prices": [
+          {
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 198250000,
+            "rpc_context_slot": 125,
+            "symbol": "SOL",
+            "tick": 1
+          },
+          {
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 64000000000,
+            "rpc_context_slot": 125,
+            "symbol": "BTC",
+            "tick": 1
+          },
+          {
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 3200000000,
+            "rpc_context_slot": 125,
+            "symbol": "ETH",
+            "tick": 1
+          }
+        ],
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+      },
+      "finalize_signatures": [
+        "3ZWmtnMAfBPbZMenJtJUVH1cgyLaQeKbVCbCzekewCDFLxjTh3mMCosoVjpu88U95wRbdmkHuExHSw319VpamyDY",
+        "3sCnt3Jm5MJSi2Z9UT2DJUDoMSWcxg6W7rkARShFUS9z8EfwsKeFU1iLNfXi579zgEMnFvnaa5MoMB9j8kSBAcn9",
+        "2g6taASmU88PocTptoEiMcfAZUbCCGsG1H9RxFxxhp1rKCc3Eg61PeYa1STmRGBdyNhZtWhKuBxXezBF98qTgdC5"
+      ]
+    },
+    {
+      "phase": "baseline",
+      "window": 2,
+      "advanced": false,
+      "backend": {
+        "phase": "baseline",
+        "requests": {
+          "atlas": 3,
+          "boreal": 3,
+          "cygnus": 0
+        }
+      },
+      "consumer": {
+        "decimals": 6,
+        "network": "localnet",
+        "prices": [
+          {
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 198250000,
+            "rpc_context_slot": 186,
+            "symbol": "SOL",
+            "tick": 1
+          },
+          {
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 64000000000,
+            "rpc_context_slot": 186,
+            "symbol": "BTC",
+            "tick": 1
+          },
+          {
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+            "finalized_window_slot": 120,
+            "price_micro_usd": 3200000000,
+            "rpc_context_slot": 186,
+            "symbol": "ETH",
+            "tick": 1
+          }
+        ],
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+      },
+      "finalize_signatures": [
+        "e2jvfj1dVQaPrrxmMn255fW5C9M1UWZyKpdU2xttYLKzn9akAyg2WKfVrRZjWAHxNcw5e1iVr28UoicZewaKoCn",
+        "3uxJ1hzt6v75Kx8xBc4vxxXm2fKg6bfxUv9VDBd5DJYQf3ZAneq5MTSpyfpzPeo92oHJUYWiwjzxRdaS1gJFpvE4",
+        "52TWdr6YEzMi9pzHt93hQHmPZPRwuYaUkmquLiX3DeXiGsYs2gAn3W3vKZeNNkNUTL1kdzCj9EH99wTFoY3edVPg"
+      ]
+    },
+    {
+      "phase": "outlier",
+      "window": 3,
+      "advanced": true,
+      "backend": {
+        "phase": "outlier",
+        "requests": {
+          "atlas": 3,
+          "boreal": 3,
+          "cygnus": 3
+        }
+      },
+      "consumer": {
+        "decimals": 6,
+        "network": "localnet",
+        "prices": [
+          {
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+            "finalized_window_slot": 240,
+            "price_micro_usd": 198250000,
+            "rpc_context_slot": 245,
+            "symbol": "SOL",
+            "tick": 2
+          },
+          {
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+            "finalized_window_slot": 240,
+            "price_micro_usd": 64000000000,
+            "rpc_context_slot": 245,
+            "symbol": "BTC",
+            "tick": 2
+          },
+          {
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+            "finalized_window_slot": 240,
+            "price_micro_usd": 3200000000,
+            "rpc_context_slot": 245,
+            "symbol": "ETH",
+            "tick": 2
+          }
+        ],
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+      },
+      "finalize_signatures": [
+        "48BSKm9h1SWnSvL7LY8vuySXqfFjr9fLDsHpq8EPpshaJCH4AqPxsg9og37CpKFWQitkP7DuPHg6fy6W92BEpjoH",
+        "4rUE5G5vRUPdviP6iCc3VJGn5yBpmn9NWzw8g3tnB86ykZpKjsK2mBUCd8UeRzYK4zrQ3aFK68Gh7vwTe8res3yH",
+        "5zuxEpZhzFUAL9NVvaYSX77prWB2hGP73wYuAQ8MRCKh2TejN94gK8VnHyFHELdFjpYp3c8JYFbimjSu3iKsNpxD"
+      ]
+    },
+    {
+      "phase": "updated",
+      "window": 4,
+      "advanced": true,
+      "backend": {
+        "phase": "updated",
+        "requests": {
+          "atlas": 3,
+          "boreal": 3,
+          "cygnus": 3
+        }
+      },
+      "consumer": {
+        "decimals": 6,
+        "network": "localnet",
+        "prices": [
+          {
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 218075000,
+            "rpc_context_slot": 306,
+            "symbol": "SOL",
+            "tick": 3
+          },
+          {
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 70400000000,
+            "rpc_context_slot": 306,
+            "symbol": "BTC",
+            "tick": 3
+          },
+          {
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 3520000000,
+            "rpc_context_slot": 306,
+            "symbol": "ETH",
+            "tick": 3
+          }
+        ],
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+      },
+      "finalize_signatures": [
+        "2e2Am6VkR8m51vcc8Uh5yFst2FGkRTL1nVaDM3ybgvM6sujs4XhJBzUAyCtVacYsWwHkzi4MzuyuQE9cStNbXWSS",
+        "23rRBGbbNZywSdryaxytXVua3t3sRk2oFspf1ter4DheY6akr6HoV8V4V82EYU29rnzieDBnZA5V4JNfEsQGnaPH",
+        "q3MxGrVFnLuaaxN46PkUG4yBoCN9RH3HWdS8g8QbBqg98nBYGrxKXKERtqN5vBVPmqngSCGaQpVEoy3GqubDNJx"
+      ]
+    },
+    {
+      "phase": "unavailable",
+      "window": 5,
+      "advanced": false,
+      "backend": {
+        "phase": "unavailable",
+        "requests": {
+          "atlas": 3,
+          "boreal": 3,
+          "cygnus": 1
+        }
+      },
+      "consumer": {
+        "decimals": 6,
+        "network": "localnet",
+        "prices": [
+          {
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 218075000,
+            "rpc_context_slot": 365,
+            "symbol": "SOL",
+            "tick": 3
+          },
+          {
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 70400000000,
+            "rpc_context_slot": 365,
+            "symbol": "BTC",
+            "tick": 3
+          },
+          {
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+            "finalized_window_slot": 300,
+            "price_micro_usd": 3520000000,
+            "rpc_context_slot": 365,
+            "symbol": "ETH",
+            "tick": 3
+          }
+        ],
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+      },
+      "finalize_signatures": [
+        "64WDuL8n379oLgVZKNwTaPWVVthdX3GsMCmW8enyxMEzFvqLxvM39dTVCqJhW9fNvhnQeYB9J8QMKcKpa25pAbji",
+        "3SP4cdZhK7zuudCKE335yVVq74zEERSLSPpNQKMgK344oFiH7MfXndsM25a6ghWtjSSXMjJwsyWTBm5WpwYRMUUW",
+        "4zt2pUcMKmJrvEpt26LNN869NKbatwQ1JZQxo7QcQRe3xm62GzATULQ7oLrKpv1Wx5Yg5croNjA57cdB5A9QbLiD"
+      ]
+    }
+  ],
+  "sample_ordering": {
+    "old_window_rejected": 6,
+    "new_window": 7,
+    "new_consumer": {
+      "decimals": 6,
+      "network": "localnet",
+      "prices": [
+        {
+          "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd",
+          "finalized_window_slot": 480,
+          "price_micro_usd": 198250000,
+          "rpc_context_slot": 485,
+          "symbol": "SOL",
+          "tick": 4
+        },
+        {
+          "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo",
+          "finalized_window_slot": 480,
+          "price_micro_usd": 64000000000,
+          "rpc_context_slot": 485,
+          "symbol": "BTC",
+          "tick": 4
+        },
+        {
+          "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN",
+          "finalized_window_slot": 480,
+          "price_micro_usd": 3200000000,
+          "rpc_context_slot": 485,
+          "symbol": "ETH",
+          "tick": 4
+        }
+      ],
+      "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+    },
+    "error_code": 6018
+  },
+  "allocation": {
+    "invalid_quorums_rejected": [
+      0,
+      65
+    ],
+    "new_round": 489,
+    "old_round_rejected": 488,
+    "signatures": [
+      "Zmbf7mPgAQJwyEPccq4aE9RcZUPiXSZdFhN2xa5QSJZP2GsmZ7h1YUPypDL65WmA4dEcaoS1njNRfqitQCbewe3",
+      "3PzjWUiZQ81dQFswaF8RqxR4vA3bZ5wou4aUPM1PyxMPuMLk84N6T4mZhJZssayBzv263CMZ1BKyg11RkfsKDJiQ",
+      "63WfG95yC6Eo9oczimV2AbyPB1LCvstbWUVQrkv7crh8pc6kV35KWQpyazUsGmqw3tegUq7tuYyHkwxLc3r3yxtz",
+      "AU6ZZrbtjtxPrqM1sraECkQ6ASSKHAgEXwzyheKUA4wu1bjGsoAg46ykJPcYboDR2EzrnUd2Cs966M5bwKPHRPC",
+      "5164NdEJE1UcZYJtuAdSbLWe3gHZ1mfSr1h3rwhjgZkhNggH5prnSy63pdq2CKVhVBk5fjQRvnG6aP7muBESvL4v",
+      "4WgBoCKHWzD8fwnbvLJdTfTfuN76cUjybeVE6pqp9VwGXmsSvaf842ZqADErSmoPKXMqGwfpUN7BKnoueAY8dvwb",
+      "5PAimKe2o2XeqoCSJNMrmzg8WwbVopHjQvRaExMJvQNf46acPBAf17z8xdrkNBpgBn5baHCMVb6A8eDc3oxLrVdz"
+    ],
+    "weights": [
+      5000,
+      5000,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "stale_consumer_check": {
+    "passed": true,
+    "error": "Error: stale/future price for SOL",
+    "backend_before": {
+      "phase": "baseline",
+      "requests": {
+        "atlas": 3,
+        "boreal": 3,
+        "cygnus": 3
+      }
+    },
+    "backend_after": {
+      "phase": "baseline",
+      "requests": {
+        "atlas": 3,
+        "boreal": 3,
+        "cygnus": 3
+      }
+    }
+  },
+  "reported_price_suite_signatures": [
+    "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"
+  ],
+  "legacy": {
+    "happy_path": "passed",
+    "invariants": "passed",
+    "golden_weights": [
+      3007,
+      2707,
+      2707,
+      0,
+      1579,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "invariant_log_checks": [
+      "2026-10-03T17:28:17.089020Z  INFO e2e: ok  : [quorum] tick 0 -> 0 (unchanged)",
+      "2026-10-03T17:28:17.090701Z  INFO e2e: ok  : [quorum] consensus CLOSED",
+      "2026-10-03T17:29:09.755893Z  INFO e2e: ok  : [brake] tick 1 -> 1 (braked, unchanged)",
+      "2026-10-03T17:29:09.756007Z  INFO e2e: ok  : [brake] last_finalized_slot unchanged",
+      "2026-10-03T17:30:01.503377Z  INFO e2e: ok  : [no-trigger] tick 1 -> 1 (unchanged)",
+      "2026-10-03T17:30:01.503423Z  INFO e2e: ok  : [no-trigger] last_value 10000 unchanged",
+      "2026-10-03T17:30:53.266850Z  INFO e2e: ok  : [forced-refresh] tick 1 -> 2 (advanced on idle)",
+      "2026-10-03T17:30:53.266902Z  INFO e2e: ok  : [forced-refresh] last_value still 5000",
+      "2026-10-03T17:31:17.673016Z  INFO e2e: ok  : [unauth] outsider propose rejected (ok=false)",
+      "2026-10-03T17:31:17.674381Z  INFO e2e: ok  : [unauth] consensus PDA not created",
+      "2026-10-03T17:31:17.674431Z  INFO e2e: INVARIANTS PASS"
+    ]
+  },
+  "offline_tests": {
+    "program": 14,
+    "workers": 20,
+    "backend_http": 4,
+    "runner": 3,
+    "total": 41
+  },
+  "limitations": [
+    "test-only HTTP data",
+    "one centralized fixture backend",
+    "no real lending protocol integration"
+  ]
+}

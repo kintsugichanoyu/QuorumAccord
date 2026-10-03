@@ -52,6 +52,7 @@ python3 testing/devnet/run.py --network devnet --skip-build
 cargo test --locked
 cargo test --manifest-path workers/Cargo.toml --locked
 python3 -m unittest discover -s testing/devnet/backend -v
+python3 -m unittest discover -s testing/devnet -p test_run.py -v
 ```
 
 The runner generates dedicated admin, three operator, outsider and program
@@ -59,12 +60,20 @@ keypairs under ignored `.state/keys/`, with restrictive permissions. It synchron
 the two `declare_id!` values and `Anchor.toml` with these deployment keys, like
 `anchor keys sync`. Those public ID edits may appear in Git after a fresh checkout.
 No wallet's global CLI configuration is changed and existing ledgers are never reset.
+`--local-ledger <path>` chooses a separate local ledger without deleting an old one.
 Devnet funding failures produce `status: blocked`, never a successful test result.
 The default build is SBPF v3 with the normal ABIv1; Agave 4.3's local feature set
 disables new v0/v1/v2 deployments (SIMD-0500). `--sbf-arch` can select an older
 format for a cluster with a different feature set. Build artifacts must match
 the current keys when using `--skip-build`. Explicit, ignored deployment buffer
 keys prevent the CLI from printing an ephemeral recovery seed on failure.
+See the [Agave feature definitions](https://github.com/anza-xyz/agave/blob/v4.3.0/feature-set/src/lib.rs)
+for the deployment-version gate.
+The backend defaults to port 18787 (`--backend-port` overrides it). Operators are
+funded from the test admin and topped up before price windows to cover round rent.
+The devnet CLI requests 2 SOL once; if the balance is insufficient, the runner
+stops and reports the wallet and funding evidence instead of repeatedly hitting
+the public faucet.
 
 ## Standalone providers and price consumer
 

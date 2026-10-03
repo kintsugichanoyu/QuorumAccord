@@ -5,7 +5,7 @@
 //! - [`pda`]          PDA derivations matching the program seeds
 //! - [`ix`]           instruction builders
 //! - [`feed_view`]    read-only byte view over a `DataFeed` account
-//! - [`rpc`]          RPC pool with failover + slot-pinned reads
+//! - [`rpc`]          RPC pool with failover + minimum-context-slot reads
 //! - [`tx`]           transaction submission with retry
 //! - [`config`]       environment-driven configuration
 

@@ -7,7 +7,7 @@
 //! harness writes exact `u64` values; a producer then reads one with
 //! `TARGET_ACCOUNT = mock_pda`, `OFFSET = 8` (skip the Anchor discriminator),
 //! `SCALE_NUM = SCALE_DEN = 1`, so the stored basis-point value is sampled
-//! verbatim. This keeps the *real* slot-pinned account-read path under test while
+//! verbatim. This keeps the real minimum-context-slot read path under test while
 //! making aggregates deterministic and assertable.
 //!
 //! `data` is the first field so the value lives at a stable account offset of 8.

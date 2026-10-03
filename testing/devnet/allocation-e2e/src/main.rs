@@ -463,7 +463,7 @@ fn round_and_finalize(cfg: &Cfg, pool_id: u8, data_id: u8, value: u64) -> Result
 
 // ---- consumer (rubric) replica ------------------------------------------------
 
-/// Replicates `workers/consumer` exactly: pin one anchor slot, read every feed,
+/// Replicates the allocation worker's MVP: use a context lower bound, read feeds,
 /// build `VenueInput`s, run the rubric. Ground truth for the expected vector.
 fn consumer_compute(cfg: &Cfg) -> Result<[u16; N_VENUES]> {
     let anchor = current_slot(cfg)?;
@@ -977,7 +977,7 @@ fn main() -> Result<()> {
             let widx: u64 = parse_arg(&args, 4)?;
             finalize_sample(&cfg, pool, data, widx)
         }
-        // stdout helpers consumed by scripts/devnet/run_e2e.sh
+        // Legacy stdout helpers for manually configuring the production daemons.
         "print-feeds" => {
             // one line per feed: pool data mock_id mock_pda venue role
             for f in happy_feeds() {

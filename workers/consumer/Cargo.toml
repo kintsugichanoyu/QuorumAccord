@@ -3,7 +3,7 @@ name = "consumer"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Consumer daemon: reads all DataFeeds at a shared slot, runs the rubric, submits a weight vector to consensus"
+description = "Allocation consumer MVP: reads DataFeeds with a context lower bound, runs the rubric and submits weights"
 
 [[bin]]
 name = "consumer"

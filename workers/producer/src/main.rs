@@ -1,7 +1,7 @@
 //! Producer daemon. One instance per `DataFeed`, per operator.
 //!
 //! Loop: derive the current tick window from the Solana clock, read the assigned
-//! venue account slot-pinned, decode it to fixed-point bps, and `propose` (or
+//! venue account with a context lower bound, decode it to fixed-point bps, and `propose` (or
 //! `corroborate`) into the window's consensus. Once the previous window has
 //! closed, crank `finalize_sample`. The on-chain program is authoritative for
 //! windows, brakes and triggers — the producer is a write-only sensor.
