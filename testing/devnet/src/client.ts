@@ -33,7 +33,11 @@ export class ChainClient {
     return genesis;
   }
   async send(payer: Keypair, instruction: TransactionInstruction): Promise<string> {
-    const signature = await sendAndConfirmTransaction(this.connection, new Transaction().add(instruction), [payer],
+    return this.sendMany(payer, [instruction]);
+  }
+  async sendMany(payer: Keypair, instructions: TransactionInstruction[]): Promise<string> {
+    assert(instructions.length >= 1 && instructions.length <= 5, 'test transactions allow one to five instructions');
+    const signature = await sendAndConfirmTransaction(this.connection, new Transaction().add(...instructions), [payer],
       { commitment: 'confirmed', preflightCommitment: 'confirmed', maxRetries: 3 });
     this.signatures.push(signature);
     return signature;

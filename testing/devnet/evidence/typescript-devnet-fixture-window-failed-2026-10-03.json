@@ -1,0 +1,1180 @@
+{
+  "schema_version": 2,
+  "language": "typescript",
+  "status": "failed",
+  "network": "devnet",
+  "started_at": "2026-10-03T19:16:06.580Z",
+  "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "mock_program": "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N",
+  "admin": "2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc",
+  "rpc": "https://api.devnet.solana.com",
+  "window_slots": 240,
+  "sbf_arch": "v3",
+  "deploy_transport": "rpc",
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "funding": {
+    "starting_lamports": 6324858080,
+    "airdrop": "not needed"
+  },
+  "reused_programs": [
+    {
+      "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111"
+    },
+    {
+      "program": "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N",
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111"
+    }
+  ],
+  "rpc_gateway": {
+    "upstream": "https://api.devnet.solana.com",
+    "url": "http://127.0.0.1:36871",
+    "stats": {
+      "requests": 1557,
+      "upstream_attempts": 1575,
+      "rate_limit_retries": 18,
+      "methods": {
+        "getGenesisHash": 28,
+        "getBalance": 28,
+        "getLatestBlockhash": 42,
+        "sendTransaction": 170,
+        "getBlockHeight": 178,
+        "getSignatureStatuses": 160,
+        "getAccountInfo": 249,
+        "simulateTransaction": 11,
+        "getSlot": 691
+      }
+    }
+  },
+  "error": "TypeScript integration failed; inspect /home/user/reflect/testing/devnet/.state/devnet/integration-typescript.tap",
+  "completed_at": "2026-10-03T19:26:45.989Z",
+  "suite": {
+    "schema_version": 2,
+    "language": "typescript",
+    "status": "failed",
+    "network": "devnet",
+    "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+    "operators": [
+      "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+      "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+      "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa"
+    ],
+    "started_at": "2026-10-03T19:16:07.538Z",
+    "setup": {
+      "bootstrap_authority_checked": false,
+      "invalid_quorums_rejected": [
+        0,
+        65
+      ]
+    },
+    "scenarios": [
+      {
+        "phase": "baseline",
+        "window": "2112917",
+        "closes": "507100320",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112917",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "4xauvbkyz7rJKZmDaihhr2TNTBEC6Ps4PWQp8doYj2cGFDeNdLHhHpBUsKqNBoanSqKPEV2RqUfJ44QSb9EHo93h"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "41rQf7jZtfMEfn2ZE7eqTk9XvAaMrC1EVZXCk8pBWGFMV2pWfTYFodJDbexexoWAUEh1TJFHbvZkSGmDh1WPp39Q"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "QZ8Dia7YWNmLnJjD1LEmwQvdUNGdz2HtKNhWN2ejfK8QA9A2BQg7EwMGWjL9ryRVJZn459ufBup5wG7Sq9qBgVZ"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112917",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "27DrDxmEeQBxbQeAkYNiFSXGXBGZk5m6Hn5rnRRGztSCgVMfrHztUb4WVRCzQyR1DrAPkuKaVFJEa6rspjx7xVWf"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "3HJcdywjGMvAsMYCDLzD3fAnaCU1KxHP7hRLQEipk4msckwZabz7kgYE1QB6NpGm3nPN5ATX3uCAYV9r474XXM4Q"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "5c4ubERHGqfLsJT9Gz4gR2bJsKYqfwz44DksoYY7wTMRtacECTuuVQyMWi7nYwd5iDT7FuL1rsW5wwr7UspTy2Pd"
+              }
+            ]
+          },
+          {
+            "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+            "protocol": "cygnus",
+            "window": "2112917",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "wxe1Xk6cT3Xe8cgZasZyn84DPyrDmKbkjLkbx7Sy3NPYV73ayHHVXcC6E8tEYfsxTrioRgxyMpe6vQuzDyBhGeh"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "eCETBvzpF4hTnRjemnA4XDc3ApvepF75PTzaMUETtuyVfBZzTKk2sebHANXD8WrMdj8W9bkfBcQ73aa1ygVc3UG"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "2gZoUWTrqCRXVPCrkb8UUtreW7yiotz8Mx9cbu6B7Ek8Pddrr9vA11WecD5RuftgmtYEcgjAEJiQ3P2K8Vivabja"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "baseline",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 3
+          }
+        },
+        "advanced": true,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "198250000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100353",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "64000000000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100355",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3200000000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100355",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      },
+      {
+        "phase": "baseline",
+        "window": "2112918",
+        "closes": "507100560",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112918",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "3FdthFK2J7piK5Unn2kCmEvWaKtGuVsVWL2jr7gNDizvjSMgaeCp3c5Fs6CFbaq5CSHPFccQf3eBPcr9bLFei8pr"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "3k54beAKu4GsEg5kNBDiam3YQatfmo2k9cPvcXWZNuisANAcm6xrBGGwGB66hBQfFHf2KuVhYB5euBaxJa6Bnik"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "MfaEU1mdqDPqbsDyAyeb3zKP6RjBrHoymLQ4RUCLyfwnc2jLJbQuSNqhmT4mMbBvGJFAXsdV9JLZdL8phTpqQWC"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112918",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "5LvHYYbJ5m12JzjnAyKPptfuApcbcbxE3CJ4AJKYGaxZS97BaftoLC1kZw8bUPhXcuuKyN7C6BGuViqWrXQ6EXEk"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "28tg5AtNx4P2VkjXyB4MGmBvDqnbmvoKgjo39W5mk6JaamaEdwvk1ohaRvNg1kKWvzLYZb42UE2xHpKaYFSWTMk2"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "33Qqk8ZfykeGZzvTV1n8B5p8jd9tZi2DNDjQJ9bzEvDK2JTvw5q2wHCW3ZnSeaJMrA46t5NaN73GiPPogFyGV3ia"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "baseline",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 0
+          }
+        },
+        "advanced": false,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "198250000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100585",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "64000000000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100587",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3200000000",
+              "tick": "1",
+              "finalized_window_slot": "507100320",
+              "rpc_context_slot": "507100588",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      },
+      {
+        "phase": "outlier",
+        "window": "2112919",
+        "closes": "507100800",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112919",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "outlier",
+                "signature": "3n9keZdqYfKh3EnzwWMNw8YcpssT8F1g6p8esRcuK1niY8G1j7yF7NvAYjQKEPUuyg1YtKTbbWdf4fzMBVnSXHsE"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "outlier",
+                "signature": "4imnmTC6iVBJyoUAeL1HGJj43sqm55oKvvE38D3QG38PX8Ri9hBduBuPToaH3jqGSyGWm1mg1G68nfXHZYArVfbr"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "outlier",
+                "signature": "4FfdSacZmo8zaggiAM1r6xKk8a3UJCe4JZPwm3ypf7bgbcGhLco8HY8zkqQrmGTJXkq8tZhLaTxWhtMjbTHQbprJ"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112919",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "outlier",
+                "signature": "5oKBn5yfVqhmtD8jgmwHhEg7xbr8EyPN3Q5rvfznkJM2gzHKcNxBigSmaTqBiTkwzqjNwVx1pDjvYwtUDfxHJsVY"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "outlier",
+                "signature": "bvTsoj25xNo6dtTcZ6oedYvXuksa4Bu5JmufJuGvnFMqfdJRNEv5JmGn7pcR1AVbJf2hAHfbsYTEjRGVnZLG39k"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "outlier",
+                "signature": "4KGAeiGXkZ5nc2NHAvhWtu64z76s6FwaPDayKjyLhzFTgm2TPyKWJBHf2aeAeSUd7789MzEzi5xM6MSQXBS3vrGr"
+              }
+            ]
+          },
+          {
+            "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+            "protocol": "cygnus",
+            "window": "2112919",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "1982500000",
+                "phase": "outlier",
+                "signature": "2MYQrdjfp6pWhReNJ2s4yPekfKZ3BmoyQ1u21PjjHEMnC41xwbxPkr8yCBV8DYp6uhkXWBHJ2nLN3zDuhh4uorDU"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "640000000000",
+                "phase": "outlier",
+                "signature": "5DivYar1YoNaoui2arC7QQdP5GCbTCc19HCyZUn8aRj14U1QD61mepSvKLpQrkFwkLkmkzVRpTAGViUx2qmKGzoZ"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "32000000000",
+                "phase": "outlier",
+                "signature": "2zZc4a9xcUVgPMfTHRSmaCEvT87xMA6DeVfvwhC2j25CAquMzN4qV4mceztv3HLRZE78WEpR1r8vDM3u2qGW1kdb"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "outlier",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 3
+          }
+        },
+        "advanced": true,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "198250000",
+              "tick": "2",
+              "finalized_window_slot": "507100800",
+              "rpc_context_slot": "507100820",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "64000000000",
+              "tick": "2",
+              "finalized_window_slot": "507100800",
+              "rpc_context_slot": "507100821",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3200000000",
+              "tick": "2",
+              "finalized_window_slot": "507100800",
+              "rpc_context_slot": "507100823",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      },
+      {
+        "phase": "updated",
+        "window": "2112921",
+        "closes": "507101280",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112921",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "218075000",
+                "phase": "updated",
+                "signature": "29t9949Woszv7bRNTBYuemeAkceopa2341p8BDbgW5vsyB2ZGa8a5T8mN3KUATUKc9WvPnyKjMDZYsYSX5Gnm5La"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "70400000000",
+                "phase": "updated",
+                "signature": "4RCvJWChpyeZLq8jhBM4tUAhs5jHPZspAqz9L341XJGJbTzWA6hiHcmgEEgZPKpZehYScz649vySNwrTvskUhqBq"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3520000000",
+                "phase": "updated",
+                "signature": "2A4AhXzQTAu9oXP7ePJEfs9hHDsN5Ja4sLXkTTJHE5fNqGvuBtKpxpmvzgk19v8RTpjkLko8X4r7RVLWanuqrCMC"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112921",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "218075000",
+                "phase": "updated",
+                "signature": "2vCcWuSP8PKZLxzxypYYJJhRcb5fyUDCJzKqB3covy9xMLGwxMW6wh6bZ9bGcNaZ7xkYB3JDfryLY49uT72F7hLp"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "70400000000",
+                "phase": "updated",
+                "signature": "5xCXVC5ZFFJ4mmAhzGsh7B8XJekR41j99a43gA3x5RA2vaKRoF9WJa9HMULVrcYDQbbH2K1KfTn8AhzB41EDz9jV"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3520000000",
+                "phase": "updated",
+                "signature": "5gcG6BNVpKKjLDt5zP73utafHQpFuQmSiCUGHru2c2NKfvhBjczp3AbKUUDHRcxwzoaeJqUUqc1mxyhxHDemNSBN"
+              }
+            ]
+          },
+          {
+            "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+            "protocol": "cygnus",
+            "window": "2112921",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "218075000",
+                "phase": "updated",
+                "signature": "5GowNF8aDGDrWXSjicGN54sXnGYagHZpDfqEs1PamCwon92HwQyqhSHcWdUJ8CFcvDjf6Hkdkyod4HJHnc6D3Wiw"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "70400000000",
+                "phase": "updated",
+                "signature": "tRcKo5w6AYMPx1QqGhNTAKABtE6pWiJysErSHLVWNWMytsAHMybfZhQb1Be5hyLWCxBfEGXJUy43P7uPKQASvhg"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3520000000",
+                "phase": "updated",
+                "signature": "2JfHYet8cctt1az5ickrVsFVfDvDUxreNx8LvUcvXR4szg6uqnxeQiZr9cP3DnVGC9zqSpEjagBof46znmoStq7h"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "updated",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 3
+          }
+        },
+        "advanced": true,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "218075000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101303",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "70400000000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101305",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3520000000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101307",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      },
+      {
+        "phase": "unavailable",
+        "window": "2112922",
+        "closes": "507101520",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112922",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "unavailable",
+                "signature": "7es7TomgKm1pLDdKcf914HTH5UBmoBiVzZHkeGtuUp5z2VL657aR8vo5yMdRqSJy5FxuzbVdH6LB1nMktaP8gdK"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "unavailable",
+                "signature": "24GWCiagZNJGYjbGFSsie8j4ykJUMYKihYjmBf1YPRyTV31cRnBDZ3bVPRanc951roVYb5T4Cf99rBZjeRnN9Xxh"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "unavailable",
+                "signature": "2Qdx7odGeexeVZfURpVJAjeWrrXcJuRXjNJdKNFVUxk4xphFjyyafht1Cy65e6muUhJTHQgH8oXcLM6mhLvSCQf6"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112922",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "unavailable",
+                "signature": "44k3ihsWvgCYZPoKDCHa9rqx5Mb8KTxG4rovcB8gFLeUVbzHKnhFoKxbGUe4mWWsZfRVeYrWpxUv1P4MHHbmW5gM"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "unavailable",
+                "signature": "Y6A95GKNvVRJBPtoK9ELkLqyTrpyzkEpvn4awAmgpwwS7YQiKkFqe65H4EXPtixyndbc3nNc2JDRJr2mTPNj8qH"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "unavailable",
+                "signature": "3vK82X8mbrT9Kgtyuk8AtqWLw93ZrmBFSHzNLWdgkZCJkizmEqKJjQP9TWtZhtD9KLCmLb8ntnHJdkycHqG2EXs8"
+              }
+            ]
+          },
+          {
+            "protocol": "cygnus",
+            "expected_error": "backend HTTP 503 for cygnus/SOL"
+          }
+        ],
+        "backend": {
+          "phase": "unavailable",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 1
+          }
+        },
+        "advanced": false,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "218075000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101543",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "70400000000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101545",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3520000000",
+              "tick": "3",
+              "finalized_window_slot": "507101280",
+              "rpc_context_slot": "507101547",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      }
+    ],
+    "read_only_consumer": {
+      "no_signing_files_required": true,
+      "backend_request_counts_unchanged": true,
+      "consumer": {
+        "network": "devnet",
+        "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+        "decimals": 6,
+        "prices": [
+          {
+            "symbol": "SOL",
+            "price_micro_usd": "218075000",
+            "tick": "3",
+            "finalized_window_slot": "507101280",
+            "rpc_context_slot": "507101552",
+            "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+          },
+          {
+            "symbol": "BTC",
+            "price_micro_usd": "70400000000",
+            "tick": "3",
+            "finalized_window_slot": "507101280",
+            "rpc_context_slot": "507101553",
+            "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+          },
+          {
+            "symbol": "ETH",
+            "price_micro_usd": "3520000000",
+            "tick": "3",
+            "finalized_window_slot": "507101280",
+            "rpc_context_slot": "507101555",
+            "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+          }
+        ]
+      }
+    },
+    "sample_ordering": {
+      "older": {
+        "phase": "baseline",
+        "window": "2112923",
+        "closes": "507101760",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112923",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "2ms9g92e6r1Ep4LDyFTqAX5sK7VuMmdPsSVKUa2W13C7gcdbvdXaf8LnfWVvGZsemBq1XcEvAJ7iBsSVwC8DgJax"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "2b4UyEzN5MKGGoC9gMQTzffewTRwVf9p5Eq7Bm8DZXhtQpt87NQgQPwgcQc52dnLFJ2FzSsmgfJCXdxPyvF4BLt9"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "4CWT73hStibgwXt1o3qYn8znS4pNAgmKE89zuXeZ92h3jHoNbnApEgCtxidb9dpvbZV9SjUKXY19HzYWZJptQXG2"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112923",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "5Lx4QjEJm5ScJp7Futr8RhxKQod4Nqxr6v2W3u7CdaGYyMurJ3exvMpKAYzJ7kEs6Y4e9JT6CNH4vDX4MhFm1Wir"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "zfHxsJGdkksann3bLgDH1oMeMdyBQYcYGwi6EnD5z59dJV5XqExhqNuJDRvhcsdsBzokPYw79G8oYPBPwbS5p3D"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "44hUomh7UzuPZz1YTPZJ1rfEN8HSAgJDMJ9fcEoqUKCkNugfEVZGWciAHQBDrtmxPewJsNbNtzmfhsmAERQ6PtAk"
+              }
+            ]
+          },
+          {
+            "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+            "protocol": "cygnus",
+            "window": "2112923",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "ACG9d4xVADUQCrVZ64XV17cwvebvpfrn8Rv3DuwmMr6Q9gkuWNDuuNy9if63ACnQzjrQBuVpmgBv4b9GsdPwJs3"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "3TZiK5kzgZDS4gpFhL6q6siStYF7i4CMGLewCht6tqYFueezQyeZySpC9oCGiGP1sj99ztrBsNwAgb9cvWuQ3h2u"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "2EiaVmLf2FbdY5LhZ8qwN5JmBKHMJVQYm3WAVKP5rd4autMn5cWR29qzDXVuFrbphZe967tq7eCw8GNMdqxaTHAz"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "baseline",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 3
+          }
+        },
+        "advanced": false,
+        "finalization_deferred": true
+      },
+      "newer": {
+        "phase": "baseline",
+        "window": "2112924",
+        "closes": "507102000",
+        "providers": [
+          {
+            "operator": "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+            "protocol": "atlas",
+            "window": "2112924",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "4o8M5F99oBgJvdp8TeRcw7Hxhv8tXcUH7Hc2uXZDKi1szdUA3QoW2Papmffbch8Tg8ehcZtXKehyWbtz8WiYaqDR"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "FQ1cAaog7oQnCZKNeaSJZebDdCWUcn4BDM3qrYaYYPDEGjGK7MVYsjjAbD1MXpWj7V6uPVEiXeYnv9YLAFGkKs6"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "4DytotHxeEuivJtUrnNh34QMURcBPvMWTScTezZHDVbWzXzGGQvEdPoiX5GcK7rKT3byBYP62ZVLkvGZZ3zNQQto"
+              }
+            ]
+          },
+          {
+            "operator": "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q",
+            "protocol": "boreal",
+            "window": "2112924",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "4gtNWffMSX6rNbfP9nhaMBhhui4qSwevfjWPjE3R5PXczmjUajTbjV3GhArpyHVMHGZdPYrZji9mMKsSZNtT3RMH"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "2ntPfyR1e9snUV8fH2V88dTQQPHtEgR7NfsxDUG6ywBZM4tsMwJR5aJ3iSuM5AS5xnCgWFmmc6dB2bTLgpAGABGA"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "2PeE492WTNDmrby3u5nyLXreBxkbCDjK34ijri1siB7eu5HoYGWMDSbQP7E9RGzSBQZCuwhNUge7qp8uhww7zXZ4"
+              }
+            ]
+          },
+          {
+            "operator": "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+            "protocol": "cygnus",
+            "window": "2112924",
+            "reports": [
+              {
+                "symbol": "SOL",
+                "price_micro_usd": "198250000",
+                "phase": "baseline",
+                "signature": "RopHfZTp6MKK6ykzD2kWCDKqNJHdDgMSMBWBQQhNouZuyXq5oM2pncvNj3xBMu1UFPp4tUKoWA6jASiFcyYaWPW"
+              },
+              {
+                "symbol": "BTC",
+                "price_micro_usd": "64000000000",
+                "phase": "baseline",
+                "signature": "QM62ur1F6f32YaYw2o48RYs6mXhaM8Ftc7smFbEp6JHY9AAMuJm6vr7Gz6UsfBwgubC3rRsjZRC4QX79dFjy6rT"
+              },
+              {
+                "symbol": "ETH",
+                "price_micro_usd": "3200000000",
+                "phase": "baseline",
+                "signature": "5YipAGDxyFnJY7JbR5xfWpx8VBV61Zck3F3Y7dY4tsCTRttiFKDZbEZNkiWUwwhg2Q5s6QgS8iFbR2LfLVnu4Rhy"
+              }
+            ]
+          }
+        ],
+        "backend": {
+          "phase": "baseline",
+          "requests": {
+            "atlas": 3,
+            "boreal": 3,
+            "cygnus": 3
+          }
+        },
+        "advanced": true,
+        "consumer": {
+          "network": "devnet",
+          "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+          "decimals": 6,
+          "prices": [
+            {
+              "symbol": "SOL",
+              "price_micro_usd": "198250000",
+              "tick": "4",
+              "finalized_window_slot": "507102000",
+              "rpc_context_slot": "507102029",
+              "feed": "878XKJFyNadaYQgZ2nfG7nT9pMkvmpbLgAagvFghsegd"
+            },
+            {
+              "symbol": "BTC",
+              "price_micro_usd": "64000000000",
+              "tick": "4",
+              "finalized_window_slot": "507102000",
+              "rpc_context_slot": "507102031",
+              "feed": "4FBYi1Bh4V6HudsJCScF9n9FrEEDwDFCB1CmVkQQdLDo"
+            },
+            {
+              "symbol": "ETH",
+              "price_micro_usd": "3200000000",
+              "tick": "4",
+              "finalized_window_slot": "507102000",
+              "rpc_context_slot": "507102033",
+              "feed": "6Gs6U15Fgn6gDK8SNUqq1RTnEuVDCoiAJp6MvjonEeLN"
+            }
+          ]
+        },
+        "finalization_deferred": false
+      },
+      "error_code": 6018
+    },
+    "allocation": {
+      "round": "507102054",
+      "updated_slot": "507102300",
+      "weights": [
+        5000,
+        5000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "older_rejected": "507102053",
+      "invalid_quorums_rejected": [
+        0,
+        65
+      ]
+    },
+    "error": "Simulation failed. \nMessage: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1779. \nLogs: \n[\n  \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz invoke [1]\",\n  \"Program log: Instruction: ProposeSample\",\n  \"Program 11111111111111111111111111111111 invoke [2]\",\n  \"Program 11111111111111111111111111111111 success\",\n  \"Program log: AnchorError thrown in programs/reflect-allocation/src/instructions/sample.rs:55. Error Code: WindowClosed. Error Number: 6009. Error Message: Submission window has closed.\",\n  \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz consumed 13127 of 200000 compute units\",\n  \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz failed: custom program error: 0x1779\"\n]. \nCatch the `SendTransactionError` and call `getLogs()` on it for full details.",
+    "completed_at": "2026-10-03T19:26:45.915Z",
+    "signatures": [
+      "3qzkKtLsxQ2PtHy1Kgh67x7Xb1SBn6YgmBU8TmoxB8rFpSaor3zGVc25MJus57BVgiHK6zzD1BqijHPbd287QpbW",
+      "4emN8NAxvo2jC73DcasXGRQvt8pLbKCZCcQFrfb79BRkjgHfjDNJj91j7MvveJXGo1RiQoJawkuMgvUHNyPaD9fa",
+      "4kWZgqE6WJXGEMtUGKwXEDnSuRhngfqASTcxGpfBhXXjcvUXnBAroDLQXCoBVUTrvpmBVb6Y4ej1h2x4s2sjjTy5",
+      "iDwXKC45nxBJioYdU7983EyV18b4Gq3D9VFw2Fhg36zxchWXDcqG2mousp2r9pGeLYDx5YK9pQXKJxqsB7LPmqR",
+      "2SYB39uRD9PaZJfVQSEqnJw636gBc6B5dk5M5BCnYjEFTaBvBRXsx9npxCRnxQen1qKGXYJ4TEfWeWxypA974K9X",
+      "BJHtrBMchtR3KoBT1QS4wZjNgCJffCFw5ytqHsQfnz7sBWPqkPbvJDeLJ4XwNt82vXMEGfUroJdX4dwFFhn7pF7",
+      "wxe1Xk6cT3Xe8cgZasZyn84DPyrDmKbkjLkbx7Sy3NPYV73ayHHVXcC6E8tEYfsxTrioRgxyMpe6vQuzDyBhGeh",
+      "eCETBvzpF4hTnRjemnA4XDc3ApvepF75PTzaMUETtuyVfBZzTKk2sebHANXD8WrMdj8W9bkfBcQ73aa1ygVc3UG",
+      "2gZoUWTrqCRXVPCrkb8UUtreW7yiotz8Mx9cbu6B7Ek8Pddrr9vA11WecD5RuftgmtYEcgjAEJiQ3P2K8Vivabja",
+      "4xauvbkyz7rJKZmDaihhr2TNTBEC6Ps4PWQp8doYj2cGFDeNdLHhHpBUsKqNBoanSqKPEV2RqUfJ44QSb9EHo93h",
+      "41rQf7jZtfMEfn2ZE7eqTk9XvAaMrC1EVZXCk8pBWGFMV2pWfTYFodJDbexexoWAUEh1TJFHbvZkSGmDh1WPp39Q",
+      "QZ8Dia7YWNmLnJjD1LEmwQvdUNGdz2HtKNhWN2ejfK8QA9A2BQg7EwMGWjL9ryRVJZn459ufBup5wG7Sq9qBgVZ",
+      "27DrDxmEeQBxbQeAkYNiFSXGXBGZk5m6Hn5rnRRGztSCgVMfrHztUb4WVRCzQyR1DrAPkuKaVFJEa6rspjx7xVWf",
+      "3HJcdywjGMvAsMYCDLzD3fAnaCU1KxHP7hRLQEipk4msckwZabz7kgYE1QB6NpGm3nPN5ATX3uCAYV9r474XXM4Q",
+      "5c4ubERHGqfLsJT9Gz4gR2bJsKYqfwz44DksoYY7wTMRtacECTuuVQyMWi7nYwd5iDT7FuL1rsW5wwr7UspTy2Pd",
+      "5sC2YUXijpfKoxtriyj7UXvT54meNRBuh75x9Bm9zfQdq5fpWy9qYF8LVxyzibcJ3BtkHWi2SSq8ugbfAd4PMDoJ",
+      "4g5GzrDaLLPrjJwrvB6xeAeVd5ox48QHJuDHYnVfBg4qfrHBqsDmvTH2kQq72FZz2xUcyMH22p8VUrEWJF3BdrS2",
+      "4x3fftfmr7TVkTb1P6QrB6b3XrPoL4RdQP7GXjE92F7tZ3r1bWgxbqTB4bS3YCjtWWVLPjmihymn4V87fHoaMfD1",
+      "2CThDj57v8aCiWcZdUMxW1ipEkXWgdHh59noeG98nkyC9V6qxdJz38oxypybAVaAbUyKAEXkow5bwRTg1vkuznZr",
+      "63JoWXvHpfHinbNmD5rMq1hUrUAYZBeHTjRN59PXPGPWdVkvi8o8JZBZ8d2prVPFCSMcXzbZVhJvLiCtf764DRzC",
+      "33dXStpxunTzV8r4UuD4zkzk2FakEg87CLnmT5V5sAak7FiPLPHQap6RNFPHF2b6gTXtsa7fyKLP8XftjrZmVPjA",
+      "5LvHYYbJ5m12JzjnAyKPptfuApcbcbxE3CJ4AJKYGaxZS97BaftoLC1kZw8bUPhXcuuKyN7C6BGuViqWrXQ6EXEk",
+      "28tg5AtNx4P2VkjXyB4MGmBvDqnbmvoKgjo39W5mk6JaamaEdwvk1ohaRvNg1kKWvzLYZb42UE2xHpKaYFSWTMk2",
+      "33Qqk8ZfykeGZzvTV1n8B5p8jd9tZi2DNDjQJ9bzEvDK2JTvw5q2wHCW3ZnSeaJMrA46t5NaN73GiPPogFyGV3ia",
+      "3FdthFK2J7piK5Unn2kCmEvWaKtGuVsVWL2jr7gNDizvjSMgaeCp3c5Fs6CFbaq5CSHPFccQf3eBPcr9bLFei8pr",
+      "3k54beAKu4GsEg5kNBDiam3YQatfmo2k9cPvcXWZNuisANAcm6xrBGGwGB66hBQfFHf2KuVhYB5euBaxJa6Bnik",
+      "MfaEU1mdqDPqbsDyAyeb3zKP6RjBrHoymLQ4RUCLyfwnc2jLJbQuSNqhmT4mMbBvGJFAXsdV9JLZdL8phTpqQWC",
+      "xY1XYwmy53UV3TuVRfvqPjHC34J74diTi7Z1WLZY9HFAszEMg8qyqeCjw8AD4vspeY32VTSTQD4nDztfGeuymXh",
+      "3uG3hRtaR7Djas2BREUNwovyXMivyjDtCDWgRDEe9WdWG5TsXYfZJs39rKhaTSjEnSupFtTtsQ33x2fz8SKrpKcf",
+      "2kzjuSmnvQPc88q2dnNeSknteh5qjqCzoGgoRNA5vk4cFDTFj7smBpuDFpqH9RtcKFBrAydnLdT6PnM7zH9dLqaK",
+      "5gQu25bS337Ub3XDK5dXA1ZdPSkrBwqKsbNfLrCYzvL22Hefms5RdLKZK5R3se49CgLm3Hs4xJRfJRZXTMBcZqbj",
+      "2AXWtLpwvnfDiq3qNxbZNQDtYAQBbmjXwF1jbe3fVTQTvwJexXfEk9BXi1pDgBbexYJJBX5KfPd2eytg5frufQLr",
+      "5oKBn5yfVqhmtD8jgmwHhEg7xbr8EyPN3Q5rvfznkJM2gzHKcNxBigSmaTqBiTkwzqjNwVx1pDjvYwtUDfxHJsVY",
+      "bvTsoj25xNo6dtTcZ6oedYvXuksa4Bu5JmufJuGvnFMqfdJRNEv5JmGn7pcR1AVbJf2hAHfbsYTEjRGVnZLG39k",
+      "4KGAeiGXkZ5nc2NHAvhWtu64z76s6FwaPDayKjyLhzFTgm2TPyKWJBHf2aeAeSUd7789MzEzi5xM6MSQXBS3vrGr",
+      "2MYQrdjfp6pWhReNJ2s4yPekfKZ3BmoyQ1u21PjjHEMnC41xwbxPkr8yCBV8DYp6uhkXWBHJ2nLN3zDuhh4uorDU",
+      "5DivYar1YoNaoui2arC7QQdP5GCbTCc19HCyZUn8aRj14U1QD61mepSvKLpQrkFwkLkmkzVRpTAGViUx2qmKGzoZ",
+      "2zZc4a9xcUVgPMfTHRSmaCEvT87xMA6DeVfvwhC2j25CAquMzN4qV4mceztv3HLRZE78WEpR1r8vDM3u2qGW1kdb",
+      "3n9keZdqYfKh3EnzwWMNw8YcpssT8F1g6p8esRcuK1niY8G1j7yF7NvAYjQKEPUuyg1YtKTbbWdf4fzMBVnSXHsE",
+      "4imnmTC6iVBJyoUAeL1HGJj43sqm55oKvvE38D3QG38PX8Ri9hBduBuPToaH3jqGSyGWm1mg1G68nfXHZYArVfbr",
+      "4FfdSacZmo8zaggiAM1r6xKk8a3UJCe4JZPwm3ypf7bgbcGhLco8HY8zkqQrmGTJXkq8tZhLaTxWhtMjbTHQbprJ",
+      "3gH6aPabSLKF5Wjc2NodG4zAPXRPcJVT6ipNC5aezD35EAKsz523mmbbpHFsyy9AV5qED79rn3xDyNzHQmfyN3js",
+      "imLeyUVS4uewTYf9gfBSmDE8k1wFiwEHuEi9kxt5g8MAtTCqpV1YCMVApVaDXh8R47xEZMVuKA3tFeXy1dtoHgQ",
+      "3vaL6sxdzLtmtbV4yU37Qc6CXkGxMa89TTnStvAPDrGfbMQqRzw7Z7xp1trNsYb17UuN72HardVskT4SzjWeaZz4",
+      "4qhizda8MMbvMvdfMJC7iBmzDjfHY33mhNRHzbb36dfYhHb7C42VownUTiGaZ4xHAD6HFwWxM1brvAxrT7K6hC1s",
+      "3gkUMq4FpLPaHFX1b9CFcPR6quFdCGYwd3p7qW82q5NSp185m8HziyKarfF9o4jJQVfQsWiZpf4PZVoNEEXUaniP",
+      "2gENk4TDcUX9K1ZeYahLEBHyTttijVhzQUXpH2q6q4NoJLwYCsP4bsPuNJcoGcQ4j7yP112jhh1bVzzfTQppuCrr",
+      "29t9949Woszv7bRNTBYuemeAkceopa2341p8BDbgW5vsyB2ZGa8a5T8mN3KUATUKc9WvPnyKjMDZYsYSX5Gnm5La",
+      "4RCvJWChpyeZLq8jhBM4tUAhs5jHPZspAqz9L341XJGJbTzWA6hiHcmgEEgZPKpZehYScz649vySNwrTvskUhqBq",
+      "2A4AhXzQTAu9oXP7ePJEfs9hHDsN5Ja4sLXkTTJHE5fNqGvuBtKpxpmvzgk19v8RTpjkLko8X4r7RVLWanuqrCMC",
+      "5GowNF8aDGDrWXSjicGN54sXnGYagHZpDfqEs1PamCwon92HwQyqhSHcWdUJ8CFcvDjf6Hkdkyod4HJHnc6D3Wiw",
+      "tRcKo5w6AYMPx1QqGhNTAKABtE6pWiJysErSHLVWNWMytsAHMybfZhQb1Be5hyLWCxBfEGXJUy43P7uPKQASvhg",
+      "2JfHYet8cctt1az5ickrVsFVfDvDUxreNx8LvUcvXR4szg6uqnxeQiZr9cP3DnVGC9zqSpEjagBof46znmoStq7h",
+      "2vCcWuSP8PKZLxzxypYYJJhRcb5fyUDCJzKqB3covy9xMLGwxMW6wh6bZ9bGcNaZ7xkYB3JDfryLY49uT72F7hLp",
+      "5xCXVC5ZFFJ4mmAhzGsh7B8XJekR41j99a43gA3x5RA2vaKRoF9WJa9HMULVrcYDQbbH2K1KfTn8AhzB41EDz9jV",
+      "5gcG6BNVpKKjLDt5zP73utafHQpFuQmSiCUGHru2c2NKfvhBjczp3AbKUUDHRcxwzoaeJqUUqc1mxyhxHDemNSBN",
+      "4QBtdUQZxxGMWqtfmEaLUu6RYBLrdbKW9iW7nqPbnd95CJQBqpa6Gotuzx8hZ3BFpxpNHGhekEhknQUvjzdzKCQe",
+      "2zKfLt4QQF1yevfdNr7iqHm3a8CNtpBXFMBsLZrFxCNrzsBh3PCeRFGgsnR7nJNfieRKExs8V2cLdu9qzorHCbXR",
+      "5pHDy7vZfPqEC5H7hvB9qdhBqp4mTy6USp9U9SowPVMxHwWo6tmoEBYXjNqeSwSsWxZodZau85H3g5ysiTZjk2aK",
+      "4ZNdvv8KBSmXwpuiPLTBCamy6Ltu2ERS2YznWGLBGXnNPMPfcqWgB66nVNyemAdjYP7hL6aj3tf6XfTzdJbuEhjc",
+      "VeDrhkKkxv2zNgZSEQb1czrXbbohDbmkS6jZj98UdD5W7TiD4yZdPeJbCguARBinAqfWv5uCbJ56Zmzt5Agaezp",
+      "2EfXCc92KVEubdtfaX9HHjQzt45cVM8HQSQdj76qh11RBgu74sEbRPStgx1gp46Wsd3pYvnXDfyHYdFdkfQEN92v",
+      "44k3ihsWvgCYZPoKDCHa9rqx5Mb8KTxG4rovcB8gFLeUVbzHKnhFoKxbGUe4mWWsZfRVeYrWpxUv1P4MHHbmW5gM",
+      "Y6A95GKNvVRJBPtoK9ELkLqyTrpyzkEpvn4awAmgpwwS7YQiKkFqe65H4EXPtixyndbc3nNc2JDRJr2mTPNj8qH",
+      "3vK82X8mbrT9Kgtyuk8AtqWLw93ZrmBFSHzNLWdgkZCJkizmEqKJjQP9TWtZhtD9KLCmLb8ntnHJdkycHqG2EXs8",
+      "7es7TomgKm1pLDdKcf914HTH5UBmoBiVzZHkeGtuUp5z2VL657aR8vo5yMdRqSJy5FxuzbVdH6LB1nMktaP8gdK",
+      "24GWCiagZNJGYjbGFSsie8j4ykJUMYKihYjmBf1YPRyTV31cRnBDZ3bVPRanc951roVYb5T4Cf99rBZjeRnN9Xxh",
+      "2Qdx7odGeexeVZfURpVJAjeWrrXcJuRXjNJdKNFVUxk4xphFjyyafht1Cy65e6muUhJTHQgH8oXcLM6mhLvSCQf6",
+      "3xEsk7sFpMCfsEJJsPJs6cGB9BRqHh64cjSQHUfU6NSzRsgf25bvMmb22B8hpNuW2mmZWReaiUXCsBa9omkPKYtK",
+      "zZ58FC2CQ3e1afS3WCK9qRPfnTAHHffSp83gmPjrrCYAbhwXXEbvAigxT7rJ8nvmw1uvSArcrFsNoerixS5jMjA",
+      "Pz7iev3LTCBoisWaQRo9EKhEm57G8JBB5wW9hnoKYXEeAEkGdbLqKVBhJZtTSSmsLPTP7KtbL8erQYEqr8V6n3N",
+      "2SSuUFon9di9QoSN6R6FBU3qcSbzNZU9D4fXhKRNnctdHc7KiPM1od1dUnnexT7ELxsZswDJ2QSzeX1p8V1XZR2J",
+      "5hhtUEDQNfGG2G9LsgUGU8vf3XgWG11eYg3y8mWHJhhmUidgUPmZBvdipzhc73TxH4xfTBESvmp3BWJMU5tpykJB",
+      "2ms9g92e6r1Ep4LDyFTqAX5sK7VuMmdPsSVKUa2W13C7gcdbvdXaf8LnfWVvGZsemBq1XcEvAJ7iBsSVwC8DgJax",
+      "2b4UyEzN5MKGGoC9gMQTzffewTRwVf9p5Eq7Bm8DZXhtQpt87NQgQPwgcQc52dnLFJ2FzSsmgfJCXdxPyvF4BLt9",
+      "4CWT73hStibgwXt1o3qYn8znS4pNAgmKE89zuXeZ92h3jHoNbnApEgCtxidb9dpvbZV9SjUKXY19HzYWZJptQXG2",
+      "5Lx4QjEJm5ScJp7Futr8RhxKQod4Nqxr6v2W3u7CdaGYyMurJ3exvMpKAYzJ7kEs6Y4e9JT6CNH4vDX4MhFm1Wir",
+      "zfHxsJGdkksann3bLgDH1oMeMdyBQYcYGwi6EnD5z59dJV5XqExhqNuJDRvhcsdsBzokPYw79G8oYPBPwbS5p3D",
+      "44hUomh7UzuPZz1YTPZJ1rfEN8HSAgJDMJ9fcEoqUKCkNugfEVZGWciAHQBDrtmxPewJsNbNtzmfhsmAERQ6PtAk",
+      "ACG9d4xVADUQCrVZ64XV17cwvebvpfrn8Rv3DuwmMr6Q9gkuWNDuuNy9if63ACnQzjrQBuVpmgBv4b9GsdPwJs3",
+      "3TZiK5kzgZDS4gpFhL6q6siStYF7i4CMGLewCht6tqYFueezQyeZySpC9oCGiGP1sj99ztrBsNwAgb9cvWuQ3h2u",
+      "2EiaVmLf2FbdY5LhZ8qwN5JmBKHMJVQYm3WAVKP5rd4autMn5cWR29qzDXVuFrbphZe967tq7eCw8GNMdqxaTHAz",
+      "Y1VQHMyR6dqp7Sm5bMTjAYfj7pMD7JotavooVFA3vtrNfBUe767GnBsVPSKuoVnDyizC1WkKzTfAvthhZsz5EbA",
+      "2kknKrkEZJt9xFkK3PJPcQWsxX9RoY98gkiwvQ9N1VkVGbQbzmyqaFshrB46WJduhPEFvbHmmqgy7HxH9i59AQKK",
+      "25kDeJgKvSprx4zCKdTSZXhkoDRJuhjCXKX44FgauDinCNQBXK1Nh3xYQFqVVQs1eTn6iBcz6ZyU8ayCukmMNUVP",
+      "4gtNWffMSX6rNbfP9nhaMBhhui4qSwevfjWPjE3R5PXczmjUajTbjV3GhArpyHVMHGZdPYrZji9mMKsSZNtT3RMH",
+      "2ntPfyR1e9snUV8fH2V88dTQQPHtEgR7NfsxDUG6ywBZM4tsMwJR5aJ3iSuM5AS5xnCgWFmmc6dB2bTLgpAGABGA",
+      "2PeE492WTNDmrby3u5nyLXreBxkbCDjK34ijri1siB7eu5HoYGWMDSbQP7E9RGzSBQZCuwhNUge7qp8uhww7zXZ4",
+      "RopHfZTp6MKK6ykzD2kWCDKqNJHdDgMSMBWBQQhNouZuyXq5oM2pncvNj3xBMu1UFPp4tUKoWA6jASiFcyYaWPW",
+      "QM62ur1F6f32YaYw2o48RYs6mXhaM8Ftc7smFbEp6JHY9AAMuJm6vr7Gz6UsfBwgubC3rRsjZRC4QX79dFjy6rT",
+      "5YipAGDxyFnJY7JbR5xfWpx8VBV61Zck3F3Y7dY4tsCTRttiFKDZbEZNkiWUwwhg2Q5s6QgS8iFbR2LfLVnu4Rhy",
+      "4o8M5F99oBgJvdp8TeRcw7Hxhv8tXcUH7Hc2uXZDKi1szdUA3QoW2Papmffbch8Tg8ehcZtXKehyWbtz8WiYaqDR",
+      "FQ1cAaog7oQnCZKNeaSJZebDdCWUcn4BDM3qrYaYYPDEGjGK7MVYsjjAbD1MXpWj7V6uPVEiXeYnv9YLAFGkKs6",
+      "4DytotHxeEuivJtUrnNh34QMURcBPvMWTScTezZHDVbWzXzGGQvEdPoiX5GcK7rKT3byBYP62ZVLkvGZZ3zNQQto",
+      "5tB45cZuL543ByeSgBakYQg6a1XsfuUEjsorNjYthgxsw3DbeRQfcZYXgJXSaqCJmY9cvPetKGw7Ed1CKKbGnpCx",
+      "3JqjZVpZ65KZ7EhkGunXpi2sLSAQTWzEpwALUsN1wqSfTXips1M2J76ar7BVF68ebe8mveTDBLbQ8MrQVnRnw326",
+      "3C1FEk7dA51nwtM1wPp8kpuUyp5e3mwcCoqYbQinmdmCYGspHrJPSeDoRRK4wLNgVAgWpHDWGkyEU8oZNiBjwJew",
+      "4FR7BxaD54ndfmCvTtPJobD7iwdY8eP1Xi3HZuvs9shhcZinPHH4daTzJunJu3XRqzQsNFQPBf1HWwRPHhWrAnEf",
+      "3i9Ex8LocR6CFo4XpmEWdoFvhTGd7Sfvoc34cAWAW8rcabXWuBJUmPigbo95L5a9uu6rZdzzduaWUjhVtAbDCTbp",
+      "2LBqkudP4m8cvn11ZrY9p7nNaB9jRUWydo62MVV4H5eEpRLibDpZJvE5uKekQKM8aX8kY1YqyQZ3MFQ7H4Ums3Vv",
+      "5CAeg5b4YzSsQxfJk2HsWPg4Za6H9ubTWLJeE1f2G6ZuajP2ULoVXMNQKUDMcRcpry5NAM1oWXPXjmWFopqSg4UJ",
+      "FuQbCAbHyMoQYLHuX7KfF3uGQFnLfPsvh4PmC3tayF3iwkSbqTCmqBjMXJez19HtKsfMwuZqXec2C2Qdn6Ly1tm",
+      "5S7DaYzDkFWHdSSerws4P4kfbpphp6H38iWKofMN6xaPcgHRyWCUkoFRePcnDMaRaLnJ7qv1MLk2zH8SYo7nGsEX",
+      "5iEAQB1BBqx24fg8KnpNrrddumXRnE8B9BYcVffCVsq9y3WahFZEGEFEiCahQPA5ZGe14i8EEniKBHz6KBrrDR89",
+      "5wG3FtKXMye38Y4QQXcDx7opeVmk1n9HeVJRan2CztkBFSEaXmh9MsYsG1YC2TS2FDPE6oUeiovpGa5QJWZZ569j",
+      "3x1Cug6Y7TG99677TaSSTeC9JvpHYB4pErv8KHScsaRPhntDmq8zzYx46wUxmeaVbZkTD2CvGXXHkTdvGAKguxHR",
+      "3TZtjRwQFS9ehQeDG45dUiWdSbxKJAYwrEB5ufBqc1gxzzApVfkEwiz4yPboM8eqHxbgftbhkejfWf6g25zhRFCu",
+      "3pcrcRxNhawysaNF8ASvqJBQCmD6wJerFwVJVkU7XZyLByfusxyJmKj3Pfmv72jA2rsoWgzEy9BK7mRUMknCxbzm",
+      "5APcXVvkfeSyavnXMQyrLWy9yxcfT6oA1aGAmWVnHUtcrbjPiEgXoAAFfVY47u4ecEVUHnTPxXkm9qhXehhpiAXY",
+      "562DRYPjy42D2qyVorRymu8PC3VoVANm3xGv8Nm6nv5cdnxQCGKtarRmF3oJqupfewnt58XEFF2XEjqJNieQW2Jp",
+      "4PFSqUsepsM8dku7pVnC6SGqEHGwBAonWDJ2GZJnwQDSFGRjrvL2GfEdNu2HMzQMPGdQGt6rKYSPjf4VQcyK3zL2",
+      "5YftswqXmD7wiyN3yUAFbxiWyUE1joNbo91ZwR23C4PZMqG8xcRwQdxDU8ao8cFv3gXpAAdSNcugtuSjk2Bz3YbY",
+      "4C5x39YCxdj3XaxNXaMrbmAAb6waeyiAHNU8zUawnRw2mmJvd9Wda4nSv5FS5dxP1oEirRB67xWZHpTvERsFB4Be",
+      "4Vcyaj4cRkaFfZjMeXoJWhmWJb4B4PaNGZKZxo3T8fdniiPbXRkWwUZFos2mRuazEd1MCJwNekP5C6w1DTKdEiFK",
+      "4GLPnA7QvKHu5CbJLxtVBFtBiMvhjWqbPAX3eRSu61UbduNG1fN8vCv7vkNCRp5TtTAq6KTNy5rLu22bMhcp8X9L",
+      "2HbBwaQgo6sgdsf6BvcJQw15agssyqbLnVWs9jdcTi9LMousNUPG8dRU1F6v21MbvoJEwdBNmZeSpevvq7HEQjPx",
+      "2vqDQdb8n2zaznMUFfrRcMxRcypd5YEKdoDRQQqTkbEVoq9yvioMPBxJDovvRmgQxaihfuQW6wKQqcKiLZuiYm2o",
+      "mtiVgbiE7Xx1D4VGd7XeFrAWBosENU6c67CyEcqG4z8FP15z5fbZKrDm8NpYFFTsge1vre2iDydDDvAQHjbV5dK",
+      "49xyRFYJELZPb66ZV5gwZFyGH4RUWNuv9CPvcZuevM54aDh4H6AT8mjh3NTdNceiKzXWfUh9bMbyqaytN149dSqY",
+      "5kbmn8rGsiEz4rMEM8iJeAUQLWo1Cm6a4UHFJtyVgXNPoimms2xivCQszNmHKvFUzRjQT4SMZEJ6Dd3mXcFJ2hy3",
+      "5vtJHmtdj5RXZDGHu19wwcFu33C4GBuJeCWM8vFJX7hJH4daE6CqHBuHrCrNVDnwdoHgjtdHYy36GsceWmvhebiL",
+      "7WyZ6rr1PQHACyMmWVdvRc4rRkvf331Mrc9PN71qNTVSf9nyPaLDzjsv1mhDMRjrUyZtmiXopzkhLgbziH6XDxY",
+      "5vxhMUpkLVzKEf4sjmaW39ixAQxekwmx7qbFj9p4BjRXny9mg1acjajSHsfb82BLMsoV7HgbAHSbE63FQAseGXr9",
+      "59sHsBFTkEPNSGqq1SLJhN4zSSHdR2yPj2uJF7Lrw5YZHhttUWozzWVGp55r8AVy6h6SekqTqUCaAxej8Aa5Mfue",
+      "3PX7hzb3yF2ZC2gyD4J2BLXLb8F6dw7cmSJ736P3oNnUes1fXmSt32jjrdmQngdGqGpn8FxEntrwRxb3eL6YVA1J",
+      "3L8VjYewzn2p4ZdbtzzQJYpq4FBV5LmVQ3JCGbLjwXR2GanQBtry2M94xiHJTXMfCJNHwPgnuaS5nJX1aKJoiDsM",
+      "4xapJD5ZT9T6L7AKdThLTuek88eJz94T5v8hiXHjSeuQ8d2BGBT5L3D7Y8uWKbwE9M5MZbUzhXLgkTZDTbQmDsoT",
+      "5g5FEL79zSQZ3EYHU7pYgyzwHf3GrfyzG8DaUfAVV9gMq23pWgtNBwR2WckmhYjbHPzJzQpgLMDX3yAo6U4jPhPu",
+      "5gxNcPnKFErMDGwmeFMbWH99749Z2XHgi7dy3xjZwuz37GrS2HRjNjdRyEYeUF21a4vanA5sVc7cAA2acsrj7bPH",
+      "2WAjFW7VDB95ePxAjRKFZFsJVdVVjVHYLXX6A2SRDCbfCtnTdu6BcYw9ui2XUHSetv4R9hpZp9Fp7fCoY6AUCJ9G",
+      "59hVUDXvvA7eRzZrmgbeXhyEdWSQ9WCdfUcNnWLYCkPGPXdnSee8JPF88FQJH5k2hfMqTKoHEBriD5AyBu5jVdBu",
+      "4RMHFVVTq3aJpRKJjzYfUNyk2tmajmrG8Zhj8zfajJqnUojGu4rkRbHfT8Dz3SgBg184gQKH9dnXpRTN3gzpKCQn",
+      "LVjQFQC8riWmicRjrzho9QzwzEcoTo9hudjuGa4BB1BbegV1zm8BieKPuKkACCQb9NqjAr2bYqNWhUrTbQNF2Vm",
+      "5tsaZBCym7k4ysMqBeY3XEcmw8GAjUdJX3266hgwpKQq7wgk4DGDhRmQmhkW3yhTg4nN7dRxG6dHbKBa5btfsZuh",
+      "CC9LmZAJ3NjmFRwmYdXZZb3YqW77Wg77XP6MfYVQVtBjduVQHLUZZtAdTBhtFDQeXmrDBiTRBEkWrc2tt4uWaeT",
+      "GbZMdJBexCi7GaczjBQmBLg6JEc8ahkN6ervfnSRo2wHbfoBE1mdnQXnPKEJC23igMMiQDSYmUGW6of4Sw25MvC",
+      "3c95cMgVWM2ZyfKJi7BVV65cymwTFzfNtxRtnkK5BGPvdmC1f7kSAY5E9Qaozajooc14a8gFGxYrSNsQFtxzWXt8",
+      "323eebV914kQLXCJUjeEzveuEAchMBmEyAYQMnYsTSSnLioRH6Vj9ojncsK9W7gASAJa1Xv8xzh8UFoPFN36oR3m",
+      "4fHCakMjkDyKPQdrK5opz31UF9kDDEY28rVMxREbkjByV6W6Q49hzHgZ85166fpia7Td5FKzCARFZNgy4NJrkdNG",
+      "51gap7cV471dgxZTBVwTKGTX1UDYmBo87AcJugpMeq76qVgJqRMFZbARyjVYyjwGNrK4MGtBSujhdezXA9isJH4s",
+      "aBrwDs7YLAwY5aTjfUdzstCuBNNrr5juHNwdpgAW3SiwYuTS8RRRUTY6bJgVoqXQ8xfdHjL7noPBd5Hg1iRoqLb",
+      "3mjF7Sc21kQDnXV9fKNz2iTM4DFos6DQ9PosqsupNqXgDRXaKitGN3XFeGxvSxHXociaDcQfkhcwjjgKPcRnGWqn",
+      "5vNSp4NezpPZCBDYvAdGYDzZmoicu8cWXtGzPGabcpvF2t7hwj7gVvQ6TapHU9tpi4BqJutXn4uEcUB1LjfNXy2k",
+      "2Y95NHhgxagLCNgE1yKG6fQP1rw1ypHRo8CP1jVSFTNDQWnCw8W4YhhKZtcU8KionU9rzZiMdp9B794B73KPg7un",
+      "2FtyEbFhbempJg4QAkrkiX9S4KXHt7UFxvPgYtPyjYuxr46UPzwWT8HKE9pWrqyFnMZfD2fqMhpyg2EQCDC1LXV",
+      "wguTUNwyDjkEcWKibVpxpptLAU3PDSTFE8AGCVBkoQgGdsUKKiLjL1c6K5wY6LGeEZNRYMMfpHmRiL4RdSLinLp",
+      "64KdY5WzgRqtUAjxMSGTBwQtrGnQp16w7Ai3dGQpXig2fDH9djRbcSkcB7idg3G5frmrMUXX8AE1ZvnMkBNgNt1A",
+      "3sKFr4chRMphc5vGaTPUqxXeE9g3LSJcGxkb6XarwZwdrgHCYq3GHJwwa3PpmTKvMj2vCYjyPMY9dSCFcvKDySqY",
+      "61eRei3kdJ74KaK8KxYyNhQkrt1L3w8Qw2vzqeR8FyfLMkwHAjftYgysxC5ftgwwD7fkNQ6RQY8tL4PMRG7iCMie",
+      "5cWBT6xvxgHDTuXMz4DS48w4Amqs1tXoke3ozpsgS5VGnnuZT4Fe7jx4FPiRjn5wLuT4nanEhCBFgYUHhNTU3Z14",
+      "2PkkPf4zUYcJSb1PMbkFhrPygpWCSFis7uBjSWJonBQCrRTAfpDk1mN8vcrhguf2ECAKzJQmm6hMr85Z1GeQyeMv",
+      "2aSd8Y7UpqEicTAFeXB54REGCNhcUNWsUWuPN6qf3s8Go28MLZf5z2MgLmYhDDSBVrswTrTZVPXUXnYsaYVBbMei",
+      "5unRocuX98dKkuAcn8dGSy5jCnBcANNy6XtBUbaLEkTdHunoo2queEfhbzaUWrz6uP8375PwPxNT2JPp6yV5opXh",
+      "45HqBsDjBYzE6riKpFotrrtLExkQuHRxgzo21uSPsZVSQbemGBMWvgujWPkEM39ozARkqbQzLBasFR8JnZtBKfkX",
+      "4iG4TfJfE7tHrx5ccZH6rZo1uyUWm454VwLvkSkiCyLLuCW7rnWhoTGrmuYhbJNmKuTr26Ma3MciWJLWqdHv4PAW",
+      "24knDQjjFj72aUK63iqxZAk1fLpDT2X3h2HTauuu6kqew3nxxwgqN9JfJ8kFGnXrDiTiAcggPzYYN9ih8GSScgWP"
+    ],
+    "limitations": [
+      "invented test data",
+      "one centralized fixture backend",
+      "no real lending protocol integration"
+    ]
+  },
+  "test_log": [
+    "▶ production SBF program: TypeScript multi-provider integration",
+    "  ✔ bootstrap authorization and quorum bounds (20319.669441ms)",
+    "[baseline] providers=0,1,2; window=2112917; closes=507100320",
+    "  ✔ three HTTP providers publish baseline prices (65170.115051ms)",
+    "[baseline] providers=0,1; window=2112918; closes=507100560",
+    "  ✔ missing quorum preserves prior prices (54318.204945ms)",
+    "[outlier] providers=0,1,2; window=2112919; closes=507100800",
+    "  ✔ 10x dishonest outlier is rejected by median (55153.832174ms)",
+    "[updated] providers=0,1,2; window=2112921; closes=507101280",
+    "  ✔ 10 percent price update advances feeds and consumer (113111.877432ms)",
+    "[unavailable] providers=0,1,2; window=2112922; closes=507101520",
+    "  ✔ HTTP 503 prevents provider submission and quorum (56197.305119ms)",
+    "  ✔ price consumer works without any signing key files (1125.237223ms)",
+    "[baseline] providers=0,1,2; window=2112923; closes=507101760",
+    "[baseline] providers=0,1,2; window=2112924; closes=507102000",
+    "  ✔ older samples cannot overwrite newer windows (114570.083379ms)",
+    "  ✔ allocation rounding preserves zeros and rejects older rounds (62319.654147ms)",
+    "  ✖ mock protocol accounts produce the allocation golden vector (96084.549002ms)",
+    "✖ production SBF program: TypeScript multi-provider integration (638607.889824ms)",
+    "ℹ tests 11",
+    "ℹ suites 0",
+    "ℹ pass 9",
+    "ℹ fail 2",
+    "ℹ cancelled 0",
+    "ℹ skipped 0",
+    "ℹ todo 0",
+    "ℹ duration_ms 638941.545122",
+    "",
+    "✖ failing tests:",
+    "",
+    "test at testing/devnet/dist/tests/integration.test.js:10:17",
+    "✖ mock protocol accounts produce the allocation golden vector (96084.549002ms)",
+    "  Error: Simulation failed. ",
+    "  Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1779. ",
+    "  Logs: ",
+    "  [",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz invoke [1]\",",
+    "    \"Program log: Instruction: ProposeSample\",",
+    "    \"Program 11111111111111111111111111111111 invoke [2]\",",
+    "    \"Program 11111111111111111111111111111111 success\",",
+    "    \"Program log: AnchorError thrown in programs/reflect-allocation/src/instructions/sample.rs:55. Error Code: WindowClosed. Error Number: 6009. Error Message: Submission window has closed.\",",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz consumed 13127 of 200000 compute units\",",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz failed: custom program error: 0x1779\"",
+    "  ]. ",
+    "  Catch the `SendTransactionError` and call `getLogs()` on it for full details.",
+    "      at Connection.sendEncodedTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8405:13)",
+    "      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+    "      at async Connection.sendRawTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8370:20)",
+    "      at async Connection.sendTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8361:12)",
+    "      at async sendAndConfirmTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:2444:21)",
+    "      at async SigningClient.send (file:///home/user/reflect/testing/devnet/dist/src/client.js:37:27)",
+    "      at async vote (file:///home/user/reflect/testing/devnet/dist/src/allocation.js:38:5)",
+    "      at async allocationGolden (file:///home/user/reflect/testing/devnet/dist/src/allocation.js:71:13)",
+    "      at async TestContext.<anonymous> (file:///home/user/reflect/testing/devnet/dist/tests/integration.test.js:12:26)",
+    "      at async Test.run (node:internal/test_runner/test:1313:7) {",
+    "    signature: '',",
+    "    transactionMessage: 'Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1779',",
+    "    transactionLogs: [ 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz invoke [1]', 'Program log: Instruction: ProposeSample', 'Program 11111111111111111111111111111111 invoke [2]', 'Program 11111111111111111111111111111111 success', 'Program log: AnchorError thrown in programs/reflect-allocation/src/instructions/sample.rs:55. Error Code: WindowClosed. Error Number: 6009. Error Message: Submission window has closed.', 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz consumed 13127 of 200000 compute units', 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz failed: custom program error: 0x1779' ]",
+    "  }",
+    "",
+    "test at testing/devnet/dist/tests/integration.test.js:4:1",
+    "✖ production SBF program: TypeScript multi-provider integration (638607.889824ms)",
+    "  Error: Simulation failed. ",
+    "  Message: Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1779. ",
+    "  Logs: ",
+    "  [",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz invoke [1]\",",
+    "    \"Program log: Instruction: ProposeSample\",",
+    "    \"Program 11111111111111111111111111111111 invoke [2]\",",
+    "    \"Program 11111111111111111111111111111111 success\",",
+    "    \"Program log: AnchorError thrown in programs/reflect-allocation/src/instructions/sample.rs:55. Error Code: WindowClosed. Error Number: 6009. Error Message: Submission window has closed.\",",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz consumed 13127 of 200000 compute units\",",
+    "    \"Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz failed: custom program error: 0x1779\"",
+    "  ]. ",
+    "  Catch the `SendTransactionError` and call `getLogs()` on it for full details.",
+    "      at Connection.sendEncodedTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8405:13)",
+    "      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+    "      at async Connection.sendRawTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8370:20)",
+    "      at async Connection.sendTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:8361:12)",
+    "      at async sendAndConfirmTransaction (/home/user/reflect/testing/devnet/node_modules/@solana/web3.js/lib/index.cjs.js:2444:21)",
+    "      at async SigningClient.send (file:///home/user/reflect/testing/devnet/dist/src/client.js:37:27)",
+    "      at async vote (file:///home/user/reflect/testing/devnet/dist/src/allocation.js:38:5)",
+    "      at async allocationGolden (file:///home/user/reflect/testing/devnet/dist/src/allocation.js:71:13)",
+    "      at async TestContext.<anonymous> (file:///home/user/reflect/testing/devnet/dist/tests/integration.test.js:12:26)",
+    "      at async Test.run (node:internal/test_runner/test:1313:7) {",
+    "    signature: '',",
+    "    transactionMessage: 'Transaction simulation failed: Error processing Instruction 0: custom program error: 0x1779',",
+    "    transactionLogs: [ 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz invoke [1]', 'Program log: Instruction: ProposeSample', 'Program 11111111111111111111111111111111 invoke [2]', 'Program 11111111111111111111111111111111 success', 'Program log: AnchorError thrown in programs/reflect-allocation/src/instructions/sample.rs:55. Error Code: WindowClosed. Error Number: 6009. Error Message: Submission window has closed.', 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz consumed 13127 of 200000 compute units', 'Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz failed: custom program error: 0x1779' ]",
+    "  }"
+  ]
+}

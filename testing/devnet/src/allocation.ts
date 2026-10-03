@@ -46,7 +46,7 @@ async function round(c: SigningClient, a: Asset, value: bigint) {
 }
 export async function allocationGolden(c: SigningClient) {
   const mock = new Instructions(new PublicKey(c.config.mock_program_id));
-  const width = Math.max(c.config.network === 'devnet' ? 240 : 120, c.config.window_slots);
+  const width = Math.max(c.config.network === 'devnet' ? 600 : 120, c.config.window_slots);
   await c.fund(c.admin, c.operators, 500_000_000);
   const fixtures: { asset: Asset; id: number; value: bigint }[] = [];
   for (const [index, [pool, apy, crr]] of VENUES.entries()) {
@@ -58,12 +58,25 @@ export async function allocationGolden(c: SigningClient) {
     await ensureFeed(c, fixture.asset, config(width));
   }
   const { window, closes } = await c.nextWindow(width);
+  const observations = [];
   for (const fixture of fixtures) {
     const account = await c.connection.getAccountInfo(mock.mock(fixture.id), 'confirmed');
     assert(account && account.owner.equals(mock.program), 'mock account missing/wrong owner');
     const value = decodeMock(account.data);
     assert.equal(value, fixture.value);
-    for (let i = 0; i < 2; i++) await vote(c, fixture.asset, window, value, i);
+    observations.push({ ...fixture, observed: value });
+  }
+  for (let operatorIndex = 0; operatorIndex < 2; operatorIndex++) {
+    const operator = c.operators[operatorIndex]!;
+    for (let start = 0; start < observations.length; start += 5) {
+      const slot = await c.slot();
+      const instructions = [];
+      for (const fixture of observations.slice(start, start + 5)) {
+        const kind = await c.exists(c.ix.samplePda(fixture.asset.pool_id, fixture.asset.data_id, window)) ? 'corroborate_sample' : 'propose_sample';
+        instructions.push(c.ix.sample(kind, operator.publicKey, fixture.asset.pool_id, fixture.asset.data_id, window, fixture.observed, slot));
+      }
+      await c.sendMany(operator, instructions);
+    }
   }
   await c.waitSlot(closes + 2n);
   for (const fixture of fixtures) {
