@@ -1,0 +1,20 @@
+{
+  "name": "@reflect/devnet-tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/unit/*.test.js",
+    "test:integration": "npm run build && node --test --test-concurrency=1 dist/tests/integration.test.js",
+    "localnet": "npm run build && node dist/src/run.js --network localnet",
+    "devnet": "npm run build && node dist/src/run.js --network devnet",
+    "backend": "npm run build && node dist/src/backend-cli.js",
+    "consume": "npm run build && node dist/src/cli.js consume",
+    "watch": "npm run build && node dist/src/cli.js watch"
+  },
+  "dependencies": { "@solana/web3.js": "1.99.0" },
+  "overrides": { "jayson": "5.0.0" },
+  "devDependencies": { "@types/node": "24.10.0", "typescript": "5.9.3" }
+}
