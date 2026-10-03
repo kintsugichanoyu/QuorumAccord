@@ -20,7 +20,7 @@ export async function startRpcGateway(upstream: string, options: GatewayOptions 
   const retries = options.retries ?? 5;
   const fetchRpc = options.fetch ?? globalThis.fetch;
   const stop = new AbortController();
-  const stats = { requests: 0, upstream_attempts: 0, rate_limit_retries: 0, methods: {} as Record<string, number> };
+  const stats = { requests: 0, upstream_attempts: 0, rate_limit_retries: 0, methods: Object.create(null) as Record<string, number> };
   const lastMethod = new Map<string, number>();
   let lastRequest = 0;
   let pending = 0;

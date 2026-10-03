@@ -33,8 +33,9 @@ for the full tests, or 2 for prices only. It does not disable allocation scenari
 The suite can reuse initialized test feeds; it updates their window width when
 needed. Fresh registry-authority rejection is only exercised on a fresh registry.
 
-Devnet defaults to 240-slot price windows and paced shared HTTP RPC calls. Single
-fixture invariants use 120-slot windows. These are test-network timing choices,
+Devnet defaults to 240-slot price windows and paced shared HTTP RPC calls. The
+ten-feed golden fixture uses 600-slot windows and batched votes; single-feed
+invariants use 120-slot windows. These are test-network timing choices,
 not recommendations for production APY cadence. HTTP 429/503 retrying is bounded;
 persistent failures remain failures. TPU deployment avoids bulk RPC upload traffic.
 

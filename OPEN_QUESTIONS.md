@@ -54,36 +54,58 @@ actually run. A successful mock test does not establish production readiness.
     their instruction/account serialization against the program. The test-only
     TypeScript codecs now have serialization/decoding tests and actual runtime
     coverage; they are not a generated or supported production SDK.
-15. **Deployment/toolchains — partially verified.** SBF v3 builds and actual local
-    deployments run with Agave 4.3.0/platform-tools v1.57, host Rust 1.96 and
+15. **Deployment/toolchains — locally and on devnet verified.** SBF v3 builds and
+    actual local/devnet deployments run with Agave 4.3.0/platform-tools v1.57, host Rust 1.96 and
     Anchor 1.0.2. Keys and ledgers stay ignored; explicit buffer keys, base64 reads
-    and rent funding are tested. Public devnet execution is funding-blocked;
-    the TypeScript runner attempted funding but the wallet remains at 0 SOL.
+    and rent funding are tested. The user funded the test wallet; both programs
+    are deployed and all 16 public-devnet scenarios passed. TPU upload and a
+    shared paced RPC gateway resolved observed public endpoint throttling;
+    wider windows and batched fixture votes resolved premature window closure.
+    The final devnet run reused an initialized registry; fresh bootstrap authority
+    rejection was covered on the historical fresh local validator, not repeated
+    on this final public-devnet run. A new full rerun needs additional test SOL.
     Node 24.16.0/TypeScript 5.9.3, clean `npm ci`, strict compilation and the
     pinned dependency audit passed. Clean container builds and a reproducible
     installer/CI image remain open.
 16. **CI and expanded runtime tests.** TypeScript byte-view tests cover wrapped-ring
     reading, discriminator/head rejection, truncation and staleness boundaries;
     not 256 on-chain appends. The TypeScript local-validator suite now covers
-    16 scenarios with separate provider/consumer processes. Cover boundary slots,
+    16 scenarios on both a local validator and public devnet, with separate
+    provider/consumer processes. Cover boundary slots,
     missing accounts,
     restarts, RPC drift/outages, stale backend inputs under a live validator,
     normalization/cap invariants and repeatable multi-operator tests.
+17. **mdBook integration frontend — implemented, adapters remain open.** Searchable
+    documentation and a read-only devnet inspector pass nine TypeScript model
+    tests, five desktop/mobile browser checks and one actual public-devnet browser
+    read. The reader validates network, owners/layouts and price freshness; it has
+    no wallet/signing or backend price access. Named protocol pages describe
+    integration requirements, not implemented adapters. Production account
+    mappings, generated SDK integration, allocation freshness and deployment
+    configuration/versioning remain open. See [docs/book/README.md](docs/book/README.md).
 
 ## Explicitly deferred scope
 
-Jito NCN/restaking integration, rebalancing actual capital, monitoring services,
-dashboards, backtesting and temporal statistics are outside this test setup.
+Jito NCN/restaking integration, rebalancing actual capital, continuous monitoring,
+production dashboards, backtesting and temporal statistics are outside this test
+setup. The new read-only inspector is a test-deployment view, not a capital UI.
 
 ## Test result ledger
 
 - Baseline: 26 native tests passed; no live validator tests had been run.
-- Current TypeScript workflow: 30 unit/HTTP tests and all 16 actual
+- Historical TypeScript local workflow: 30 unit/HTTP tests and all 16 actual
   local-validator scenarios passed (17 Node tests including the parent), with
   219 distinct confirmed suite transactions. The verified ledger is
   `testing/devnet/.state/localnet/ledger-typescript-2026-10-03`.
+- Current TypeScript public-devnet workflow: **36 unit/HTTP/pacing tests and all
+  16 public-devnet scenarios passed**, with 170 distinct confirmed suite
+  transactions; 17 Node tests including the parent, no failures or skips.
+  Both program deployment signatures, literal output and public snapshots are
+  saved in [the full results](testing/devnet/RESULTS.md).
+- mdBook frontend: **9 model/navigation + 5 browser + 1 actual devnet browser
+  read passed**, entirely TypeScript testing; static book build verified.
 - [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md) separates current
-  TypeScript execution, historical checks and public devnet funding evidence.
+  TypeScript execution, historical checks and public devnet execution evidence.
   Python and Rust off-chain test harnesses were removed; on-chain programs and
   supplementary native production tests remain Rust.
   A mock pass is not a financial-methodology validation or security audit.

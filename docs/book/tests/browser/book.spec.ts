@@ -27,6 +27,12 @@ test('mdBook navigation, protocol integration disclosure and search render', asy
   await expect(page.getByText('Status: real protocol adapter not implemented.', { exact: false })).toBeVisible();
   await page.getByRole('link', { name: 'Driver contract', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Integrate a protocol', exact: true })).toBeVisible();
+  await page.goto('/blockers.html');
+  await page.getByRole('link', { name: 'testing/devnet/RESULTS.md', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Verification and troubleshooting', exact: true })).toBeVisible();
+  await page.goto('/blockers.html');
+  await page.getByRole('link', { name: 'docs/book/README.md', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'Run the TypeScript lab', exact: true })).toBeVisible();
 });
 test('inspector renders exact prices using only three read-only RPC calls', async ({ page }, testInfo) => {
   const methods = await mockRpc(page);

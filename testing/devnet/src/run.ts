@@ -22,12 +22,13 @@ const { values } = parseArgs({ options: {
   'prices-only': { type: 'boolean' }, 'allocation': { type: 'boolean' }, 'legacy-allocation': { type: 'boolean' },
   'window-slots': { type: 'string' }, 'backend-port': { type: 'string', default: '18787' },
   'local-ledger': { type: 'string' }, 'sbf-arch': { type: 'string', default: 'v3' },
-  'deploy-transport': { type: 'string', default: 'rpc' },
+  'deploy-transport': { type: 'string' },
 } });
 assert(values.network === 'devnet' || values.network === 'localnet', 'only devnet/localnet supported');
 assert(['v0', 'v1', 'v2', 'v3'].includes(values['sbf-arch']!));
-const transportFlag = deploymentTransport(values['deploy-transport']!);
 const network = values.network;
+const deployTransport = values['deploy-transport'] ?? (network === 'devnet' ? 'tpu' : 'rpc');
+const transportFlag = deploymentTransport(deployTransport);
 const withAllocation = !values['prices-only'];
 const networkState = join(STATE, network);
 process.umask(0o077);
@@ -100,7 +101,7 @@ try {
   assert(Number.isInteger(Number(values['backend-port'])) && Number(values['backend-port']) > 0 && Number(values['backend-port']) <= 65535);
   const configPath = join(networkState, 'config.json');
   await writeFile(configPath, json(config) + '\n', { mode: 0o600 });
-  Object.assign(report, { program, mock_program: mock, admin, rpc, window_slots: config.window_slots, sbf_arch: values['sbf-arch'], deploy_transport: values['deploy-transport'] });
+  Object.assign(report, { program, mock_program: mock, admin, rpc, window_slots: config.window_slots, sbf_arch: values['sbf-arch'], deploy_transport: deployTransport });
   if (!values['skip-build']) {
     await syncIds(program, mock);
     await run('cargo-build-sbf', ['--arch', values['sbf-arch']!, '--manifest-path', join(ROOT, 'programs/reflect-allocation/Cargo.toml')]);

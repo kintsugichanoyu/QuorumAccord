@@ -1,0 +1,33 @@
+▶ production SBF program: TypeScript multi-provider integration
+  ✔ bootstrap authorization and quorum bounds (6554.37412ms)
+[baseline] providers=0,1,2; window=2112935; closes=507104640
+  ✔ three HTTP providers publish baseline prices (94325.351719ms)
+[baseline] providers=0,1; window=2112936; closes=507104880
+  ✔ missing quorum preserves prior prices (57225.004182ms)
+[outlier] providers=0,1,2; window=2112937; closes=507105120
+  ✔ 10x dishonest outlier is rejected by median (54404.397778ms)
+[updated] providers=0,1,2; window=2112938; closes=507105360
+  ✔ 10 percent price update advances feeds and consumer (57378.107642ms)
+[unavailable] providers=0,1,2; window=2112939; closes=507105600
+  ✔ HTTP 503 prevents provider submission and quorum (56200.664799ms)
+  ✔ price consumer works without any signing key files (1150.081652ms)
+[baseline] providers=0,1,2; window=2112940; closes=507105840
+[baseline] providers=0,1,2; window=2112941; closes=507106080
+  ✔ older samples cannot overwrite newer windows (122210.955357ms)
+  ✔ allocation rounding preserves zeros and rejects older rounds (57868.175623ms)
+  ✔ mock protocol accounts produce the allocation golden vector (399988.31915ms)
+  ✔ allocation fixture quorum miss (28877.189184ms)
+  ✔ minimum interval brake (84713.981918ms)
+  ✔ no-trigger window (56028.489136ms)
+  ✔ forced refresh (56052.543192ms)
+  ✔ unauthorized opener cannot create consensus (2411.487717ms)
+  ✔ read-only consumer rejects stale prices without backend calls (1028.427216ms)
+✔ production SBF program: TypeScript multi-provider integration (1136697.368798ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1137040.222607

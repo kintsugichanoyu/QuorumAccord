@@ -24,3 +24,6 @@ copyable = true
 enable = true
 use-boolean-and = true
 
+[output.html.redirect]
+"/testing/devnet/RESULTS.html" = "../../verification.html"
+"/docs/book/README.html" = "../../quickstart.html"
