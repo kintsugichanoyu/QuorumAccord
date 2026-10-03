@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { PublicKey } from '@solana/web3.js';
 import { SigningClient } from './client.js';
-import { decodeAllocation, decodeMock, decodeSample, Instructions, type FeedConfig } from './codec.js';
+import { decodeAllocation, decodeMock, Instructions, type FeedConfig } from './codec.js';
 import { type Asset } from './types.js';
 
 export const VENUES = [[1, 1000n, 2000n], [2, 1200n, 4000n], [3, 800n, 1000n], [4, 1500n, 7000n], [5, 600n, 3000n]] as const;

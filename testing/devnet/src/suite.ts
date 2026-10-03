@@ -5,9 +5,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SigningClient } from './client.js';
-import { decodeAllocation, decodeFeed, decodeMock, decodeRegistry, decodeSample, Instructions, type FeedConfig } from './codec.js';
+import { decodeAllocation, decodeRegistry, decodeSample, type FeedConfig } from './codec.js';
 import { command } from './process.js';
-import { PROTOCOLS, type Asset, type BackendState, type Phase, json, uint64 } from './types.js';
+import { PROTOCOLS, type BackendState, type Phase, json, uint64 } from './types.js';
 import { allocationGolden, invariantCases } from './allocation.js';
 
 export type Check = <T>(name: string, fn: () => Promise<T>) => Promise<T>;

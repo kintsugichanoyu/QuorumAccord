@@ -1,122 +1,118 @@
-# Test-only protocol and price lab
+# TypeScript protocol and price tests
 
-Everything in this directory is for localnet/devnet verification. The backend
-returns invented, deterministic USD prices, not real market data. Production
-program logic remains in `programs/reflect-allocation/`; production account
-drivers and allocation consumers remain in `workers/`.
+All off-chain test code in this directory is TypeScript: the HTTP mock backend,
+providers, consumer, deployment runner, unit tests and integration assertions.
+The production Solana program and workers remain Rust. The small Rust
+`programs/mock-oracle/` program is an on-chain fixture, not a Rust test harness.
 
-```
-backend/server.py  (atlas / boreal / cygnus mock protocol APIs)
-     │ three separate HTTP callers + three independent Solana signing keys
-     ▼
-price-lab provide → production propose/corroborate_sample instructions
-     ▼
-DataFeedConsensus (3-of-3, median) → production finalize_sample → DataFeed ring
-     ▼
-price-lab consume/watch (chain reads only; integer millionths of USD)
+```text
+TypeScript backend (Atlas / Boreal / Cygnus invented protocol APIs)
+    → three separate TypeScript provider processes / independent signing keys
+    → production propose/corroborate_sample → on-chain median consensus / feeds
+    → standalone TypeScript consumer (chain reads only, no signing keys)
 ```
 
-There is one centralized fixture backend; separate provider processes and keys
-do not make its data independent. The outlier scenario proves median behavior
-with two honest providers and one bad provider, not resistance to a bad majority.
-The prices are separate metrics, not APY inputs to the financial allocation rubric.
+One centralized fixture backend serves all providers. Separate signing processes
+do not establish independent source truth. Prices are invented USD values, not
+real market data or APY inputs to the financial allocation rubric.
 
-## Requirements
+## Setup and run
 
-- Rust 1.88 or newer (tested with host Rust 1.96).
-- Solana CLI / `cargo-build-sbf` / `solana-test-validator` (tested with Agave 4.3.0,
-  platform-tools v1.57); the Rust program uses Anchor 1.0.2.
-- A C compiler, pkg-config, OpenSSL/udev development headers and protobuf compiler.
-- Python 3. No Python packages, Docker, Anchor CLI or Node are required by this lab.
-
-Official installation references: [Solana](https://solana.com/docs/intro/installation)
-and [Anchor](https://www.anchor-lang.com/docs/installation). A typical Debian setup
-needs `build-essential pkg-config libssl-dev libudev-dev protobuf-compiler`.
-
-## Run
+Node >=22.12 and npm are required (tested with Node 24.16.0, TypeScript 5.9.3).
+For validator execution, install Solana CLI, cargo-build-sbf and
+solana-test-validator; tested with Agave 4.3.0/platform-tools v1.57 and Anchor
+1.0.2 in the Rust program. Anchor CLI, Python and compiled Rust workers are not
+required by the test workflow.
 
 From the repository root:
 
 ```bash
-# Compiles actual SBF programs, starts a test-owned validator, airdrops local SOL,
-# deploys, runs the multi-provider suite, then the original allocation scenarios.
-python3 testing/devnet/run.py --network localnet --legacy-allocation
+npm --prefix testing/devnet ci
+npm --prefix testing/devnet test                # 30 TypeScript unit/HTTP tests
+npm --prefix testing/devnet run localnet        # builds SBF; full integration
+npm --prefix testing/devnet run devnet          # same tests on public devnet
 
-# Checks the RPC genesis hash is devnet, requests devnet SOL, deploys and tests.
-python3 testing/devnet/run.py --network devnet
+# Reuse matching SBF artifacts:
+npm --prefix testing/devnet run localnet -- --skip-build
+npm --prefix testing/devnet run devnet -- --skip-build
 
-# Reuse built artifacts; useful after a faucet refusal has been resolved.
-python3 testing/devnet/run.py --network devnet --skip-build
+# Price/consensus checks only, without the account-fixture allocation scenarios:
+npm --prefix testing/devnet run localnet -- --prices-only
 
-# Unit/HTTP checks without a validator:
-cargo test --locked
-cargo test --manifest-path workers/Cargo.toml --locked
-python3 -m unittest discover -s testing/devnet/backend -v
-python3 -m unittest discover -s testing/devnet -p test_run.py -v
+# A separate fresh ledger; relative paths are resolved from the repository root:
+npm --prefix testing/devnet run localnet -- --local-ledger testing/devnet/.state/localnet/my-ledger
 ```
 
-The runner generates dedicated admin, three operator, outsider and program
-keypairs under ignored `.state/keys/`, with restrictive permissions. It synchronizes
-the two `declare_id!` values and `Anchor.toml` with these deployment keys, like
-`anchor keys sync`. Those public ID edits may appear in Git after a fresh checkout.
-No wallet's global CLI configuration is changed and existing ledgers are never reset.
-`--local-ledger <path>` chooses a separate local ledger without deleting an old one.
-Devnet funding failures produce `status: blocked`, never a successful test result.
-The default build is SBPF v3 with the normal ABIv1; Agave 4.3's local feature set
-disables new v0/v1/v2 deployments (SIMD-0500). `--sbf-arch` can select an older
-format for a cluster with a different feature set. Build artifacts must match
-the current keys when using `--skip-build`. Explicit, ignored deployment buffer
-keys prevent the CLI from printing an ephemeral recovery seed on failure.
-See the [Agave feature definitions](https://github.com/anza-xyz/agave/blob/v4.3.0/feature-set/src/lib.rs)
-for the deployment-version gate.
-The backend defaults to port 18787 (`--backend-port` overrides it). Operators are
-funded from the test admin and topped up before price windows to cover round rent.
-The devnet CLI requests 2 SOL once; if the balance is insufficient, the runner
-stops and reports the wallet and funding evidence instead of repeatedly hitting
-the public faucet.
+The runner creates ignored test keys in `.state/keys/` with restrictive
+permissions. It synchronizes public program IDs before SBF builds, verifies the
+devnet genesis hash, requests test SOL and funds provider account rent from the
+test admin. It never changes global Solana CLI configuration or resets/deletes
+existing ledgers. It stops only services it started.
 
-## Standalone providers and price consumer
+The default build is SBPF v3, normal ABIv1, because Agave 4.3's local feature set
+disables new v0/v1/v2 deployments. See the
+[Agave feature definitions](https://github.com/anza-xyz/agave/blob/v4.3.0/feature-set/src/lib.rs).
+Explicit ignored deployment buffer keys prevent the CLI from printing recovery
+seeds on failure; resumed-buffer capacity is checked before deployment.
 
-The runner writes `.state/<network>/config.json`. Keep the configured RPC running.
+The full devnet run targets about 8 devnet SOL; `--prices-only` targets 5.
+The CLI requests 2 SOL once. If funding is refused or insufficient, the runner
+records `blocked` and stops before deployment. It does not claim a test pass.
+The backend defaults to loopback port 18787 (`--backend-port` overrides it).
+
+The private npm package pins its dependencies and lockfile. A test-only
+Jayson 5 override avoids the older transitive UUID/stream-json advisories.
+Its RPC compatibility is exercised by the integration tests.
+
+## Standalone providers and consumer
+
+Keep the configured RPC and backend running. The runner writes
+`.state/<network>/config.json`; set `LAB_CONFIG` to its absolute path.
 
 ```bash
-export LAB_CONFIG="$PWD/testing/devnet/.state/devnet/config.json"
-workers/target/debug/devnet-price-lab consume
-workers/target/debug/devnet-price-lab watch
+export LAB_CONFIG="$PWD/testing/devnet/.state/localnet/config.json"
+npm --prefix testing/devnet run consume
+npm --prefix testing/devnet run watch
+npm --prefix testing/devnet run backend
 
-# With backend/server.py running, submit operator index 0, 1 or 2 in the chosen
-# chain-derived window floor(current_slot / config.window_slots).
-workers/target/debug/devnet-price-lab provide 0 <window_index>
+# After npm run build, operator index 0, 1 or 2 in the current chain-derived window:
+node testing/devnet/dist/src/cli.js provide 0 <window_index>
 ```
 
-The consumer returns source PDAs, ticks, finalized window slots and actual RPC
-context slots. It verifies account ownership, discriminator, ring bounds and
-freshness. It never calls the backend and it does not claim a coherent allocation
-snapshot across independently updating feeds.
+The consumer needs no existing signing files. It verifies owner, discriminator,
+feed identity, ring bounds and freshness, and reports actual RPC context slots.
+Every u64 value is a `bigint` internally and a decimal string in JSON, avoiding
+JavaScript number precision loss. Price units are six decimal places.
 
-## Scenarios and evidence
+To run the TypeScript integration tests against an already deployed cluster and
+running backend without orchestration:
 
-The price suite launches three separate provider processes, queries all three
-mock HTTP protocol APIs, checks their request counters, confirms transactions,
-finalizes on chain and executes a separate price consumer process.
+```bash
+LAB_ALLOCATION=1 npm --prefix testing/devnet run test:integration
+```
 
-1. Baseline: SOL $198.25, BTC $64,000, ETH $3,200; three votes publish the median.
-2. Missing quorum: two of three providers submit; prior published prices remain.
-3. Dishonest outlier: Cygnus reports 10x; median remains the two honest prices.
-4. Price change: all sources update by 10%; rings and consumer advance exactly once.
-5. Backend outage: Cygnus returns HTTP 503; it submits nothing and prices do not advance.
-6. Exact custom-error checks: outsider registry bootstrap, zero/65 quorum,
-   duplicate sample votes, unauthorized votes and premature sample finalization.
-7. Allocation checks: publish mean weights with rounding, preserve excluded zero
-   venues, reject zero/65 quorum and reject an older allocation after a newer one.
-8. Sample ordering: defer a full-quorum window, finalize a later window, then
-   require exact stale-round rejection for the older window on all three assets.
+Set `LAB_REPORT` to an output JSON path to retain suite evidence. Production
+allocation snapshots are not yet coherent historical snapshots: RPC
+`minContextSlot` is only a freshness lower bound.
 
-`--legacy-allocation` additionally deploys `testing/devnet/programs/mock-oracle/`, exercises the
-five-venue allocation golden vector and quorum/brake/no-trigger/forced-refresh/
-unauthorized sample scenarios using `allocation-e2e/`.
+## Covered scenarios
 
-Generated config, logs, validator ledger, transaction signatures and machine-readable
-results live under ignored `.state/<network>/`. See [RESULTS.md](RESULTS.md) for the
-checked-in run summary and [../../OPEN_QUESTIONS.md](../../OPEN_QUESTIONS.md) for
-remaining work.
+The Node test runner executes the assertions directly in TypeScript:
+
+- Fresh registry bootstrap authority and zero/65 quorum rejection.
+- Three providers publish SOL $198.25, BTC $64,000 and ETH $3,200.
+- Two providers cannot reach quorum; a 10× outlier does not change the median.
+- A 10% price update advances every feed and the standalone consumer.
+- HTTP 503 prevents the affected provider from submitting.
+- Duplicate/unauthorized votes and early finalization return exact program errors.
+- Consumers work with nonexistent signing files and make no backend calls.
+- Older full-quorum sample windows and allocation rounds cannot overwrite newer results.
+- Mean allocation rounding preserves excluded zeros.
+- Ten mock APY/CRR accounts, independently computed golden weights and two matching submissions.
+- Quorum misses, brakes, no-trigger windows, forced refresh and unauthorized openers.
+- Stale published prices are rejected without backend calls.
+
+[RESULTS.md](RESULTS.md) records actual execution, including public devnet funding
+limitations. [OPEN_QUESTIONS.md](../../OPEN_QUESTIONS.md) records unresolved design
+and production work. The superseded Python and Rust off-chain harnesses are
+removed; their history and prior evidence remain in Git.

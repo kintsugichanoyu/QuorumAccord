@@ -282,7 +282,7 @@ mod tests {
         assert_eq!(sum(&w), 6000);
     }
 
-    /// Golden vector for `testing/devnet/allocation-e2e`: five venues with
+    /// Golden vector for `testing/devnet/src/allocation.ts`: five venues with
     /// the documented (apy, crr) bps, padded to the on-chain 16-venue width. v3
     /// (crr 7000 > 6000) is screened out. This is the exact value the e2e verifier
     /// asserts `AllocationState.weights` equals after `finalize_allocation`.

@@ -4,11 +4,10 @@
 //! On devnet there is no venue account whose value we control and can predict, so
 //! producers (which read on-chain accounts only, via `OffsetU64Driver`) have
 //! nothing to sample. This program creates `MockData` PDAs into which the e2e
-//! harness writes exact `u64` values; a producer then reads one with
-//! `TARGET_ACCOUNT = mock_pda`, `OFFSET = 8` (skip the Anchor discriminator),
-//! `SCALE_NUM = SCALE_DEN = 1`, so the stored basis-point value is sampled
-//! verbatim. This keeps the real minimum-context-slot read path under test while
-//! making aggregates deterministic and assertable.
+//! TypeScript harness writes exact `u64` values and reads them through real RPC
+//! before submitting samples into the production program. The production
+//! OffsetU64Driver can also read the same payload at account offset 8; that
+//! daemon is not executed by the TypeScript integration suite.
 //!
 //! `data` is the first field so the value lives at a stable account offset of 8.
 

@@ -304,37 +304,3 @@ pub fn open_allocation_round(
         ),
     }
 }
-
-// ---- mock-oracle builders -----------------------------------------------------
-// `mock_program_id` is the mock-oracle program, distinct from reflect.
-
-pub fn init_mock(mock_program_id: &Pubkey, admin: &Pubkey, id: u8) -> Instruction {
-    let mock = pda::mock(mock_program_id, id).0;
-    Instruction {
-        program_id: *mock_program_id,
-        accounts: vec![
-            AccountMeta::new(mock, false),
-            AccountMeta::new(*admin, true),
-            AccountMeta::new_readonly(system_program::ID, false),
-        ],
-        data: encode("init_mock", &[&[id]]),
-    }
-}
-
-pub fn write_u64(
-    mock_program_id: &Pubkey,
-    authority: &Pubkey,
-    id: u8,
-    offset: u8,
-    value: u64,
-) -> Instruction {
-    let mock = pda::mock(mock_program_id, id).0;
-    Instruction {
-        program_id: *mock_program_id,
-        accounts: vec![
-            AccountMeta::new(mock, false),
-            AccountMeta::new_readonly(*authority, true),
-        ],
-        data: encode("write_u64", &[&[id], &[offset], &value.to_le_bytes()]),
-    }
-}

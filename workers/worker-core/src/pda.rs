@@ -28,8 +28,3 @@ pub fn allocation_consensus(program_id: &Pubkey, round: u64) -> (Pubkey, u8) {
 pub fn allocation_state(program_id: &Pubkey) -> (Pubkey, u8) {
     Pubkey::find_program_address(&[b"allocation_state"], program_id)
 }
-
-/// Mock-oracle `MockData` PDA — `mock_program_id` is the mock program, not reflect.
-pub fn mock(mock_program_id: &Pubkey, id: u8) -> (Pubkey, u8) {
-    Pubkey::find_program_address(&[b"mock", &[id]], mock_program_id)
-}
