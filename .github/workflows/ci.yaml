@@ -1,0 +1,87 @@
+name: Verify Quorum
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install native worker dependencies
+        run: sudo apt-get update && sudo apt-get install -y pkg-config libssl-dev libudev-dev protobuf-compiler
+      - name: Select Rust 1.96
+        run: rustup toolchain install 1.96.0 --profile minimal && rustup default 1.96.0
+      - run: cargo test --locked
+      - run: cargo test --manifest-path workers/Cargo.toml --locked
+
+  typescript:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.16.0
+          cache: npm
+          cache-dependency-path: |
+            docs/book/package-lock.json
+            frontend/package-lock.json
+            testing/devnet/package-lock.json
+      - run: npm --prefix docs/book ci
+      - run: npm --prefix frontend ci
+      - run: npm --prefix testing/devnet ci
+      - run: npm --prefix docs/book test
+      - run: npm --prefix frontend run check
+      - run: npm --prefix testing/devnet test
+
+  containers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: web
+            dockerfile: docker/frontend.Dockerfile
+          - image: workers
+            dockerfile: docker/Dockerfile
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Validate Compose configuration
+        run: |
+          docker compose config --quiet
+          docker compose -f docker/docker-compose.yaml --profile producer --profile consumer config --quiet
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          load: true
+          push: false
+          tags: quorum-${{ matrix.image }}:local
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+      - name: Run web container and bundled handbook
+        if: matrix.image == 'web'
+        run: |
+          docker compose up --no-build --detach --wait --wait-timeout 60 web
+          curl --fail --silent --output /dev/null http://127.0.0.1:3000/
+          curl --fail --silent --output /dev/null http://127.0.0.1:3000/book/workers.html
+          curl --fail --silent --output /dev/null http://127.0.0.1:3000/book/deployment.html
+      - name: Verify worker binaries without a network or signing keys
+        if: matrix.image == 'workers'
+        run: bash docker/test-workers.sh quorum-workers:local
+      - name: Show web logs and stop the container
+        if: always() && matrix.image == 'web'
+        run: |
+          docker compose logs web
+          docker compose down

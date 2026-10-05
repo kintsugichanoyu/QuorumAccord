@@ -1,0 +1,19 @@
+name: quorum
+
+services:
+  web:
+    image: ${QUORUM_WEB_IMAGE:-quorum-web:local}
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "${QUORUM_HTTP_BIND:-127.0.0.1}:${QUORUM_HTTP_PORT:-3000}:3000"
+    environment:
+      QUORUM_WEB_ADDR: 0.0.0.0:3000
+      QUORUM_WEB_ROOT: /srv/quorum
+    restart: unless-stopped
+    stop_signal: SIGINT
+    stop_grace_period: 10s
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]

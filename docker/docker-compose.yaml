@@ -1,65 +1,46 @@
-# Fleet: ~10 producer drivers (one per DataFeed) + one consumer.
-# Each service overrides the per-feed env; KEYPAIR/SOLANA_RPC_URL come from .env
-# (use per-service env_file in production so each operator ships its own keypair).
-#
-# OFFSET/SCALE_NUM/SCALE_DEN configure the generic OffsetU64Driver; swap DRIVER
-# for a protocol-specific driver as those land.
+name: quorum-workers
 
-x-producer: &producer
+x-worker: &worker
+  image: ${QUORUM_WORKERS_IMAGE:-quorum-workers:local}
   build:
     context: ..
     dockerfile: docker/Dockerfile
-  entrypoint: ["/usr/local/bin/producer"]
-  env_file: [.env]
+  # Compose file secrets preserve host ownership; run as the key file's owner.
+  user: "${QUORUM_WORKER_UID:-1000}:${QUORUM_WORKER_GID:-1000}"
   restart: unless-stopped
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
 
 services:
-  # ----- marginfi -----
-  marginfi-usdc-apy:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "1", DATA_ID: "0", TARGET_ACCOUNT: "<marginfi_usdc_bank>", OFFSET: "0", SCALE_NUM: "1", SCALE_DEN: "1" }
-  marginfi-usdc-util:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "1", DATA_ID: "2", TARGET_ACCOUNT: "<marginfi_usdc_bank>", OFFSET: "0" }
-  # ----- kamino -----
-  kamino-main-apy:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "2", DATA_ID: "0", TARGET_ACCOUNT: "<kamino_main_reserve>", OFFSET: "0" }
-  kamino-main-util:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "2", DATA_ID: "2", TARGET_ACCOUNT: "<kamino_main_reserve>", OFFSET: "0" }
-  kamino-reserve-caps:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "2", DATA_ID: "3", TARGET_ACCOUNT: "<kamino_main_reserve>", OFFSET: "0" }
-  # ----- save (solend) -----
-  save-usdt-apy:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "3", DATA_ID: "0", TARGET_ACCOUNT: "<save_usdt_reserve>", OFFSET: "0" }
-  save-usdt-tvl:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "3", DATA_ID: "1", TARGET_ACCOUNT: "<save_usdt_reserve>", OFFSET: "0" }
-  # ----- jupiter lend -----
-  jupiter-lend-apy:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "4", DATA_ID: "0", TARGET_ACCOUNT: "<jupiter_lend_pool>", OFFSET: "0" }
-  jupiter-lend-util:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "4", DATA_ID: "2", TARGET_ACCOUNT: "<jupiter_lend_pool>", OFFSET: "0" }
-  # ----- loopscale -----
-  loopscale-vault-apy:
-    <<: *producer
-    environment: { DRIVER: offset_u64, POOL_ID: "5", DATA_ID: "0", TARGET_ACCOUNT: "<loopscale_vault>", OFFSET: "0" }
-
-  # ----- consumer -----
-  consumer:
-    <<: *producer
-    entrypoint: ["/usr/local/bin/consumer"]
+  producer:
+    <<: *worker
+    profiles: [producer]
+    entrypoint: ["/usr/local/bin/quorum-producer"]
+    env_file:
+      - path: producer.env
+        required: false
     environment:
-      ROUND: "0"
-      STALENESS_SLOTS: "150000"
-      FEEDS: >-
-        [{"pool_id":1,"data_id":0,"venue":0,"role":"apy"},
-         {"pool_id":2,"data_id":0,"venue":1,"role":"apy"},
-         {"pool_id":3,"data_id":0,"venue":2,"role":"apy"},
-         {"pool_id":4,"data_id":0,"venue":3,"role":"apy"},
-         {"pool_id":5,"data_id":0,"venue":4,"role":"apy"}]
+      KEYPAIR_FILE: /run/secrets/operator-keypair.json
+    secrets:
+      - source: producer-keypair
+        target: operator-keypair.json
+
+  consumer:
+    <<: *worker
+    profiles: [consumer]
+    entrypoint: ["/usr/local/bin/quorum-consumer"]
+    env_file:
+      - path: consumer.env
+        required: false
+    environment:
+      KEYPAIR_FILE: /run/secrets/operator-keypair.json
+    secrets:
+      - source: consumer-keypair
+        target: operator-keypair.json
+
+secrets:
+  producer-keypair:
+    file: secrets/producer.json
+  consumer-keypair:
+    file: secrets/consumer.json

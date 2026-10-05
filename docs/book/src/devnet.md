@@ -1,8 +1,8 @@
 # Live devnet inspector
 
-<div class="reflect-warning">Read-only inspection of a dedicated test deployment. Prices and allocation inputs are invented fixtures. No wallet connection, signing, backend price calls or automatic polling.</div>
+<div class="quorum-warning">Read-only inspection of a dedicated test deployment. Prices and allocation inputs are invented fixtures. No wallet connection, signing, backend price calls or automatic polling.</div>
 
-<div id="devnet-inspector" class="reflect-inspector">
+<div id="devnet-inspector" class="quorum-inspector">
 <p data-snapshot aria-live="polite">Loading the recorded verification snapshot…</p>
 <p><a href="evidence/latest-devnet.json">Download the recorded public evidence JSON</a> · <a href="evidence/source.json">Snapshot provenance</a></p>
 <form>

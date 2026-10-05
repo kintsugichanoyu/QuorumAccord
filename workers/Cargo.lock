@@ -671,17 +671,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3d52eff69cd5e647efe296129160853a42795992097e8af39800e1060caeea9b"
 
 [[package]]
-name = "consumer"
+name = "quorum-consumer"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "rubric",
+ "quorum-rubric",
  "serde",
  "serde_json",
  "solana-sdk",
  "tracing",
  "tracing-subscriber",
- "worker-core",
+ "quorum-worker-core",
 ]
 
 [[package]]
@@ -2363,14 +2363,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "producer"
+name = "quorum-producer"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "solana-sdk",
  "tracing",
  "tracing-subscriber",
- "worker-core",
+ "quorum-worker-core",
 ]
 
 [[package]]
@@ -2706,7 +2706,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rubric"
+name = "quorum-rubric"
 version = "0.1.0"
 dependencies = [
  "serde",
@@ -6070,7 +6070,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ebf944e87a7c253233ad6766e082e3cd714b5d03812acc24c318f549614536e"
 
 [[package]]
-name = "worker-core"
+name = "quorum-worker-core"
 version = "0.1.0"
 dependencies = [
  "anyhow",

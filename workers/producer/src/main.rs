@@ -13,7 +13,7 @@ use std::{thread, time::Duration};
 
 use anyhow::{anyhow, bail, Result};
 use solana_sdk::signer::Signer;
-use worker_core::{
+use quorum_worker_core::{
     config::WorkerConfig, feed_view::DataFeedView, ix, pda, rpc::RpcPool, tx, window,
 };
 

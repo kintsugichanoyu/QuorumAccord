@@ -2,6 +2,10 @@
 
 - [Start here](index.md)
 - [Architecture and trust](architecture.md)
+- [Integrate Quorum workers](workers.md)
+- [Run from GitHub with Docker](deployment.md)
+- [Public release and launch checklist](public-release.md)
+- [Rename and compatibility](migration.md)
 - [Run the TypeScript lab](quickstart.md)
 - [Live devnet inspector](devnet.md)
 - [Integrate a protocol](integration.md)
@@ -11,6 +15,7 @@
   - [Jupiter Lend](protocols/jupiter.md)
   - [Loopscale](protocols/loopscale.md)
 - [Instruction and account contract](contract.md)
+- [Generate SDK clients](sdk.md)
 - [Allocation consumers](consumers.md)
 - [Verification and troubleshooting](verification.md)
 - [Release blockers](blockers.md)

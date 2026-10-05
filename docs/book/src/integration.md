@@ -1,5 +1,8 @@
 # Integrate a protocol
 
+First follow [Integrate Quorum workers](workers.md) to build the Rust binaries,
+register operators, initialize feeds, and configure producer/consumer processes.
+
 Real protocol adapters are **not implemented**. The shipped Rust producer accepts
 only `DRIVER=offset_u64`. The named protocol pages are integration plans/checklists,
 not claims that these protocols have been connected.

@@ -15,9 +15,9 @@ use std::{thread, time::Duration};
 use anyhow::{Context, Result};
 use serde::Deserialize;
 use solana_sdk::signer::Signer;
-use worker_core::{config::WorkerConfig, feed_view::DataFeedView, ix, pda, rpc::RpcPool, tx};
+use quorum_worker_core::{config::WorkerConfig, feed_view::DataFeedView, ix, pda, rpc::RpcPool, tx};
 
-use rubric::{compute_weights, RubricConfig, VenueInput, MAX_BPS};
+use quorum_rubric::{compute_weights, RubricConfig, VenueInput, MAX_BPS};
 
 const N_VENUES: usize = 16; // must match the on-chain program
 

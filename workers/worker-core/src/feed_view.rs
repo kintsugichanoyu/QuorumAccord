@@ -1,6 +1,6 @@
 //! Read-only byte view over a `DataFeed` account, so the consumer can decode the
 //! fields it needs without the on-chain crate. Offsets follow the zero-copy
-//! layout in `programs/reflect-allocation/src/state/data_feed.rs` (8-byte Anchor
+//! layout in `programs/quorum-allocation/src/state/data_feed.rs` (8-byte Anchor
 //! discriminator first).
 
 use anyhow::{ensure, Result};
@@ -96,7 +96,7 @@ impl AllocationStateView {
 
 // ---- in-flight consensus account decoders (used by the e2e verifier) ----------
 // Offsets follow the zero-copy layouts in
-// `programs/reflect-allocation/src/state/{data_feed.rs,allocation.rs}`.
+// `programs/quorum-allocation/src/state/{data_feed.rs,allocation.rs}`.
 
 // DataFeedConsensus: disc(8) window_index(8) closes_at(8) output(8) data_feed(32)
 //   status(1)@64 min_number(1) rule(1) trim_pct(1) count(1)@68 bump(1) _pad(2)

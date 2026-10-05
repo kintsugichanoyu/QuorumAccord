@@ -1,16 +1,16 @@
 [package]
-name = "producer"
+name = "quorum-producer"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "Write-only producer daemon: decodes one venue metric and submits samples to consensus"
 
 [[bin]]
-name = "producer"
+name = "quorum-producer"
 path = "src/main.rs"
 
 [dependencies]
-worker-core = { path = "../worker-core" }
+quorum-worker-core = { path = "../worker-core" }
 anyhow = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }

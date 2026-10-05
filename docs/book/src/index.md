@@ -1,24 +1,23 @@
-# Reflect integration handbook
+# Quorum integration handbook
 
-<div class="reflect-hero">
+<div class="quorum-hero">
 <p class="eyebrow">Solana · Consensus data · Allocation</p>
 <h2>One feed.<br>Many operators.</h2>
-<p>Integrate a measured protocol value, agree on its on-chain history, and consume an allocation vector. Start with the TypeScript lab; keep test fixtures separate from production sources.</p>
-<a class="reflect-cta" href="quickstart.html">Run the integration lab →</a>
+<p>Integrate a measured protocol value, agree on its on-chain history, and consume an allocation vector. Build Rust workers and verify the flow with the TypeScript lab.</p>
+<a class="quorum-cta" href="workers.html">Integrate Quorum workers →</a>
 </div>
 
-<div class="reflect-grid">
-<section class="reflect-card"><h3>01 · Measure</h3><p>One driver reads one metric. Identity, units, account provenance and freshness matter.</p><a href="integration.html">Build a protocol adapter →</a></section>
-<section class="reflect-card"><h3>02 · Agree</h3><p>Registered signers submit inside slot windows. The program publishes one quorum-approved value.</p><a href="contract.html">Understand the contract →</a></section>
-<section class="reflect-card"><h3>03 · Consume</h3><p>Read confirmed feeds and weight vectors without exposing signing keys in a browser.</p><a href="devnet.html">Inspect public devnet →</a></section>
+<div class="quorum-grid">
+<section class="quorum-card"><h3>01 · Measure</h3><p>One driver reads one metric. Identity, units, account provenance and freshness matter.</p><a href="integration.html">Build a protocol adapter →</a></section>
+<section class="quorum-card"><h3>02 · Agree</h3><p>Registered signers submit inside slot windows. The program publishes one quorum-approved value.</p><a href="contract.html">Understand the contract →</a></section>
+<section class="quorum-card"><h3>03 · Consume</h3><p>Read confirmed feeds and weight vectors without exposing signing keys in a browser.</p><a href="devnet.html">Inspect public devnet →</a></section>
 </div>
 
-This is an **mdBook documentation frontend**, with a read-only TypeScript devnet
-inspector. It does not rebalance capital, sign transactions or provide investment
-advice. A searchable sidebar, themes and copyable examples are supplied by mdBook.
-
-The original MVP deferred dashboards. This handbook adds a developer-facing
-frontend without claiming production monitoring or protocol adapters are complete.
+This **mdBook integration handbook** accompanies the Quorum project frontend.
+It contains Rust worker setup, adapter contracts, and a read-only TypeScript
+devnet inspector. A searchable sidebar, themes, and copyable examples are supplied
+by mdBook. Start with [worker integration](workers.md), then
+[source adapters](integration.md) and the [TypeScript lab](quickstart.md).
 
 ## Integration status
 

@@ -1,4 +1,4 @@
-# Specification — Decentralisation of Capital Allocation
+# Quorum Specification — Decentralisation of Capital Allocation
 
 > Status: MVP specification for the NCN-shaped capital-allocation system. Jito NCN
 > integration is the eventual target but is **explicitly deferred** (see §10).
@@ -106,7 +106,7 @@ One PDA per distinct data point `(pool_id, data_id)`. Holds identity, trigger co
 and ring-buffer state. Each `DataFeed` has an in-flight `DataFeedConsensus` sub-PDA
 that aggregates operator-submitted sample values for the current tick.
 
-- `pool_id` indexes the existing `PoolRegistry` (already in production reflect-core —
+- `pool_id` indexes the existing vault's `PoolRegistry` (outside this repository —
   `PoolEntry { protocol_type, liquidity_mint, accounts[10], ... }`). It is an
   identity tag, **not** an off-chain account resolver.
 - `data_id` tags which metric this series represents (supply APY, util, TVL, reserve
@@ -475,7 +475,7 @@ restaking-stake-weighted operator view requires no change to it.
 ## 11. Out of Scope
 
 - **Rebalancer.** Task ends at "weights published on-chain via consensus";
-  reflect-core consumes `AllocationState` separately.
+  The vault core consumes `AllocationState` separately.
 - **Watchtower / monitoring daemons.** Deferred.
 - **Dashboard.**
 - **Backtest framework.**

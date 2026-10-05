@@ -24,11 +24,11 @@ if (root) {
         if (typeof endpoint !== 'string') throw new Error('Missing RPC URL');
         const state = await readDevnet(endpoint);
         status.textContent = `Confirmed RPC context slot ${state.context}. Read-only; not an exact historical snapshot.`;
-        const grid = element('div', undefined, 'reflect-grid');
+        const grid = element('div', undefined, 'quorum-grid');
         for (const feed of state.prices) {
-          const card = element('section', undefined, 'reflect-card');
-          card.append(element('h3', feed.symbol), element('p', feed.view ? usd(feed.view.price) : 'Not initialized', 'reflect-price'),
-            element('span', feed.view?.status.toUpperCase() ?? 'MISSING', `reflect-badge ${feed.view?.status ?? 'unset'}`));
+          const card = element('section', undefined, 'quorum-card');
+          card.append(element('h3', feed.symbol), element('p', feed.view ? usd(feed.view.price) : 'Not initialized', 'quorum-price'),
+            element('span', feed.view?.status.toUpperCase() ?? 'MISSING', `quorum-badge ${feed.view?.status ?? 'unset'}`));
           if (feed.view) card.append(element('p', `Tick ${feed.view.tick} · finalized slot ${feed.view.finalized}`));
           const link = element('a', 'Inspect feed ↗');
           link.href = `https://explorer.solana.com/address/${feed.address}?cluster=devnet`;
@@ -40,7 +40,7 @@ if (root) {
           output.append(element('h3', `Published allocation · round ${state.allocation.round}`),
             element('p', 'Test-only venue indices, not verified integrations with named lending protocols. No capital is moved.'));
           for (const [index, weight] of state.allocation.weights.entries()) {
-            const row = element('div', undefined, 'reflect-weight');
+            const row = element('div', undefined, 'quorum-weight');
             const label = element('span', `Venue ${index} · ${(weight / 100).toFixed(2)}%`);
             const meter = element('progress'); meter.max = 10_000; meter.value = weight;
             meter.setAttribute('aria-label', `Venue ${index}, ${weight} basis points`);

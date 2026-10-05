@@ -1,5 +1,5 @@
 //! TEST ONLY. Mock oracle — a deliberately tiny program whose only purpose is **devnet
-//! end-to-end testing** of `reflect-allocation`.
+//! end-to-end testing** of `quorum-allocation`.
 //!
 //! On devnet there is no venue account whose value we control and can predict, so
 //! producers (which read on-chain accounts only, via `OffsetU64Driver`) have

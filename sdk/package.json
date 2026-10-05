@@ -1,11 +1,12 @@
 {
-  "name": "@reflect/allocation-sdk",
+  "name": "@quorum/allocation-sdk",
   "version": "0.1.0",
   "private": true,
-  "description": "Generated TS/Rust clients for the reflect-allocation program (provider SDK)",
+  "description": "Generated TS/Rust clients for the quorum-allocation program (provider SDK)",
   "type": "module",
+  "engines": { "node": ">=22.12" },
   "scripts": {
-    "generate": "node codama.mjs"
+    "generate": "node --experimental-strip-types codama.ts"
   },
   "devDependencies": {
     "codama": "^1.2.0",

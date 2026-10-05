@@ -1,17 +1,17 @@
 [package]
-name = "consumer"
+name = "quorum-consumer"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 description = "Allocation consumer MVP: reads DataFeeds with a context lower bound, runs the rubric and submits weights"
 
 [[bin]]
-name = "consumer"
+name = "quorum-consumer"
 path = "src/main.rs"
 
 [dependencies]
-worker-core = { path = "../worker-core" }
-rubric = { path = "../rubric" }
+quorum-worker-core = { path = "../worker-core" }
+quorum-rubric = { path = "../rubric" }
 anyhow = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }

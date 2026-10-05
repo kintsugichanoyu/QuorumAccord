@@ -36,10 +36,11 @@ No frontend should present it as agreement on a shared point-in-time portfolio.
 
 | Responsibility | Repository path |
 |---|---|
-| Authoritative instructions/accounts | `programs/reflect-allocation/src/lib.rs` |
+| Authoritative instructions/accounts | `programs/quorum-allocation/src/lib.rs` |
 | Production driver interface | `workers/producer/src/driver.rs` |
 | Generic producer decoder | `workers/producer/src/drivers.rs` |
 | Production financial rubric | `workers/rubric/` |
 | TypeScript runtime assertions | `testing/devnet/src/suite.ts` |
 | Public verification reports | `testing/devnet/evidence/` |
 | Documentation frontend | `docs/book/` |
+| Project landing page and Rust web server | `frontend/` |

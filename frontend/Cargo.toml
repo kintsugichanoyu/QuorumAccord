@@ -1,0 +1,11 @@
+[package]
+name = "quorum-web"
+version = "0.1.0"
+edition = "2021"
+description = "Rust server for the Quorum frontend and mdBook worker handbook"
+license = "MIT"
+
+[dependencies]
+axum = { version = "=0.8.8", default-features = false, features = ["http1", "tokio"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net", "signal"] }
+tower-http = { version = "0.6", features = ["fs", "set-header"] }

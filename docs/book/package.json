@@ -1,5 +1,5 @@
 {
-  "name": "@reflect/integration-book",
+  "name": "@quorum/integration-book",
   "version": "0.1.0",
   "private": true,
   "type": "module",

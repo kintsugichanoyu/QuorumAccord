@@ -1,0 +1,27 @@
+:root { --quorum-accent: #087f86; --quorum-border: #d7e3e5; --quorum-surface: #f3f8f8; }
+.navy, .coal, .ayu { --quorum-accent: #72e0d5; --quorum-border: #344656; --quorum-surface: #182b39; }
+.content { max-width: 1000px; }
+.quorum-hero { padding: 2.6rem; margin: 2rem 0; border: 1px solid var(--quorum-border); border-radius: 18px; background: var(--quorum-surface); }
+.quorum-hero .eyebrow { color: var(--quorum-accent); font-size: .85em; text-transform: uppercase; letter-spacing: .13em; font-weight: 700; }
+.quorum-hero h2 { margin-top: .4rem; font-size: 2.4em; line-height: 1.15; }
+.quorum-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.quorum-card { padding: 1.5rem; border: 1px solid var(--quorum-border); border-radius: 12px; background: var(--quorum-surface); overflow-wrap: anywhere; }
+.quorum-card h3 { margin: 0 0 1rem; }
+.quorum-card p { font-size: .92em; }
+.quorum-price { font-size: 1.8em !important; font-variant-numeric: tabular-nums; }
+.quorum-badge { display: inline-block; padding: .3em .8em; border-radius: 20px; border: 1px solid var(--quorum-border); font-size: .75em; font-weight: 700; letter-spacing: .04em; }
+.quorum-badge.fresh { color: var(--quorum-accent); }
+.quorum-badge.stale, .quorum-badge.future { color: #b76c0b; }
+.navy .quorum-badge.stale, .coal .quorum-badge.stale { color: #ffd181; }
+.quorum-warning { padding: 1rem 1.3rem; border-left: 4px solid #d69725; background: var(--quorum-surface); margin: 1.5rem 0; }
+.quorum-inspector form { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem; }
+.quorum-inspector label { flex: 1 1 300px; }
+.quorum-inspector input { display: block; box-sizing: border-box; width: 100%; margin-top: .5rem; padding: .85rem; background: var(--bg); color: var(--fg); border: 1px solid var(--quorum-border); border-radius: 6px; }
+.quorum-inspector button, .quorum-cta { background: var(--quorum-accent); color: var(--bg); padding: .85rem 1.2rem; border: 0; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.quorum-inspector button:disabled { opacity: .6; cursor: wait; }
+.quorum-inspector [data-status] { min-height: 2.5rem; padding: 1rem 0; overflow-wrap: anywhere; }
+.quorum-weight { display: grid; grid-template-columns: 155px 1fr; gap: 1rem; align-items: center; margin: .5rem 0; font-variant-numeric: tabular-nums; }
+.quorum-weight progress { width: 100%; accent-color: var(--quorum-accent); }
+.quorum-inspector :focus-visible, .quorum-cta:focus-visible { outline: 3px solid var(--quorum-accent); outline-offset: 3px; }
+@media (max-width: 600px) { .quorum-hero { padding: 1.4rem; } .quorum-hero h2 { font-size: 1.8em; } .quorum-grid { grid-template-columns: 1fr; } }
+@media print { .quorum-inspector form, .quorum-cta { display: none; } }

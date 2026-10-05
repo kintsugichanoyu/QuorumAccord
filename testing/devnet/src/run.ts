@@ -33,7 +33,8 @@ const withAllocation = !values['prices-only'];
 const networkState = join(STATE, network);
 process.umask(0o077);
 const env = { ...process.env };
-for (const path of [join(homedir(), '.local/share/solana/install/active_release/bin'), join(homedir(), '.local/share/reflect-toolchains/solana-release/bin')]) {
+// Continue to discover task-owned tools installed before the Quorum rename.
+for (const path of [join(homedir(), '.local/share/solana/install/active_release/bin'), join(homedir(), '.local/share/quorum-toolchains/solana-release/bin'), join(homedir(), '.local/share/reflect-toolchains/solana-release/bin')]) {
   if (existsSync(join(path, 'solana'))) { env.PATH = `${path}${delimiter}${env.PATH ?? ''}`; break; }
 }
 const children: ChildProcess[] = [];
@@ -66,14 +67,14 @@ async function run(binary: string, args: string[]) {
   return result;
 }
 async function syncIds(program: string, mock: string) {
-  for (const [path, id] of [[join(ROOT, 'programs/reflect-allocation/src/lib.rs'), program], [join(LAB, 'programs/mock-oracle/src/lib.rs'), mock]]) {
+  for (const [path, id] of [[join(ROOT, 'programs/quorum-allocation/src/lib.rs'), program], [join(LAB, 'programs/mock-oracle/src/lib.rs'), mock]]) {
     const text = await readFile(path!, 'utf8');
     const updated = text.replace(/declare_id!\("[^"]+"\);/, `declare_id!("${id}");`);
     if (text !== updated) await writeFile(path!, updated);
   }
   const path = join(ROOT, 'Anchor.toml');
   const text = await readFile(path, 'utf8');
-  const updated = text.replace(/reflect_allocation = "[^"]+"/g, `reflect_allocation = "${program}"`)
+  const updated = text.replace(/quorum_allocation = "[^"]+"/g, `quorum_allocation = "${program}"`)
     .replace(/mock_oracle = "[^"]+"/g, `mock_oracle = "${mock}"`);
   if (text !== updated) await writeFile(path, updated);
 }
@@ -104,10 +105,10 @@ try {
   Object.assign(report, { program, mock_program: mock, admin, rpc, window_slots: config.window_slots, sbf_arch: values['sbf-arch'], deploy_transport: deployTransport });
   if (!values['skip-build']) {
     await syncIds(program, mock);
-    await run('cargo-build-sbf', ['--arch', values['sbf-arch']!, '--manifest-path', join(ROOT, 'programs/reflect-allocation/Cargo.toml')]);
+    await run('cargo-build-sbf', ['--arch', values['sbf-arch']!, '--manifest-path', join(ROOT, 'programs/quorum-allocation/Cargo.toml')]);
     if (withAllocation) await run('cargo-build-sbf', ['--arch', values['sbf-arch']!, '--manifest-path', join(LAB, 'programs/mock-oracle/Cargo.toml')]);
   } else {
-    const source = await readFile(join(ROOT, 'programs/reflect-allocation/src/lib.rs'), 'utf8');
+    const source = await readFile(join(ROOT, 'programs/quorum-allocation/src/lib.rs'), 'utf8');
     assert(source.includes(`declare_id!("${program}")`), 'skip-build requires artifacts matching current test keys');
   }
   if (network === 'localnet') {
@@ -139,7 +140,7 @@ try {
     () => connection.getBalance(new PublicKey(admin), 'confirmed'),
     () => command('solana', ['airdrop', network === 'localnet' ? '10' : '2', '--url', rpc, '--commitment', 'confirmed', '--keypair', keys.admin!], { env, timeout: 90_000 }));
   if (!values['skip-deploy']) {
-    for (const [name, binary, bufferName] of [['program', 'reflect_allocation.so', 'program-buffer'], ...(withAllocation ? [['mock-program', 'mock_oracle.so', 'mock-buffer']] : [])]) {
+    for (const [name, binary, bufferName] of [['program', 'quorum_allocation.so', 'program-buffer'], ...(withAllocation ? [['mock-program', 'mock_oracle.so', 'mock-buffer']] : [])]) {
       const path = join(ROOT, 'target/deploy', binary!);
       const buffer = (await wallet(keys[bufferName!]!)).publicKey;
       const account = await connection.getAccountInfo(buffer, 'confirmed');

@@ -5,13 +5,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+quorum_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
 mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"
 
 # Public test deployment IDs, synchronized by the TypeScript test runner from its
 # ignored test keys. These entries do not mean the devnet deployment has run.
 [programs.devnet]
-reflect_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
+quorum_allocation = "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz"
 mock_oracle = "3fqre3GKxrkcMvszvtc3vsemgjoKE7mDWz9UQtHtv78N"
 
 [registry]

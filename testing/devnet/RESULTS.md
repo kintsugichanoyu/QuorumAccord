@@ -1,4 +1,8 @@
-# TypeScript verification results — 2026-10-03
+# Quorum TypeScript verification results — 2026-10-03
+
+These historical results describe the source revision tested on 2026-10-03,
+before the Quorum rename. Original evidence paths and logs are preserved; see
+[rename and compatibility](../../docs/book/src/migration.md).
 
 ## Outcome
 

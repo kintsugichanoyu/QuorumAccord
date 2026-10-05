@@ -1,4 +1,4 @@
-# TypeScript protocol and price tests
+# Quorum TypeScript protocol and price tests
 
 All off-chain test code in this directory is TypeScript: the HTTP mock backend,
 providers, consumer, deployment runner, unit tests and integration assertions.

@@ -129,7 +129,7 @@ export class Suite {
     return { older, newer, error_code: 6018 };
   }
   async readOnlyConsumer() {
-    const directory = await mkdtemp(join(tmpdir(), 'reflect-ts-consumer-'));
+    const directory = await mkdtemp(join(tmpdir(), 'quorum-ts-consumer-'));
     const path = join(directory, 'config.json');
     try {
       const config = { ...this.client.config, admin_keypair: join(directory, 'absent-admin.json'),

@@ -1,5 +1,5 @@
 [package]
-name = "rubric"
+name = "quorum-rubric"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

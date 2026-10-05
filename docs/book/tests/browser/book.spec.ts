@@ -39,9 +39,9 @@ test('inspector renders exact prices using only three read-only RPC calls', asyn
   await page.goto('/devnet.html');
   await expect(page.locator('[data-snapshot]')).toContainText('Recorded test status:');
   await page.getByRole('button', { name: 'Read confirmed accounts' }).click();
-  await expect(page.locator('.reflect-price').first()).toHaveText('$198.25');
-  await expect(page.locator('.reflect-price').nth(1)).toHaveText('$64,000');
-  await expect(page.locator('.reflect-badge.fresh')).toHaveCount(3);
+  await expect(page.locator('.quorum-price').first()).toHaveText('$198.25');
+  await expect(page.locator('.quorum-price').nth(1)).toHaveText('$64,000');
+  await expect(page.locator('.quorum-badge.fresh')).toHaveCount(3);
   await expect(page.locator('[data-status]')).toContainText('context slot 201');
   expect(methods).toEqual(['getGenesisHash', 'getSlot', 'getMultipleAccounts']);
   await page.screenshot({ path: testInfo.outputPath('devnet-inspector.png'), fullPage: true });
@@ -52,14 +52,14 @@ test('wrong network is rejected before account reads', async ({ page }) => {
   await page.getByRole('button', { name: 'Read confirmed accounts' }).click();
   await expect(page.locator('[data-status]')).toHaveText('RPC is not Solana devnet');
   expect(methods).toEqual(['getGenesisHash']);
-  await expect(page.locator('.reflect-price')).toHaveCount(0);
+  await expect(page.locator('.quorum-price')).toHaveCount(0);
 });
 test('mobile stale-price display remains readable without horizontal overflow', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await mockRpc(page, 1061);
   await page.goto('/devnet.html');
   await page.getByRole('button', { name: 'Read confirmed accounts' }).click();
-  await expect(page.locator('.reflect-badge.stale')).toHaveCount(3);
+  await expect(page.locator('.quorum-badge.stale')).toHaveCount(3);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   await page.screenshot({ path: testInfo.outputPath('mobile-stale.png'), fullPage: true });
 });
@@ -68,5 +68,5 @@ test('transport errors are shown instead of substituted snapshot prices', async 
   await page.goto('/devnet.html');
   await page.getByRole('button', { name: 'Read confirmed accounts' }).click();
   await expect(page.locator('[data-status]')).toContainText('RPC HTTP 429');
-  await expect(page.locator('.reflect-price')).toHaveCount(0);
+  await expect(page.locator('.quorum-price')).toHaveCount(0);
 });

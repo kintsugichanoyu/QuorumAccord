@@ -1,0 +1,360 @@
+{
+  "observed_at": "2026-10-05T08:49:33.630Z",
+  "endpoint": "https://api.mainnet-beta.solana.com",
+  "read_only": true,
+  "targets": [
+    {
+      "name": "Kamino Lending",
+      "address": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "source": "https://kamino.com/docs/build/resources/program-addresses"
+    },
+    {
+      "name": "Kamino Vaults",
+      "address": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd",
+      "source": "https://kamino.com/docs/build/resources/program-addresses"
+    },
+    {
+      "name": "Exponent Core",
+      "address": "ExponentnaRg3CQbW6dqQNZKXp7gtZ9DGMp1cwC4HAS7",
+      "source": "https://docs.exponent.finance/developers/exponent-programs"
+    },
+    {
+      "name": "Exponent Strategy Vaults",
+      "address": "sVau1tXvayVWfotzm9Ahcv2qfnnfRWttt78BCnNC6dD",
+      "source": "https://docs.exponent.finance/developers/exponent-programs"
+    },
+    {
+      "name": "Meteora Dynamic Vault",
+      "address": "24Uqj9JCLxUeoC3hGfh5W3s9FM9uCHDS2SG3LYwBpyTi",
+      "source": "https://docs.meteora.ag/legacy-products/dynamic-vault/what-is-dynamic-vault"
+    },
+    {
+      "name": "Velocity",
+      "address": "vELoC1audYbSYVRXn1vPaV8Axoa9oU6BYmNGZZBDZ1P",
+      "source": "https://docs.velocity.exchange/developers/migrate-from-drift"
+    },
+    {
+      "name": "Legacy Drift",
+      "address": "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH",
+      "source": "https://docs.velocity.exchange/developers/migrate-from-drift"
+    },
+    {
+      "name": "Project 0 / mrgnLendv2",
+      "address": "MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA",
+      "source": "https://docs.marginfi.com/protocol-overview/program-addresses"
+    },
+    {
+      "name": "Jupiter Lend Earn",
+      "address": "jup3YeL8QhtSx1e253b2FDvsMNC87fDrgQZivbrndc9",
+      "source": "https://developers.jup.ag/docs/lend/earn/cpi"
+    }
+  ],
+  "limitations": [
+    "Executable program existence does not establish an active, deposit-enabled stablecoin market, financial safety, an audit, or compatibility with Reflect.",
+    "Recent program-address signatures are a sample, may include failed transactions, and do not prove active deposits, withdrawability, or specific stablecoin market support."
+  ],
+  "requests": [
+    {
+      "method": "getGenesisHash",
+      "result": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d"
+    },
+    {
+      "method": "getMultipleAccounts",
+      "commitment": "confirmed",
+      "data_slice_length": 0
+    },
+    {
+      "method": "getSignaturesForAddress",
+      "address": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd",
+      "limit": 3,
+      "commitment": "confirmed"
+    },
+    {
+      "method": "getSignaturesForAddress",
+      "address": "sVau1tXvayVWfotzm9Ahcv2qfnnfRWttt78BCnNC6dD",
+      "limit": 3,
+      "commitment": "confirmed"
+    },
+    {
+      "method": "getSignaturesForAddress",
+      "address": "24Uqj9JCLxUeoC3hGfh5W3s9FM9uCHDS2SG3LYwBpyTi",
+      "limit": 3,
+      "commitment": "confirmed"
+    },
+    {
+      "method": "getSignaturesForAddress",
+      "address": "vELoC1audYbSYVRXn1vPaV8Axoa9oU6BYmNGZZBDZ1P",
+      "limit": 3,
+      "commitment": "confirmed"
+    },
+    {
+      "method": "getSignaturesForAddress",
+      "address": "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH",
+      "limit": 3,
+      "commitment": "confirmed"
+    },
+    {
+      "method": "getMultipleAccounts",
+      "commitment": "confirmed",
+      "data_slice_length": 0,
+      "context_slot": 453531045,
+      "account_count": 9
+    }
+  ],
+  "genesis_source": "https://namespaces.chainagnostic.org/solana/caip350",
+  "genesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+  "context": {
+    "apiVersion": "4.3.0",
+    "slot": 453531045
+  },
+  "accounts": [
+    {
+      "name": "Kamino Lending",
+      "address": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Kamino Vaults",
+      "address": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Exponent Core",
+      "address": "ExponentnaRg3CQbW6dqQNZKXp7gtZ9DGMp1cwC4HAS7",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Exponent Strategy Vaults",
+      "address": "sVau1tXvayVWfotzm9Ahcv2qfnnfRWttt78BCnNC6dD",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Meteora Dynamic Vault",
+      "address": "24Uqj9JCLxUeoC3hGfh5W3s9FM9uCHDS2SG3LYwBpyTi",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Velocity",
+      "address": "vELoC1audYbSYVRXn1vPaV8Axoa9oU6BYmNGZZBDZ1P",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Legacy Drift",
+      "address": "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Project 0 / mrgnLendv2",
+      "address": "MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    },
+    {
+      "name": "Jupiter Lend Earn",
+      "address": "jup3YeL8QhtSx1e253b2FDvsMNC87fDrgQZivbrndc9",
+      "exists": true,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "space": 36
+    }
+  ],
+  "status": "program_accounts_checked",
+  "activity": [
+    {
+      "name": "Kamino Vaults",
+      "address": "KvauGMspG5k6rtzrqqn7WNn3oZdyKqLKwK2XWQ8FLjd",
+      "transactions": [
+        {
+          "signature": "2DRoJgWwGt2eisJwsxCddmf5txG3sqmQwSj9wiFGaHaLQUPQLQDfijJ1B88734hX24vx4Ab6vXWxf5vdPV61tGg2",
+          "slot": 453530202,
+          "block_time": 1791190191,
+          "observed_block_time_utc": "2026-10-05T08:49:51.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "z4Vzz1UrGQHHazKU9rxcrrr373A9rxHLU6YGacaSGKXfP5Zbgx2hMB9nZbR7ijxvmWvrDg1a65XWjtPAd2kJ9eF",
+          "slot": 453530147,
+          "block_time": 1791190177,
+          "observed_block_time_utc": "2026-10-05T08:49:37.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "2C3xynXbnShAtn1sLHETGxLc8hbkWFb4vZUMTRvLunYvemw8PQTpa7TXSnxw1fNUfVTVifVZqKmyrZdYuNLbpNea",
+          "slot": 453530144,
+          "block_time": 1791190176,
+          "observed_block_time_utc": "2026-10-05T08:49:36.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        }
+      ]
+    },
+    {
+      "name": "Exponent Strategy Vaults",
+      "address": "sVau1tXvayVWfotzm9Ahcv2qfnnfRWttt78BCnNC6dD",
+      "transactions": [
+        {
+          "signature": "5bqqoTUnAWbfRE4vb2yriPwFewZLd8VqaDRGBwQFxWCon8FSNA43c4RRK1g5q589brLpjMipeJYc57uKCFcxXrmo",
+          "slot": 453524014,
+          "block_time": 1791188541,
+          "observed_block_time_utc": "2026-10-05T08:22:21.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "3CQFnVwaARcT3nKTtTByhicLy4x4E62UHQkCnagVVpvFSqxSnrSmWWrupFtev5TSrVY4UkcJwwquAhii6fMDz389",
+          "slot": 453524014,
+          "block_time": 1791188541,
+          "observed_block_time_utc": "2026-10-05T08:22:21.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "5dLM8Eh78HjgFkKwZCPci2JPEzhvhEK9AUp9F8XjyQENKLeWFLo9daaUfLmL8aiZ781Rkt5m6idmDz5h5HBTJtwQ",
+          "slot": 453524014,
+          "block_time": 1791188541,
+          "observed_block_time_utc": "2026-10-05T08:22:21.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        }
+      ]
+    },
+    {
+      "name": "Meteora Dynamic Vault",
+      "address": "24Uqj9JCLxUeoC3hGfh5W3s9FM9uCHDS2SG3LYwBpyTi",
+      "transactions": [
+        {
+          "signature": "2yKCC4pHFESEJd3c83XjqB2VyRSxLajtZNfichoThvtCyW5wgSXvsRppxxv2y9QVhUyeDzZTRgLaFC2qQMwDFxPT",
+          "slot": 453530314,
+          "block_time": 1791190221,
+          "observed_block_time_utc": "2026-10-05T08:50:21.000Z",
+          "error": null,
+          "confirmation_status": "confirmed"
+        },
+        {
+          "signature": "tufXfVSE5JJUfjXGVJryn2DKi8ZhhPgTto2UmUzeEy1myfumsJEhBoPBg8ekXALmRBCToAj68kBm8YW7mERusdR",
+          "slot": 453530309,
+          "block_time": 1791190219,
+          "observed_block_time_utc": "2026-10-05T08:50:19.000Z",
+          "error": {
+            "InstructionError": [
+              1,
+              {
+                "Custom": 1004
+              }
+            ]
+          },
+          "confirmation_status": "confirmed"
+        },
+        {
+          "signature": "57gRvWNUtRsKpsPg1mNqfC6TzJ7ELskmyEgo4BfNZAdDCaV1uFfA8LCLDNGsKj559hMQFSw3yCq9MqBsZmk7nZZ8",
+          "slot": 453530309,
+          "block_time": 1791190219,
+          "observed_block_time_utc": "2026-10-05T08:50:19.000Z",
+          "error": {
+            "InstructionError": [
+              1,
+              {
+                "Custom": 1004
+              }
+            ]
+          },
+          "confirmation_status": "confirmed"
+        }
+      ]
+    },
+    {
+      "name": "Velocity",
+      "address": "vELoC1audYbSYVRXn1vPaV8Axoa9oU6BYmNGZZBDZ1P",
+      "transactions": [
+        {
+          "signature": "2qeP7o2MwZAQxZraqc1Hj14WKeV2G7aKVwsemVVNN3PNmSDGeVfJQ9wcrYVnTbdXSNrCM19GU8VMSeR3JgnrCcNj",
+          "slot": 453530316,
+          "block_time": 1791190221,
+          "observed_block_time_utc": "2026-10-05T08:50:21.000Z",
+          "error": null,
+          "confirmation_status": "confirmed"
+        },
+        {
+          "signature": "2fRJed8j3pt8rCNjscpTiuJWCkhehbzA116CRNLnhMELsAVC4KeM2ASYSaziKNTQhs8HzzpB43v4DTH3NP9wVL3g",
+          "slot": 453530312,
+          "block_time": 1791190220,
+          "observed_block_time_utc": "2026-10-05T08:50:20.000Z",
+          "error": null,
+          "confirmation_status": "confirmed"
+        },
+        {
+          "signature": "24EH25Q4YM7JhRVZ1y8bxfG2grcPNr7JbDqQ5zyZYYzpnXm7saACi8ymG7h2nQcbwPnk58UkwedTNXWWh9ofDzEC",
+          "slot": 453530312,
+          "block_time": 1791190220,
+          "observed_block_time_utc": "2026-10-05T08:50:20.000Z",
+          "error": null,
+          "confirmation_status": "confirmed"
+        }
+      ]
+    },
+    {
+      "name": "Legacy Drift",
+      "address": "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH",
+      "transactions": [
+        {
+          "signature": "DBJXLRHqAmh3g7mhkHKqQXyEVJ7ysJgS6t4FDgDhAvbscubfTjJ8wPYhBBqtsTvj24F4ds2MMSR3o9EVjz7sAZp",
+          "slot": 450699296,
+          "block_time": 1790432319,
+          "observed_block_time_utc": "2026-09-26T14:18:39.000Z",
+          "error": {
+            "InstructionError": [
+              4,
+              {
+                "Custom": 101
+              }
+            ]
+          },
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "vieTW5Y85KScrrzEz3ohDVY6miudM7miC8NQU2KK2B6cy1RBLvirWtN5K9YUBfhKr9xzDvjTSr912rQVUQ4xHuP",
+          "slot": 450491395,
+          "block_time": 1790376470,
+          "observed_block_time_utc": "2026-09-25T22:47:50.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        },
+        {
+          "signature": "3fmXioe6L8fCUSgmidwPwBi96XspeAYRvSFxfS2qKEyYkeyuJzFVPtuw7YmGpgBM2173oSXgjDpfA8tb1bz3ohzB",
+          "slot": 449982169,
+          "block_time": 1790240531,
+          "observed_block_time_utc": "2026-09-24T09:02:11.000Z",
+          "error": null,
+          "confirmation_status": "finalized"
+        }
+      ]
+    }
+  ],
+  "activity_checked_at": "2026-10-05T08:50:23.338Z",
+  "account_check_at": "2026-10-05T08:53:38.263Z"
+}

@@ -18,6 +18,14 @@ graphify-out
 /docs/book/src/evidence/
 /docs/book/test-results/
 /docs/book/playwright-report/
+/frontend/dist/
+/frontend/test-results/
+/frontend/playwright-report/
+/docker/*.env
+/docker/secrets/
+**/*keypair*.json
+**/*.pem
+**/*.key
 **/__pycache__/
 !*.env.example
 !.env.devnet.example

@@ -1,4 +1,4 @@
-# Open questions and verification ledger
+# Quorum open questions and verification ledger
 
 This file distinguishes implementation gaps, design choices and checks that have
 actually run. A successful mock test does not establish production readiness.
@@ -65,8 +65,11 @@ actually run. A successful mock test does not establish production readiness.
     rejection was covered on the historical fresh local validator, not repeated
     on this final public-devnet run. A new full rerun needs additional test SOL.
     Node 24.16.0/TypeScript 5.9.3, clean `npm ci`, strict compilation and the
-    pinned dependency audit passed. Clean container builds and a reproducible
-    installer/CI image remain open.
+    pinned dependency audit passed. Clean frontend and worker container builds,
+    the frontend health check, five container browser tests and offline worker
+    startup checks passed on 2026-10-05. GitHub CI and GHCR publication workflows
+    are checked in and syntax-validated; execution on GitHub remains unverified.
+    Reproducible installation of the SBF deployment toolchain remains open.
 16. **CI and expanded runtime tests.** TypeScript byte-view tests cover wrapped-ring
     reading, discriminator/head rejection, truncation and staleness boundaries;
     not 256 on-chain appends. The TypeScript local-validator suite now covers

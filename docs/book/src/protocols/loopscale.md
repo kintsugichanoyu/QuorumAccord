@@ -1,6 +1,6 @@
 # Loopscale
 
-<div class="reflect-warning">Status: real protocol adapter not implemented. This page is an integration checklist, not a live connection or a verified financial model.</div>
+<div class="quorum-warning">Status: real protocol adapter not implemented. This page is an integration checklist, not a live connection or a verified financial model.</div>
 
 ## Intended measurement
 

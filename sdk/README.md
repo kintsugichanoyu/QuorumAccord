@@ -1,12 +1,12 @@
-# Provider SDK
+# Quorum provider SDK
 
-Generated TypeScript + Rust clients for the `reflect-allocation` program, so a
+Generated TypeScript + Rust clients for the `quorum-allocation` program, so a
 third party can register as an operator and submit samples / weight vectors.
 
 ## Generate
 
 ```bash
-anchor build                       # produces target/idl/reflect_allocation.json
+anchor build                       # produces target/idl/quorum_allocation.json
 cd sdk && npm install && npm run generate
 ```
 
@@ -24,5 +24,5 @@ emits:
    - consumers → `submit_weights` (and crank `finalize_allocation`)
 
 The off-chain Rust daemons in `workers/` already implement these flows by hand in
-`worker-core::ix`; the generated clients are for external integrators who prefer a
+`quorum_worker_core::ix`; the generated clients are for external integrators who prefer a
 typed SDK over hand-rolled instructions.

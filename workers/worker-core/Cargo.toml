@@ -1,9 +1,9 @@
 [package]
-name = "worker-core"
+name = "quorum-worker-core"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Shared infrastructure for reflect workers: RPC failover, context-bounded reads, signing, transaction retry and instruction builders"
+description = "Shared infrastructure for quorum workers: RPC failover, context-bounded reads, signing, transaction retry and instruction builders"
 
 [dependencies]
 anyhow = { workspace = true }

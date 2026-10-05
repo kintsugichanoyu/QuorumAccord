@@ -1,4 +1,4 @@
-//! Shared infrastructure for reflect producer / consumer daemons.
+//! Shared infrastructure for quorum producer / consumer daemons.
 //!
 //! - [`window`]       deterministic tick-window maths
 //! - [`anchor_codec`] Anchor instruction wire format (no on-chain crate dependency)

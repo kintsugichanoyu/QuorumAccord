@@ -1,15 +1,21 @@
-# Reflect mdBook frontend
+# Quorum integration handbook
 
 Searchable protocol-integration documentation with a read-only TypeScript devnet
 inspector. No signing keys, price backend access or transactions in the browser.
 Named protocol pages explicitly distinguish planned adapters from implemented
 generic decoding and fictional fixture data.
 
+The [project frontend](../../frontend/README.md) serves this book at `/book/`
+alongside the Quorum landing page. Begin with
+[Integrate Quorum workers](src/workers.md) for Rust producer and consumer setup.
+
 Requirements: Node >=22.12, npm and **mdBook 0.5.4**. Install that pinned release
 from the [official release](https://github.com/rust-lang/mdBook/releases/tag/v0.5.4)
 or `cargo install mdbook --version 0.5.4 --locked`. Set `MDBOOK_BIN` to an absolute
 binary path when it is not on PATH. The build also discovers the task-owned
-`~/.local/share/reflect-toolchains/mdbook-v0.5.4/mdbook` binary.
+`~/.local/share/quorum-toolchains/mdbook-v0.5.4/mdbook` binary.
+It also recognizes installations under the previous `reflect-toolchains`
+directory; see [rename and compatibility](src/migration.md).
 
 ```bash
 npm --prefix docs/book ci

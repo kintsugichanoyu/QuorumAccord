@@ -1,9 +1,9 @@
 [book]
-title = "Reflect · Integration Handbook"
-authors = ["Reflect contributors"]
+title = "Quorum · Integration Handbook"
+authors = ["Quorum contributors"]
 language = "en"
 src = "src"
-description = "Protocol integration, consensus feeds and TypeScript verification for Reflect."
+description = "Protocol integration, consensus feeds and TypeScript verification for Quorum."
 
 [build]
 build-dir = "build"
@@ -11,7 +11,7 @@ build-dir = "build"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
-additional-css = ["theme/reflect.css"]
+additional-css = ["theme/quorum.css"]
 additional-js = [".generated/inspector.js"]
 no-section-label = true
 hash-files = true

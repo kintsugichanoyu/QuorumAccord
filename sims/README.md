@@ -1,11 +1,11 @@
-# Simulations & integration tests
+# Quorum simulations and integration tests
 
 The deterministic maths (aggregation, renormalisation, rubric, window/divergence)
 is already covered by **native unit tests** (`cargo test` in both workspaces, 24
 tests). The scenarios below exercise the on-chain **state machine** end-to-end and
 need a runtime that executes the built program — either:
 
-- **LiteSVM** (Rust, fastest): `litesvm` loads `target/deploy/reflect_allocation.so`
+- **LiteSVM** (Rust, fastest): `litesvm` loads `target/deploy/quorum_allocation.so`
   produced by `anchor build` / `cargo build-sbf`, or
 - **`anchor test`** (TS + local validator).
 
@@ -34,7 +34,7 @@ pull the test harness into `cargo test`). Pseudocode:
 ```rust
 use litesvm::LiteSVM;
 // 1. let mut svm = LiteSVM::new();
-// 2. svm.add_program_from_file(reflect_allocation::ID, "target/deploy/reflect_allocation.so")?;
+// 2. svm.add_program_from_file(quorum_allocation::ID, "target/deploy/quorum_allocation.so")?;
 // 3. fund admin + operator keypairs; init_registry; add_operator(s)
 // 4. init_data_feed with min_interval_slots set; warp slots with svm.warp_to_slot()
 // 5. propose/corroborate_sample at several in-window slots; finalize_sample

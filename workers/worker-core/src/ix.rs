@@ -142,7 +142,7 @@ pub fn finalize_allocation(program_id: &Pubkey, round: u64, cranker: &Pubkey) ->
 
 /// Trigger/aggregation config for `init_data_feed` / `update_thresholds`. Field
 /// order and `to_bytes` match the on-chain `DataFeedConfig` borsh layout in
-/// `programs/reflect-allocation/src/instructions/data_feed.rs`.
+/// `programs/quorum-allocation/src/instructions/data_feed.rs`.
 #[derive(Clone, Copy, Debug)]
 pub struct DataFeedConfig {
     pub measurand: u8,

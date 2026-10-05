@@ -1,5 +1,5 @@
 [workspace]
-members = ["programs/reflect-allocation", "testing/devnet/programs/mock-oracle"]
+members = ["programs/quorum-allocation", "testing/devnet/programs/mock-oracle", "frontend"]
 exclude = ["workers"]
 resolver = "2"
 
