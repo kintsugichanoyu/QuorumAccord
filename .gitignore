@@ -11,6 +11,7 @@ sdk/rust/src/generated
 /sdk/rust/target/
 /sdk/idl-builder/target/
 /sdk/verify-rust/target/
+/integrations/kamino/probe/target/
 .env
 *.so
 .env*

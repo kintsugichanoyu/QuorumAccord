@@ -56,6 +56,10 @@ roadmap's corresponding acceptance gates pass.
 13. **Real protocol drivers.** Implement and fixture-test Marginfi, Kamino, Save,
     Jupiter and Loopscale decoders, units, owner/discriminator checks and overflow
     handling. HTTP mock price providers are test-only and not these drivers.
+    Kamino now has [pinned-source, read-only mainnet verification](integrations/kamino/README.md)
+    and captured account fixtures. The deployed binary matches the official
+    v1.25.0 artifact; direct on-chain calculation/publication remains an
+    implementation gate. The selected mainnet reserve is absent on devnet.
 14. **Provider SDK — current MVP verified on devnet.** Compiler-built IDL and
     pinned Codama renderers generate Rust/TypeScript clients; both compile,
     including the Rust RPC fetch feature. The 2026-10-06 run passed 22 checks

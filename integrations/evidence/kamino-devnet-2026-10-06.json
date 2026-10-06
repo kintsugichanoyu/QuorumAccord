@@ -1,0 +1,41 @@
+{
+  "accounts": [
+    {
+      "address": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "executable": true,
+      "exists": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111"
+    },
+    {
+      "address": "D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59",
+      "executable": null,
+      "exists": false,
+      "owner": null
+    },
+    {
+      "address": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+      "executable": false,
+      "exists": true,
+      "owner": "11111111111111111111111111111111"
+    },
+    {
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "executable": false,
+      "exists": true,
+      "owner": "11111111111111111111111111111111"
+    }
+  ],
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "initial_context_slot": 508094443,
+  "network": "devnet",
+  "observed_unix_seconds": 1791290062,
+  "read_only": true,
+  "schema_version": 1,
+  "source": {
+    "interface": "0.8.0",
+    "release": "release/v1.25.0",
+    "repository": "https://github.com/Kamino-Finance/klend",
+    "revision": "a08760976f51a3a58c4a0c6ea27b4a0e565bca79"
+  },
+  "status": "selected_accounts_absent"
+}

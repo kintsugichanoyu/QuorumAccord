@@ -6,6 +6,11 @@ Progress is measured by acceptance criteria, not calendar dates. Estimates and
 release versions should follow the first adapter's correctness and compute
 measurements.
 
+The [Kamino integration plan](integrations/kamino/README.md) pins the public
+contract/SDK revisions, verifies a selected mainnet reserve and its linked
+accounts, and defines implementation gates from captured state. The read-only
+verification spike is complete; the on-chain adapter and migration remain planned.
+
 ## Direction
 
 For metrics completely determined by Solana accounts, Quorum should read the

@@ -15,6 +15,8 @@ COPY specs/ ./specs/
 COPY sdk/README.md ./sdk/README.md
 COPY OPEN_QUESTIONS.md ./OPEN_QUESTIONS.md
 COPY ROADMAP.md ./ROADMAP.md
+COPY integrations/kamino/README.md ./integrations/kamino/README.md
+COPY integrations/evidence/ ./integrations/evidence/
 COPY testing/devnet/evidence/ ./testing/devnet/evidence/
 RUN npm --prefix frontend run build
 

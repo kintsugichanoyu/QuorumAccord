@@ -14,6 +14,7 @@ milestones are planned; the current deployment still uses operator submissions.
 
 - Contract/design: [specs/SPECIFICATION.md](specs/SPECIFICATION.md)
 - Protocol evolution roadmap: [ROADMAP.md](ROADMAP.md)
+- Kamino source verification and integration plan: [integrations/kamino/README.md](integrations/kamino/README.md)
 - Project frontend: [frontend/README.md](frontend/README.md)
 - GitHub and Docker deployment: [docs/book/src/deployment.md](docs/book/src/deployment.md)
 - Public-release review and launch steps: [docs/book/src/public-release.md](docs/book/src/public-release.md)

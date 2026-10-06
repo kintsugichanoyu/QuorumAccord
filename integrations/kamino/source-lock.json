@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-06",
+  "repositories": [
+    {
+      "name": "klend",
+      "repository": "https://github.com/Kamino-Finance/klend",
+      "revision": "a08760976f51a3a58c4a0c6ea27b4a0e565bca79",
+      "files": [
+        {
+          "path": "programs/klend/src/state/reserve.rs",
+          "sha256": "646bace18c162b3b0b39f384494b4e3b477e92eaafb96fa40826d096b984b250",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/state/reserve.rs"
+        },
+        {
+          "path": "programs/klend/src/state/last_update.rs",
+          "sha256": "c08c80c0265d11211834cd6c7b1246092e961042371d9e55b3c14cf2ee94d688",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/state/last_update.rs"
+        },
+        {
+          "path": "programs/klend/src/handlers/handler_refresh_reserve.rs",
+          "sha256": "96a3f1a7b0c0b7c175404692ddf8a20c7207c789baf124f54be6da151578fc50",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/handlers/handler_refresh_reserve.rs"
+        },
+        {
+          "path": "programs/klend/src/utils/consts.rs",
+          "sha256": "f485fce3ef2a8d8d488258e1bfb3bf568083b89040dc96fa5fe89319ba7f6227",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/programs/klend/src/utils/consts.rs"
+        },
+        {
+          "path": "libs/klend-interface/src/state/reserve.rs",
+          "sha256": "77f1a43fe6f45cc5cbf05cf5ccaeaed615089143d3d824c8d85afa20dca70b10",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/libs/klend-interface/src/state/reserve.rs"
+        },
+        {
+          "path": "libs/klend-interface/src/state/lending_market.rs",
+          "sha256": "78775fa5149f635b17e79cca713ce60544c0abd5259877fe31aedcdafb61d219",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/libs/klend-interface/src/state/lending_market.rs"
+        },
+        {
+          "path": "libs/klend-interface/src/state/mod.rs",
+          "sha256": "b6686ac0a71c6bc2251935b34d63f89920e74402745a6fb2f67b28d53bb58f92",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/libs/klend-interface/src/state/mod.rs"
+        },
+        {
+          "path": "libs/klend-interface/LICENSE",
+          "sha256": "c16c8a3f3e60fd384e1e54e83123c6266dd8a620b4ced8e4abe772ffba277ee4",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/libs/klend-interface/LICENSE"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "bbac42262e13c89488141e02fc8897d56acf478a9408da43d283155d6392a612",
+          "url": "https://github.com/Kamino-Finance/klend/blob/a08760976f51a3a58c4a0c6ea27b4a0e565bca79/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "klend-sdk",
+      "repository": "https://github.com/Kamino-Finance/klend-sdk",
+      "revision": "38845294447623f6de3afc9dec29875f959f6f48",
+      "files": [
+        {
+          "path": "examples/utils/constants.ts",
+          "sha256": "18549b91ffcd56885c9a972809047a637c7494ed3457c79ebea91bd311ae0c9a",
+          "url": "https://github.com/Kamino-Finance/klend-sdk/blob/38845294447623f6de3afc9dec29875f959f6f48/examples/utils/constants.ts"
+        },
+        {
+          "path": "src/idl/klend.json",
+          "sha256": "8227dbd383940cb42f93cee9623f2127192b988f75aa5cb8dbc477b938930c62",
+          "url": "https://github.com/Kamino-Finance/klend-sdk/blob/38845294447623f6de3afc9dec29875f959f6f48/src/idl/klend.json"
+        },
+        {
+          "path": "src/@codegen/klend/accounts/Reserve.ts",
+          "sha256": "9ec043e7dfb6d84d873a01a77b3765ad4eaf0524b6ebf3d2ee3a35287ac8e3ed",
+          "url": "https://github.com/Kamino-Finance/klend-sdk/blob/38845294447623f6de3afc9dec29875f959f6f48/src/@codegen/klend/accounts/Reserve.ts"
+        },
+        {
+          "path": "src/classes/reserve.ts",
+          "sha256": "0830a09e5a0963ea3f79b0496c19ed0aff4700dacfdbe1d8778fb2204fdbe419",
+          "url": "https://github.com/Kamino-Finance/klend-sdk/blob/38845294447623f6de3afc9dec29875f959f6f48/src/classes/reserve.ts"
+        },
+        {
+          "path": "package.json",
+          "sha256": "e620215e74252b55ac4d7845165da303cd4e4b6a0279e3238452a44f9ebe1f6d",
+          "url": "https://github.com/Kamino-Finance/klend-sdk/blob/38845294447623f6de3afc9dec29875f959f6f48/package.json"
+        }
+      ]
+    }
+  ],
+  "official_release": {
+    "tag": "release/v1.25.0",
+    "binary_url": "https://github.com/Kamino-Finance/klend/releases/download/release/v1.25.0/kamino_lending.so",
+    "bytes": 2431968,
+    "matches_deployed_code_with_zero_padding": true,
+    "sha256": "ac5a94790923b0a8cccb981e6f20b5bbb4a67ae35490b685db3009b144771009"
+  },
+  "licenses": {
+    "program": "BSL-1.1; see upstream LICENSE",
+    "interface": "BSL-1.1 with additional grant for unmodified application dependencies; excludes a separate lending protocol",
+    "sdk_package_declaration": "MIT"
+  }
+}

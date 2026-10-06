@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "research account bindings; on-chain SourceConfig not implemented",
+  "network": "mainnet",
+  "genesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+  "verified_context_slot": 453902424,
+  "program_deployment_slot": 440486775,
+  "source_revision": "a08760976f51a3a58c4a0c6ea27b4a0e565bca79",
+  "accounts": {
+    "program": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+    "reserve": "D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59",
+    "market": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+    "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "clock": "SysvarC1ock11111111111111111111111111111111",
+    "supply_vault": "Bgq7trRgVMeq33yt235zM2onQ4bRDBsY5EWiTetF4qw6",
+    "fee_vault": "BbDUrk1bVtSixgQsPLBJFZEF7mwGstnD5joA1WzYvYFX",
+    "collateral_mint": "B8V6WVjPxW1UGwVDfxH2d2r8SyT4cqn7dQRK6XneVa7D",
+    "collateral_vault": "3DzjXRfxRm6iejfyyMynR4tScddaanrePJ1NJU2XnPPL",
+    "scope_prices": "3t4JZcueEzTbVP6kLxXrL3VpWx45jDer4eqysweBchNH"
+  },
+  "mint_decimals": 6,
+  "planned_initial_metrics": [
+    "total_available_liquidity_base_units",
+    "utilization_bps"
+  ],
+  "publication_source": "future on-chain calculation from approved account bindings"
+}

@@ -1,0 +1,188 @@
+{
+  "accounts": [
+    {
+      "address": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "bytes": 36,
+      "executable": true,
+      "owner": "BPFLoaderUpgradeab1e11111111111111111111111",
+      "role": "program",
+      "sha256": "1808e8ed8df1172b183662cdf5220eb26b12f39a35649801b400fd929f0135f5"
+    },
+    {
+      "address": "D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59",
+      "bytes": 8624,
+      "executable": false,
+      "owner": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "role": "reserve",
+      "sha256": "a8588e18d7ee3134e95fb9828f4ed578296d63e71b46f10579cf331ce0df85df"
+    },
+    {
+      "address": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+      "bytes": 4664,
+      "executable": false,
+      "owner": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "role": "market",
+      "sha256": "25a9badbabff47f9c946c6d1347001a24e65a9d489a3be2d987fec98723a4f6f"
+    },
+    {
+      "address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "bytes": 82,
+      "executable": false,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "role": "mint",
+      "sha256": "8cee1ea78fd6441db5a9f8cf4a32e616d61d554f0175ab3eeade431faf7ea605"
+    },
+    {
+      "address": "SysvarC1ock11111111111111111111111111111111",
+      "bytes": 40,
+      "executable": false,
+      "owner": "Sysvar1111111111111111111111111111111111111",
+      "role": "clock",
+      "sha256": "eeecfb847a06dd75ee3ff540395ac18a842cd38fb6c4449f5b100d5badf5034c"
+    },
+    {
+      "address": "Bgq7trRgVMeq33yt235zM2onQ4bRDBsY5EWiTetF4qw6",
+      "bytes": 165,
+      "executable": false,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "role": "supply_vault",
+      "sha256": "5094e591f0c70705bd99cc66bbb4d5741c7f4ffe448a3b27c4a39477d8e961bc"
+    },
+    {
+      "address": "BbDUrk1bVtSixgQsPLBJFZEF7mwGstnD5joA1WzYvYFX",
+      "bytes": 165,
+      "executable": false,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "role": "fee_vault",
+      "sha256": "4a00ea7ee4c80669e966056d894fa9dfc855a9c09d2d6a917a5473b733f66d8d"
+    },
+    {
+      "address": "B8V6WVjPxW1UGwVDfxH2d2r8SyT4cqn7dQRK6XneVa7D",
+      "bytes": 82,
+      "executable": false,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "role": "collateral_mint",
+      "sha256": "cb7b113a2ee3ed8cebddfb74a03dae4bf94b9275d1ae8703a8a9640a9d3fb7a5"
+    },
+    {
+      "address": "3DzjXRfxRm6iejfyyMynR4tScddaanrePJ1NJU2XnPPL",
+      "bytes": 165,
+      "executable": false,
+      "owner": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "role": "collateral_vault",
+      "sha256": "469a88b7f23739427eadaa73c47287795f06dcc6e4f8fb64f8fd4dd34892d95f"
+    },
+    {
+      "address": "3t4JZcueEzTbVP6kLxXrL3VpWx45jDer4eqysweBchNH",
+      "bytes": 28712,
+      "executable": false,
+      "owner": "HFn8GnPADiny6XqUoWE8uRPPxb29ikn4yTuPa9MF2fWJ",
+      "role": "scope_prices",
+      "sha256": "51ca071f573a20ed399f1bbe6393a62767eb34d05f706b440062bc0408a86501"
+    }
+  ],
+  "checks": [
+    "network genesis",
+    "executable program and loader linkage",
+    "reserve address/owner/discriminator/length/version",
+    "market address/owner/discriminator/length/version",
+    "USDC mint and decimals",
+    "market authority bump",
+    "vault/mint addresses from canonical reserve state",
+    "token account owners/mints/authorities",
+    "collateral mint authority and supply upper bound",
+    "vault liquidity/reward coverage",
+    "source/clock slot ordering",
+    "checked net supply and utilization math"
+  ],
+  "collateral_supply_comparison": {
+    "difference_cause": "not established by this account snapshot",
+    "equal": false,
+    "exchange_rate_denominator": "reserve.collateral.mint_total_supply, per upstream calculation",
+    "mint_supply_base_units": "100884325940456",
+    "reserve_recorded_base_units": "100884338700991"
+  },
+  "context_slot": 453902424,
+  "current_init_pda_comparison": [
+    {
+      "actual": "Bgq7trRgVMeq33yt235zM2onQ4bRDBsY5EWiTetF4qw6",
+      "current_init_derived": "JCdAwUu36ka4C9BjeZfMRSx549PmBSqEMzppjjzsMQRZ",
+      "matches": false,
+      "role": "supply_vault"
+    },
+    {
+      "actual": "BbDUrk1bVtSixgQsPLBJFZEF7mwGstnD5joA1WzYvYFX",
+      "current_init_derived": "FRhpLGAS3sYQLevt7tqkrkT8GT2BYNBnwcjM3Zbyqixq",
+      "matches": false,
+      "role": "fee_vault"
+    },
+    {
+      "actual": "B8V6WVjPxW1UGwVDfxH2d2r8SyT4cqn7dQRK6XneVa7D",
+      "current_init_derived": "847kVN2ycaJxTMz3XDjFKGpVRhE2PdwmDrugMBg7C318",
+      "matches": false,
+      "role": "collateral_mint"
+    },
+    {
+      "actual": "3DzjXRfxRm6iejfyyMynR4tScddaanrePJ1NJU2XnPPL",
+      "current_init_derived": "CeHP7ew8VbF3a4QyEqsVntnrZsKdR9zcY1jXid9hyZDq",
+      "matches": false,
+      "role": "collateral_vault"
+    }
+  ],
+  "deployment": {
+    "allocated_bytecode_bytes": 10485715,
+    "allocated_bytecode_sha256": "9db16dd4b7bbfe4f13df850bf880bfc4522fcece06717c0626d625746a3cc85b",
+    "last_deployed_slot": 440486775,
+    "official_release_binary": {
+      "bytes": 2431968,
+      "matches_deployed_code_with_zero_padding": true,
+      "sha256": "ac5a94790923b0a8cccb981e6f20b5bbb4a67ae35490b685db3009b144771009"
+    },
+    "programdata": "9uSbGW1y9H5Av6H5TKxQ1wnFApSq2t3oEpfF2YfjDQGA",
+    "source_build_equivalence": "not established; a source build was not reproduced",
+    "upgrade_authority": "GzFgdRJXmawPhGeBsyRCDLx4jAKPsvbUqoqitzppkzkW"
+  },
+  "genesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
+  "initial_context_slot": 453902424,
+  "network": "mainnet",
+  "observed_unix_seconds": 1791289904,
+  "read_only": true,
+  "reserve_state": {
+    "base_metric_freshness_gate_passes": false,
+    "borrow_limit_base_units": "700000000000000",
+    "borrowed_amount_sf": "128117331485795375971542174918491",
+    "clock_slot": 453902424,
+    "clock_unix_timestamp": 1791289903,
+    "deposit_limit_base_units": "1000000000000000",
+    "fraction_scale": "1152921504606846976",
+    "interest_rate_basis": 1,
+    "last_update_slot": 453902416,
+    "last_update_timestamp": 1791289901,
+    "market_emergency_mode": 0,
+    "mint_decimals": 6,
+    "net_supply_sf": "140049682205715988099002813990970",
+    "pending_referrer_fees_sf": "0",
+    "price_status": 63,
+    "protocol_fees_sf": "278819593380210764150644186913",
+    "publication": "none; diagnostic stored-state calculation only",
+    "queued_collateral_base_units": "0",
+    "referrer_fees_sf": "0",
+    "reserve_emergency_mode": 0,
+    "rewards_available_base_units": "0",
+    "source_age_slots": 8,
+    "stale_flag": 0,
+    "status": 0,
+    "supply_vault_base_units": "10594428528329",
+    "total_available_base_units": "10591501905817",
+    "utilization_bps_floor": 9147,
+    "version": 1
+  },
+  "schema_version": 1,
+  "source": {
+    "interface": "0.8.0",
+    "release": "release/v1.25.0",
+    "repository": "https://github.com/Kamino-Finance/klend",
+    "revision": "a08760976f51a3a58c4a0c6ea27b4a0e565bca79"
+  },
+  "status": "identity_and_layout_verified"
+}

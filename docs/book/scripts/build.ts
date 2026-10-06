@@ -30,6 +30,17 @@ assert(verifiedSdkReports.length > 0, 'No committed successful SDK devnet eviden
 assert.equal(verifiedSdkReports[0]!.report.program, PROGRAM, 'SDK evidence must match the documented deployment');
 await copyFile(join(evidence, verifiedSdkReports[0]!.name), join(book, 'src/evidence/latest-sdk-devnet.json'));
 await chmod(join(book, 'src/evidence/latest-sdk-devnet.json'), 0o644);
+for (const name of ['kamino-mainnet-2026-10-06.json', 'kamino-devnet-2026-10-06.json']) {
+  const source = join(root, 'integrations/evidence', name);
+  const report = JSON.parse(await readFile(source, 'utf8')) as {
+    read_only?: boolean; accounts?: { address: string }[];
+  };
+  assert.equal(report.read_only, true, 'Only read-only Kamino research evidence is bundled');
+  assert(report.accounts?.some(a => a.address === 'KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD'),
+    'Kamino evidence must identify the documented lending program');
+  await copyFile(source, join(book, 'src/evidence', name));
+  await chmod(join(book, 'src/evidence', name), 0o644);
+}
 await writeFile(join(book, 'src/evidence/source.json'), JSON.stringify({ source: `testing/devnet/evidence/${reports[0]!.name}`, mdbook: '0.5.4' }, null, 2) + '\n');
 const result = spawnSync(mdbook, ['build', book], { stdio: 'inherit' });
 assert.equal(result.status, 0, 'mdBook build failed');
