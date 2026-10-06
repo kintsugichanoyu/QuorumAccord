@@ -25,5 +25,6 @@ enable = true
 use-boolean-and = true
 
 [output.html.redirect]
+"/ROADMAP.html" = "roadmap.html"
 "/testing/devnet/RESULTS.html" = "../../verification.html"
 "/docs/book/README.html" = "../../quickstart.html"

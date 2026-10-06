@@ -19,6 +19,11 @@ devnet inspector. A searchable sidebar, themes, and copyable examples are suppli
 by mdBook. Start with [worker integration](workers.md), then
 [source adapters](integration.md) and the [TypeScript lab](quickstart.md).
 
+The [protocol roadmap](roadmap.md) describes the planned shift to on-chain
+account reads and calculations, with off-chain keepers responsible for triggers.
+Current integration instructions and devnet evidence still describe the
+operator-submission model.
+
 ## Integration status
 
 | Component | What exists | What does not |
@@ -27,6 +32,7 @@ by mdBook. Start with [worker integration](workers.md), then
 | TypeScript lab | Three HTTP mock providers, consumer, actual SBF tests | Independent real market sources |
 | Production producer | Generic `offset_u64` decoder | Named-protocol schema/owner validation |
 | Allocation worker | Integer rubric and submission scaffold | Coherent snapshots and lifecycle recovery |
+| Generated SDKs | Rust/TypeScript clients compiled and verified on devnet | Published packages and future source-refresh interface |
 | This frontend | Integration guides and read-only chain inspection | Wallet signing or movement of capital |
 
 See the [architecture](architecture.md), [protocol integration checklist](integration.md)

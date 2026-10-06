@@ -1,5 +1,10 @@
 # Architecture and trust
 
+This page describes the current implementation. The [protocol roadmap](roadmap.md)
+plans on-chain source validation and metric calculation, with Rust keepers
+triggering transactions and a later move to deterministic on-chain allocation.
+The new paths are not implemented yet.
+
 ```text
 Production path
 protocol account → Rust producer driver → DataFeedConsensus → DataFeed ring

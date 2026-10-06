@@ -1,8 +1,9 @@
 # Instruction and account contract
 
 The production program is the authority for membership, windows, quorum and
-publication. The TypeScript lab supplies tested hand-written codecs; the Codama
-SDK directory is still a **generation scaffold**, not a checked-in generated SDK.
+publication. The TypeScript lab supplies tested hand-written codecs. The
+[generated Rust and TypeScript SDKs](sdk.md) compile and have been verified
+against actual program execution on devnet.
 
 | Operation | Authority / condition |
 |---|---|
@@ -36,6 +37,7 @@ must honor the actual layout, not assume ordinary Borsh serialization.
 - Mock price values: six-decimal integer USD, never floating-point dollars on wire.
 - Validate account owner, discriminator, full length and count/ring bounds.
 
-The lab's codec tests check these layouts and runtime execution checks the actual
-SBF instructions. A supported external SDK still requires IDL generation,
-generated-client compilation and parity tests; see [release blockers](blockers.md).
+The generated SDK run covers parity for all 12 instructions, execution of 10
+instruction types, and decoding all five live account types in both languages.
+Fresh singleton initialization was not repeated. See [SDK coverage](sdk.md) and
+the remaining [release blockers](blockers.md).

@@ -4,14 +4,30 @@
   "private": true,
   "description": "Generated TS/Rust clients for the quorum-allocation program (provider SDK)",
   "type": "module",
-  "engines": { "node": ">=22.12" },
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
-    "generate": "node --experimental-strip-types codama.ts"
+    "idl": "node --experimental-strip-types scripts/build-idl.ts",
+    "generate": "node --experimental-strip-types codama.ts",
+    "build": "npm run generate && tsc -p tsconfig.json",
+    "check:rust": "cargo check --locked --all-features --manifest-path rust/Cargo.toml",
+    "build:verify-rust": "CARGO_TARGET_DIR=../workers/target cargo build --locked --manifest-path verify-rust/Cargo.toml",
+    "verify:devnet": "npm run build && npm --prefix ../testing/devnet run build && npm run build:verify-rust && node dist/scripts/verify-devnet.js --network devnet",
+    "verify:offline": "npm run build && npm run build:verify-rust && node dist/scripts/verify-codecs.js"
   },
   "devDependencies": {
-    "codama": "^1.2.0",
-    "@codama/nodes-from-anchor": "^1.1.0",
-    "@codama/renderers-js": "^1.2.0",
-    "@codama/renderers-rust": "^1.0.0"
+    "@codama/nodes-from-anchor": "1.5.6",
+    "@codama/renderers-js": "2.5.0",
+    "@codama/renderers-rust": "3.1.3",
+    "@solana/kit": "8.4.0",
+    "@solana/program-client-core": "8.4.0",
+    "@solana/web3.js": "1.99.0",
+    "@types/node": "24.10.0",
+    "codama": "1.11.0",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "jayson": "5.0.0"
   }
 }

@@ -4,6 +4,8 @@ These historical results describe the source revision tested on 2026-10-03,
 before the Quorum rename. Original evidence paths and logs are preserved; see
 [rename and compatibility](../../docs/book/src/migration.md).
 
+The generated-client verification below is a separate run on **2026-10-06**.
+
 ## Outcome
 
 **The full public-devnet suite passed: 16 scenarios, 17 Node tests including the
@@ -170,9 +172,65 @@ The [lab README](README.md) describes funding, tools and optional fresh builds.
 
 [OPEN_QUESTIONS.md](../../OPEN_QUESTIONS.md) tracks coherent allocation snapshots,
 risk-input completeness, caps after aggregation, daemon lifecycle/recovery,
-real protocol decoders, financial methodology, generated SDKs and reproducible CI.
+real protocol decoders, financial methodology and hosted CI execution.
 
 One centralized fixture backend serves all three signing processes. Median
 outlier handling does not establish source authenticity, independent sources or
 resistance to a malicious majority. This is functional verification, **not a
 security audit or evidence that production capital allocation is safe**.
+
+## Generated Rust/TypeScript SDK verification — 2026-10-06
+
+**Passed: 22 checks, 20 confirmed transactions, all finalized when observed.**
+The run lasted 2 minutes 28 seconds (09:42:56–09:45:24 UTC) against the existing
+devnet program `DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz`.
+No program deployment or additional funding was needed.
+
+The compiler-built Anchor IDL reproduced SHA-256
+`dc52b2b6b3bc1f141efb0eb8f41eada3d2947c3b073ea357d0852899c024a43f`.
+Pinned Codama renderers generated both clients. Strict TypeScript compilation
+and Rust compilation, including the optional RPC fetch feature, passed.
+The native Rust verifier signed and sent transactions using generated Rust
+instructions; the TypeScript verifier used generated Kit builders with the
+existing web3.js transport. Neither verifier substitutes the lab's handwritten
+Quorum instruction codecs.
+
+| Check | Result |
+|---|---|
+| All 12 instruction encodings | Identical bytes, account order, signer and writable privileges across both SDKs; includes maximum u64 |
+| Signed program execution | Nine Rust and nine TypeScript transactions, covering 10 instruction types overall |
+| Publication | Two fixture feeds published exact values `9007199254740993` and `9007199254740995` |
+| Live account decoding | Both SDKs decode registry, feed, sample consensus, allocation consensus and allocation state |
+| Rejections | Devnet simulations return 6001 for an unregistered signer, 6013 for a duplicate vote and 6011 for early finalization |
+| Allocation | New round `508051712` finalized with the existing 16-element weight vector |
+| Cleanup | Temporary operators removed; the original three registry members restored |
+
+Representative finalized transactions:
+
+- [TypeScript sample finalization](https://explorer.solana.com/tx/8zip4b8MQSadJLV1GCg13cXVTGrxBvy7o4sr9pkgCuVZ8uiZmUpA9TFMTELb4QeuGk4nsryPsN538ToUDFwEuqk?cluster=devnet).
+- [Rust sample finalization](https://explorer.solana.com/tx/5GwLjPbpsjbDM2ZBm56QMg1Vakmu7yp3CKMPM94aUNNSjAQzingjBgFNZr1DFPVURKnWFWsioWvjrbqKR7o5Uwjv?cluster=devnet).
+- [Rust allocation finalization](https://explorer.solana.com/tx/2JDF5EHuLAr46WcJ5oMhZEuxqZmA3LdjkSKog5HLBNnG2NNBfPm6ES2wtrnX5wduGYViemx1T84xAnHyNvJk852Q?cluster=devnet).
+
+The [public JSON report](evidence/sdk-devnet-2026-10-06.json) includes all
+signatures, slots, public addresses, checks and values. Test keys and raw
+snapshots remain ignored. Admin balance changed from 3.411153880 to 3.132496360
+devnet SOL; this includes test-signer funding and retained account rent, not
+only fees. Fixture feeds/consensus accounts remain, test signers retain unused
+funding, and allocation round/timestamp advance while weights stay the same.
+
+`init_registry` and `init_allocation_state` encodings are verified, but fresh
+initialization was not repeated against existing singleton accounts. This run
+uses invented inputs and verifies the current operator-submission MVP. It does
+not implement or verify the roadmap's on-chain Kamino adapter.
+
+To reproduce after following [SDK setup](../../sdk/README.md):
+
+```bash
+npm --prefix sdk run verify:offline
+npm --prefix testing/devnet ci
+npm --prefix sdk run verify:devnet
+```
+
+The devnet command requires a funded registry-admin test key and two available
+operator slots. Offline parity, IDL consistency and both client builds are
+configured in GitHub CI; no signing key is provided to CI.

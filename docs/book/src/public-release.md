@@ -55,6 +55,13 @@ also passed the full-tree and staged-diff credential scans and the JSON/path
 checks. This review records detected credentials and exclusions; it does not
 replace review of future changes or protocol security testing.
 
+The **2026-10-06 SDK addition** was also checked as part of the 175-file proposed
+public tree. Gitleaks reported no credentials, and JSON/path checks found no
+Solana keypair arrays or private build/state paths. The SDK evidence contains
+public addresses and transaction results; its signing keys and raw snapshots
+remain in ignored `.state/` storage. This supplementary scan covers the proposed
+files; the history and staged-tree review above describes the earlier release.
+
 To repeat the scanner checks with Gitleaks installed:
 
 ```bash
@@ -114,8 +121,9 @@ service alone does not operate the entire protocol.
 Before mainnet use, resolve the [release blockers](blockers.md): typed protocol
 decoders and source validation, coherent allocation snapshots, mandatory risk
 coverage, the financial methodology, caps after aggregation, an insufficient
-capacity policy, and daemon lifecycle/recovery. Generate and validate SDKs;
-complete multi-operator runtime tests and independent security review. Establish
+capacity policy, and daemon lifecycle/recovery. The current generated SDKs are
+[verified on devnet](sdk.md); regenerate and verify them after program changes.
+Complete broader multi-operator runtime tests and independent security review. Establish
 upgrade/governance, membership, retention, monitoring and incident policies.
 
 Quorum publishes feeds and target weights. Capital execution and Jito

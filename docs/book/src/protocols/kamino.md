@@ -2,6 +2,11 @@
 
 <div class="quorum-warning">Status: real protocol adapter not implemented. This page is an integration checklist, not a live connection or a verified financial model.</div>
 
+The [protocol roadmap](../roadmap.md) makes Kamino the first planned on-chain
+adapter: Quorum validates and calculates from supplied reserve accounts, while
+keepers trigger transactions. The off-chain driver checklist below describes
+the existing MVP extension surface, not the intended direct-feed implementation.
+
 ## Intended measurement
 
 A selected lending-reserve metric. Pin the reserve/market schema and the units of utilization and interest-rate fields. Verify the market, mint and dependent account relationships; do not reuse a generic byte offset without a version check.

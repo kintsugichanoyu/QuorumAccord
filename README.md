@@ -7,11 +7,18 @@ It publishes data and weights; it does not move capital or implement Jito NCN
 restaking yet. Production drivers currently support generic on-chain u64 fields,
 not complete integrations with named lending protocols.
 
+The [protocol roadmap](ROADMAP.md) moves account-derived metrics toward on-chain
+Rust validation and calculation, with off-chain keepers triggering transactions.
+It starts with Kamino and later moves deterministic allocation on chain. These
+milestones are planned; the current deployment still uses operator submissions.
+
 - Contract/design: [specs/SPECIFICATION.md](specs/SPECIFICATION.md)
+- Protocol evolution roadmap: [ROADMAP.md](ROADMAP.md)
 - Project frontend: [frontend/README.md](frontend/README.md)
 - GitHub and Docker deployment: [docs/book/src/deployment.md](docs/book/src/deployment.md)
 - Public-release review and launch steps: [docs/book/src/public-release.md](docs/book/src/public-release.md)
 - Rust worker integration: [docs/book/src/workers.md](docs/book/src/workers.md)
+- Generated Rust/TypeScript SDKs: [sdk/README.md](sdk/README.md)
 - mdBook handbook: [docs/book/README.md](docs/book/README.md)
 - TypeScript test setup: [testing/devnet/README.md](testing/devnet/README.md)
 - Verification evidence: [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md)
@@ -40,7 +47,7 @@ testing/devnet/               Isolated TypeScript test package
   programs/mock-oracle/       Rust on-chain fixture (not a Rust test harness)
   evidence/                   Public-only verification snapshots
   .state/                     Ignored keys, ledgers, logs and generated reports
-sdk/                          Codama client-generation scaffold
+sdk/                          Generated Rust/TypeScript clients and devnet verification
 docs/book/                    mdBook integration guides and read-only devnet UI
 docker/                       Runnable web/worker images and worker Compose profiles
 .github/workflows/            CI checks and version-tag image publication to GHCR
@@ -95,8 +102,10 @@ builds real SBF programs and executes all off-chain test logic in TypeScript.
 Fresh keys synchronize the deployment IDs; generated keys and ledgers are ignored.
 Existing ledgers are never reset and global Solana CLI configuration is unchanged.
 
-SDK generation remains a separate, unverified workflow. Container builds and
-startup checks are configured in GitHub Actions. Native Rust
+Both generated SDKs compiled and passed [actual devnet verification](testing/devnet/evidence/sdk-devnet-2026-10-06.json)
+on 2026-10-06: 22 checks and 20 confirmed transactions. See
+[SDK setup and coverage](sdk/README.md) for reproduction and bootstrap limits.
+Container builds and startup checks are configured in GitHub Actions. Native Rust
 unit tests remain alongside production implementations; they are not invoked by
 the TypeScript test runner.
 

@@ -1,0 +1,1104 @@
+{
+  "address": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "metadata": {
+    "name": "quorum_allocation",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Decentralised capital-allocation oracle + consensus program"
+  },
+  "instructions": [
+    {
+      "name": "add_operator",
+      "discriminator": [
+        149,
+        142,
+        187,
+        68,
+        33,
+        250,
+        87,
+        105
+      ],
+      "accounts": [
+        {
+          "name": "registry",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "operator",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "corroborate_sample",
+      "discriminator": [
+        241,
+        4,
+        188,
+        115,
+        19,
+        213,
+        196,
+        193
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "data_feed"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "operator",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "window_index",
+          "type": "u64"
+        },
+        {
+          "name": "value",
+          "type": "u64"
+        },
+        {
+          "name": "slot_at_read",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "finalize_allocation",
+      "discriminator": [
+        56,
+        163,
+        79,
+        248,
+        42,
+        105,
+        247,
+        122
+      ],
+      "accounts": [
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "allocation_state",
+          "writable": true
+        },
+        {
+          "name": "cranker",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "finalize_sample",
+      "discriminator": [
+        101,
+        192,
+        204,
+        101,
+        210,
+        129,
+        135,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "data_feed",
+          "writable": true
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "cranker",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "window_index",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_allocation_state",
+      "discriminator": [
+        128,
+        86,
+        225,
+        227,
+        161,
+        134,
+        247,
+        208
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "allocation_state",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_data_feed",
+      "discriminator": [
+        123,
+        61,
+        51,
+        229,
+        152,
+        96,
+        160,
+        219
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "data_feed",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "pool_id",
+          "type": "u8"
+        },
+        {
+          "name": "data_id",
+          "type": "u8"
+        },
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "DataFeedConfig"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "init_registry",
+      "discriminator": [
+        131,
+        22,
+        4,
+        103,
+        24,
+        94,
+        163,
+        239
+      ],
+      "accounts": [
+        {
+          "name": "registry",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "program"
+        },
+        {
+          "name": "program_data"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "open_allocation_round",
+      "discriminator": [
+        255,
+        91,
+        246,
+        141,
+        254,
+        193,
+        21,
+        198
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        },
+        {
+          "name": "closes_at_slot",
+          "type": "u64"
+        },
+        {
+          "name": "min_number",
+          "type": "u8"
+        },
+        {
+          "name": "rule",
+          "type": "u8"
+        },
+        {
+          "name": "trim_pct",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "propose_sample",
+      "discriminator": [
+        23,
+        241,
+        61,
+        55,
+        255,
+        21,
+        247,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "data_feed"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "operator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "window_index",
+          "type": "u64"
+        },
+        {
+          "name": "value",
+          "type": "u64"
+        },
+        {
+          "name": "slot_at_read",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "remove_operator",
+      "discriminator": [
+        84,
+        183,
+        126,
+        251,
+        137,
+        150,
+        214,
+        134
+      ],
+      "accounts": [
+        {
+          "name": "registry",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "operator",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "submit_weights",
+      "discriminator": [
+        65,
+        36,
+        231,
+        144,
+        37,
+        15,
+        11,
+        78
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "operator",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        },
+        {
+          "name": "weights",
+          "type": {
+            "array": [
+              "u16",
+              16
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_thresholds",
+      "discriminator": [
+        226,
+        118,
+        123,
+        37,
+        77,
+        185,
+        74,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "data_feed",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "DataFeedConfig"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AllocationConsensus",
+      "discriminator": [
+        3,
+        45,
+        18,
+        108,
+        80,
+        111,
+        198,
+        216
+      ]
+    },
+    {
+      "name": "AllocationState",
+      "discriminator": [
+        140,
+        47,
+        50,
+        0,
+        216,
+        164,
+        210,
+        13
+      ]
+    },
+    {
+      "name": "DataFeed",
+      "discriminator": [
+        146,
+        11,
+        109,
+        236,
+        192,
+        89,
+        172,
+        164
+      ]
+    },
+    {
+      "name": "DataFeedConsensus",
+      "discriminator": [
+        241,
+        168,
+        127,
+        102,
+        40,
+        160,
+        177,
+        136
+      ]
+    },
+    {
+      "name": "OperatorRegistry",
+      "discriminator": [
+        194,
+        188,
+        172,
+        240,
+        220,
+        209,
+        36,
+        100
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Signer is not the registry admin"
+    },
+    {
+      "code": 6001,
+      "name": "UnauthorizedOperator",
+      "msg": "Signer is not a registered operator"
+    },
+    {
+      "code": 6002,
+      "name": "OperatorSetFull",
+      "msg": "Operator set is full"
+    },
+    {
+      "code": 6003,
+      "name": "OperatorAlreadyRegistered",
+      "msg": "Operator already registered"
+    },
+    {
+      "code": 6004,
+      "name": "OperatorNotFound",
+      "msg": "Operator not found"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidQuorum",
+      "msg": "min_number must be between 1 and MAX_OPERATORS (64)"
+    },
+    {
+      "code": 6006,
+      "name": "InvalidConfig",
+      "msg": "Invalid configuration value"
+    },
+    {
+      "code": 6007,
+      "name": "InvalidRule",
+      "msg": "Invalid aggregation rule"
+    },
+    {
+      "code": 6008,
+      "name": "RoundNotOpen",
+      "msg": "Consensus round is not open"
+    },
+    {
+      "code": 6009,
+      "name": "WindowClosed",
+      "msg": "Submission window has closed"
+    },
+    {
+      "code": 6010,
+      "name": "SlotOutsideWindow",
+      "msg": "Read slot falls outside the consensus window"
+    },
+    {
+      "code": 6011,
+      "name": "WindowStillOpen",
+      "msg": "Submission window is still open"
+    },
+    {
+      "code": 6012,
+      "name": "SubmissionBufferFull",
+      "msg": "Submission buffer is full"
+    },
+    {
+      "code": 6013,
+      "name": "DuplicateSubmission",
+      "msg": "Operator already submitted this round"
+    },
+    {
+      "code": 6014,
+      "name": "AlreadyFinalized",
+      "msg": "Round already finalized or closed"
+    },
+    {
+      "code": 6015,
+      "name": "IdentityMismatch",
+      "msg": "Consensus account does not match the provided DataFeed / window"
+    },
+    {
+      "code": 6016,
+      "name": "InvalidRatios",
+      "msg": "Weight vector does not sum to MAX_BPS"
+    },
+    {
+      "code": 6017,
+      "name": "MathOverflow",
+      "msg": "Arithmetic overflow"
+    },
+    {
+      "code": 6018,
+      "name": "StaleRound",
+      "msg": "An older round cannot overwrite more recent published state"
+    }
+  ],
+  "types": [
+    {
+      "name": "AllocationConsensus",
+      "docs": [
+        "Per weight-round consensus, independent of any `DataFeed` tick. Aggregates the",
+        "consumers' venue-weight vectors into the published allocation."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "round",
+            "type": "u64"
+          },
+          {
+            "name": "closes_at_slot",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "min_number",
+            "type": "u8"
+          },
+          {
+            "name": "rule",
+            "type": "u8"
+          },
+          {
+            "name": "trim_pct",
+            "type": "u8"
+          },
+          {
+            "name": "count",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "output",
+            "type": {
+              "array": [
+                "u16",
+                16
+              ]
+            }
+          },
+          {
+            "name": "submissions",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "WeightSubmission"
+                  }
+                },
+                100
+              ]
+            }
+          },
+          {
+            "name": "_pad",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllocationState",
+      "docs": [
+        "The published allocation weight vector — a small, stable read target for",
+        "the vault core (the vault reads this one PDA). Written by `finalize_allocation`."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "round",
+            "type": "u64"
+          },
+          {
+            "name": "updated_slot",
+            "type": "u64"
+          },
+          {
+            "name": "weights",
+            "type": {
+              "array": [
+                "u16",
+                16
+              ]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DataFeed",
+      "docs": [
+        "Per-`(pool_id, data_id)` measured series: identity, trigger config and the",
+        "ring buffer. Sized to fit a single Solana account (8-byte discriminator +",
+        "~8.2 KB body, well under the 10 KB default).",
+        "",
+        "Field order is chosen so the struct has no implicit padding: 8-byte fields,",
+        "then 4-byte, then 2-byte, then 1-byte, an explicit pad to an 8-byte boundary,",
+        "and finally the 8-byte-aligned ring."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tick",
+            "type": "u64"
+          },
+          {
+            "name": "last_finalized_slot",
+            "type": "u64"
+          },
+          {
+            "name": "last_value",
+            "type": "u64"
+          },
+          {
+            "name": "window_slots",
+            "type": "u32"
+          },
+          {
+            "name": "min_interval_slots",
+            "type": "u32"
+          },
+          {
+            "name": "max_interval_slots",
+            "type": "u32"
+          },
+          {
+            "name": "threshold_bps",
+            "type": "u16"
+          },
+          {
+            "name": "head",
+            "type": "u16"
+          },
+          {
+            "name": "pool_id",
+            "type": "u8"
+          },
+          {
+            "name": "data_id",
+            "type": "u8"
+          },
+          {
+            "name": "measurand",
+            "type": "u8"
+          },
+          {
+            "name": "min_number",
+            "type": "u8"
+          },
+          {
+            "name": "rule",
+            "type": "u8"
+          },
+          {
+            "name": "trim_pct",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "_pad",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "ring",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "Sample"
+                  }
+                },
+                256
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "DataFeedConfig",
+      "docs": [
+        "Trigger/aggregation config for a new series."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "measurand",
+            "type": "u8"
+          },
+          {
+            "name": "window_slots",
+            "type": "u32"
+          },
+          {
+            "name": "threshold_bps",
+            "type": "u16"
+          },
+          {
+            "name": "min_interval_slots",
+            "type": "u32"
+          },
+          {
+            "name": "max_interval_slots",
+            "type": "u32"
+          },
+          {
+            "name": "min_number",
+            "type": "u8"
+          },
+          {
+            "name": "rule",
+            "type": "u8"
+          },
+          {
+            "name": "trim_pct",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DataFeedConsensus",
+      "docs": [
+        "In-flight consensus round for one `(data_feed, window_index)` pair. Opens at",
+        "the first submission, closes at `closes_at_slot`, then `finalize_sample`",
+        "aggregates and the result lands in `DataFeed.ring[head]`."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "window_index",
+            "type": "u64"
+          },
+          {
+            "name": "closes_at_slot",
+            "type": "u64"
+          },
+          {
+            "name": "output",
+            "type": "u64"
+          },
+          {
+            "name": "data_feed",
+            "type": "pubkey"
+          },
+          {
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "min_number",
+            "type": "u8"
+          },
+          {
+            "name": "rule",
+            "type": "u8"
+          },
+          {
+            "name": "trim_pct",
+            "type": "u8"
+          },
+          {
+            "name": "count",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "_pad",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "submissions",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "SampleSubmission"
+                  }
+                },
+                100
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OperatorRegistry",
+      "docs": [
+        "Allowed signer set + admin authority. Mutated only by `admin`.",
+        "",
+        "When Jito NCN is integrated later this account is swapped for the NCN's",
+        "restaking-stake-weighted operator view; the producer / consumer instruction",
+        "surface does not change. Zero-copy so the hot-path `is_operator` check never",
+        "pays full deserialisation."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "count",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "_pad",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "operators",
+            "type": {
+              "array": [
+                "pubkey",
+                64
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Sample",
+      "docs": [
+        "One ring-buffer entry. `#[repr(C)]`, 32 bytes, no padding (Pod-safe)."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "value",
+            "type": "u64"
+          },
+          {
+            "name": "slot",
+            "type": "u64"
+          },
+          {
+            "name": "tick",
+            "type": "u64"
+          },
+          {
+            "name": "ts",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SampleSubmission",
+      "docs": [
+        "One operator's sample submission. `#[repr(C)]`, 40 bytes, no padding."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "value",
+            "type": "u64"
+          },
+          {
+            "name": "submitter",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WeightSubmission",
+      "docs": [
+        "One consumer's weight-vector submission. Weights are stored *positionally*:",
+        "index == `venue_id`, dropping the explicit per-entry id byte to keep the",
+        "100-submission array within a single account. `#[repr(C)]`, 64 bytes."
+      ],
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "submitter",
+            "type": "pubkey"
+          },
+          {
+            "name": "weights",
+            "type": {
+              "array": [
+                "u16",
+                16
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

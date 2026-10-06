@@ -4,6 +4,10 @@ Quorum's on-chain program, producer, allocation consumer, and integer rubric are
 Rust. TypeScript supports browser interactions, SDK generation, and the isolated
 integration lab. Production workers run outside the browser.
 
+This guide describes the current producer/consumer model. The
+[protocol roadmap](roadmap.md) plans Rust keepers that trigger validated
+on-chain calculations instead of submitting authoritative values or weights.
+
 ## Build the Rust workspace
 
 Run from the repository root, using Rust and the native build dependencies
@@ -28,7 +32,7 @@ operator needs its own funded signing keypair; changing an environment variable
 does not register an operator on chain.
 
 Use `quorum_worker_core::ix::{init_registry, add_operator, init_data_feed}` in a
-Rust admin client, or the [SDK generation scaffold](sdk.md).
+Rust admin client, or the [verified Rust/TypeScript SDKs](sdk.md).
 The Rust instruction builders accept the deployed program ID and administrator
 public key; sign and submit them with
 `quorum_worker_core::tx::send_with_retry`. Skip initialization for existing

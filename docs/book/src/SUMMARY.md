@@ -2,6 +2,7 @@
 
 - [Start here](index.md)
 - [Architecture and trust](architecture.md)
+- [Protocol evolution roadmap](roadmap.md)
 - [Integrate Quorum workers](workers.md)
 - [Run from GitHub with Docker](deployment.md)
 - [Public release and launch checklist](public-release.md)
@@ -15,7 +16,7 @@
   - [Jupiter Lend](protocols/jupiter.md)
   - [Loopscale](protocols/loopscale.md)
 - [Instruction and account contract](contract.md)
-- [Generate SDK clients](sdk.md)
+- [Verified Rust and TypeScript SDKs](sdk.md)
 - [Allocation consumers](consumers.md)
 - [Verification and troubleshooting](verification.md)
 - [Release blockers](blockers.md)

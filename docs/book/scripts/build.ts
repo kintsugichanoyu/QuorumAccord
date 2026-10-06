@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { chmod, copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { build } from 'esbuild';
 import { PROGRAM } from '../ui/model.ts';
@@ -21,6 +21,15 @@ assert(reports.length > 0, 'No committed public devnet evidence');
 assert.equal(reports[0]!.report.program, PROGRAM, 'Update the pinned browser deployment before publishing evidence for a different program');
 await mkdir(join(book, 'src/evidence'), { recursive: true });
 await copyFile(join(evidence, reports[0]!.name), join(book, 'src/evidence/latest-devnet.json'));
+const sdkReports = await Promise.all((await readdir(evidence)).filter(n => /^sdk-devnet.*\.json$/.test(n))
+  .map(async name => ({ name, report: JSON.parse(await readFile(join(evidence, name), 'utf8')) as
+    { completed_at?: string; program?: string; status?: string; network?: string } })));
+const verifiedSdkReports = sdkReports.filter(({ report }) => report.status === 'passed' && report.network === 'devnet');
+verifiedSdkReports.sort((a, b) => Date.parse(b.report.completed_at ?? '') - Date.parse(a.report.completed_at ?? ''));
+assert(verifiedSdkReports.length > 0, 'No committed successful SDK devnet evidence');
+assert.equal(verifiedSdkReports[0]!.report.program, PROGRAM, 'SDK evidence must match the documented deployment');
+await copyFile(join(evidence, verifiedSdkReports[0]!.name), join(book, 'src/evidence/latest-sdk-devnet.json'));
+await chmod(join(book, 'src/evidence/latest-sdk-devnet.json'), 0o644);
 await writeFile(join(book, 'src/evidence/source.json'), JSON.stringify({ source: `testing/devnet/evidence/${reports[0]!.name}`, mdbook: '0.5.4' }, null, 2) + '\n');
 const result = spawnSync(mdbook, ['build', book], { stdio: 'inherit' });
 assert.equal(result.status, 0, 'mdBook build failed');

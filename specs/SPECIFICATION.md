@@ -3,6 +3,12 @@
 > Status: MVP specification for the NCN-shaped capital-allocation system. Jito NCN
 > integration is the eventual target but is **explicitly deferred** (see §10).
 
+> Evolution note (2026-10-06): this document describes the original MVP model.
+> The repository's `ROADMAP.md` proposes on-chain calculation of account-derived
+> metrics, off-chain transaction keepers, and later on-chain allocation. Its
+> versioned migration supersedes this model for each implemented source/strategy;
+> the current deployment has not migrated.
+
 ## 1. Summary
 
 Palindrome currently allocates stablecoin capital across lending venues with a

@@ -3,6 +3,12 @@
 This file distinguishes implementation gaps, design choices and checks that have
 actually run. A successful mock test does not establish production readiness.
 
+The [protocol roadmap](ROADMAP.md) proposes replacing value voting for
+account-derived metrics with on-chain adapters and off-chain keepers, followed
+by deterministic on-chain allocation. These changes are planned, not implemented.
+The items below describe current behavior; close or replace them only after the
+roadmap's corresponding acceptance gates pass.
+
 ## Correctness and security
 
 1. **Registry bootstrap authority — implemented.** Initialization now requires
@@ -50,10 +56,16 @@ actually run. A successful mock test does not establish production readiness.
 13. **Real protocol drivers.** Implement and fixture-test Marginfi, Kamino, Save,
     Jupiter and Loopscale decoders, units, owner/discriminator checks and overflow
     handling. HTTP mock price providers are test-only and not these drivers.
-14. **Provider SDK.** Generate the IDL and TS/Rust clients, compile them and test
-    their instruction/account serialization against the program. The test-only
-    TypeScript codecs now have serialization/decoding tests and actual runtime
-    coverage; they are not a generated or supported production SDK.
+14. **Provider SDK — current MVP verified on devnet.** Compiler-built IDL and
+    pinned Codama renderers generate Rust/TypeScript clients; both compile,
+    including the Rust RPC fetch feature. The 2026-10-06 run passed 22 checks
+    and 20 confirmed transactions (nine program transactions per SDK plus two
+    funding transfers), covering all five account decoders and parity for all
+    12 instructions. Ten instruction types executed; fresh registry/allocation
+    bootstrap was not repeated against existing singleton accounts. See
+    [SDK integration](sdk/README.md) and [public evidence](testing/devnet/evidence/sdk-devnet-2026-10-06.json).
+    Package publication, production-daemon adoption, and SDK/runtime verification
+    for the roadmap's new source-bound refresh instructions remain open.
 15. **Deployment/toolchains — locally and on devnet verified.** SBF v3 builds and
     actual local/devnet deployments run with Agave 4.3.0/platform-tools v1.57, host Rust 1.96 and
     Anchor 1.0.2. Keys and ledgers stay ignored; explicit buffer keys, base64 reads
@@ -108,6 +120,9 @@ setup. The new read-only inspector is a test-deployment view, not a capital UI.
 - mdBook frontend: **9 model/navigation + 5 browser tests passed**; its live
   browser case passed in two actual devnet runs (fresh during the suite, stale
   afterward). Entirely TypeScript testing; static book build verified.
+- Generated Rust/TypeScript SDKs: **22 checks and 20 confirmed devnet transactions
+  passed on 2026-10-06**. Both SDKs publish and decode exact u64 values above
+  2^53; temporary membership is removed and existing allocation weights retained.
 - [testing/devnet/RESULTS.md](testing/devnet/RESULTS.md) separates current
   TypeScript execution, historical checks and public devnet execution evidence.
   Python and Rust off-chain test harnesses were removed; on-chain programs and

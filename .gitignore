@@ -6,6 +6,11 @@ test-ledger
 node_modules
 sdk/ts/generated
 sdk/rust/generated
+sdk/rust/src/generated
+/sdk/dist/
+/sdk/rust/target/
+/sdk/idl-builder/target/
+/sdk/verify-rust/target/
 .env
 *.so
 .env*
@@ -29,3 +34,4 @@ graphify-out
 **/__pycache__/
 !*.env.example
 !.env.devnet.example
+ANSWERS.md

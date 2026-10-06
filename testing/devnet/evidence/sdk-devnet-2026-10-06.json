@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-06T09:42:56.424Z",
+  "network": "devnet",
+  "program": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "source_model": "existing operator-submission MVP; invented SDK fixtures",
+  "status": "passed",
+  "admin": "2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc",
+  "operators": [
+    "3qh5BMVJGcHCCDW8LPULdtoSxB89bHaxcq58z84THuAc",
+    "EuZNhRkAdCgRZyfzhLpzjzh67wCJiBZnfHjq84FBX3LV"
+  ],
+  "transactions": [
+    {
+      "label": "fund test operator 0",
+      "client": "support",
+      "signature": "MBb7spVX2U5koxTRUS2LAUArGV6BHzuyqWpNjC9KSwsNviojeHuPpCUcLRepmAwNqGxBNpX3HZ62ugvETPUGsPv",
+      "slot": 508051443,
+      "status": "finalized"
+    },
+    {
+      "label": "add_operator",
+      "client": "typescript",
+      "signature": "52JWKCG5pJtDBZqU7TAotxba7WGu7hiX3RtgoG9Aq5HEYj5twpPvTkuvZwFLixFwnjoiSDjJgGtqfMNf4ABx2kLU",
+      "slot": 508051448,
+      "status": "finalized"
+    },
+    {
+      "label": "fund test operator 1",
+      "client": "support",
+      "signature": "4CZgsvBqFyfayyk4SaDd2csfCJvDbfMU7AYJm8VFRrT6bVcd6riT1gzN9mo6bou6ww6o4Qi8gej2JZnHmttVYtRr",
+      "slot": 508051453,
+      "status": "finalized"
+    },
+    {
+      "label": "add_operator",
+      "client": "rust",
+      "signature": "3QHLvxh3rX5jTkyX7V7U8qExyHQR3yLpsu6HveCZz2mVcBR6A4oyv4VtyQJduBfgc1JjZG86u3bBts5Q8BM9WW2p",
+      "slot": 508051460,
+      "status": "finalized"
+    },
+    {
+      "label": "init_data_feed",
+      "client": "typescript",
+      "signature": "47i9VY5QbFebhDGMx891XfW7djA2zsX3Bw9E6DWtDL9XA5Fukdh5coyVfawVRYANSKM8VugbWEeE4L1FijjYDjA4",
+      "slot": 508051521,
+      "status": "finalized"
+    },
+    {
+      "label": "init_data_feed",
+      "client": "rust",
+      "signature": "33sqEqFgoEon5Qnwq9gDPF7Xys2MAhW2sniprmDukpEExhLacTYHthXMrwPspB77hWo7RSJBdV4mypufHUQdLsfJ",
+      "slot": 508051526,
+      "status": "finalized"
+    },
+    {
+      "label": "update_thresholds",
+      "client": "typescript",
+      "signature": "5pgaDdoMvVquk1jsqHXK6bziNjNPqRFHzW4YZA9U5Q3Xz4wH9x6F84NajXxcRxp7hNMP8tWmCP2Lw1wXUHCy3Jwx",
+      "slot": 508051535,
+      "status": "finalized"
+    },
+    {
+      "label": "update_thresholds",
+      "client": "rust",
+      "signature": "4K2iFR3bFWr3j5KAcFQdqTg4VQr8KuRHp9muCtqyVWwmuZDoymFTbS9vPEhxQG4TYHs8DnykLPb5BuxB2a8iJvAv",
+      "slot": 508051582,
+      "status": "finalized"
+    },
+    {
+      "label": "open_allocation_round",
+      "client": "typescript",
+      "signature": "5rr3eRRBcAoVMriL4KrrLKkN2Qu9tUYEdnZQ63ALFSqCwqkxA4PhTpELa7ZKc4XyiPQAFLBoKBtxLeizN1JADXUd",
+      "slot": 508051716,
+      "status": "finalized"
+    },
+    {
+      "label": "propose_sample",
+      "client": "typescript",
+      "signature": "483faY1wjxvLz7pnuV1fT9WAEn25n4aBBzYi6ZuzELx11AgNq6tEd71pM5Q6VjkPfk3u96Ryyn3yRmsEM6XvMRYv",
+      "slot": 508051720,
+      "status": "finalized"
+    },
+    {
+      "label": "corroborate_sample",
+      "client": "rust",
+      "signature": "Va94sK7VTtQSaxs152wzh5WVtz59Hm8Vh5ruwatWkaRBdPQUQKLoQtQMaQBBpm2XTeirJN5vo5SH5bVgbytZgQg",
+      "slot": 508051725,
+      "status": "finalized"
+    },
+    {
+      "label": "propose_sample",
+      "client": "rust",
+      "signature": "2q61ega6bC8Qia6qgp7qXwiUZ3PkbRRMJu4By8v11W9LkZg2axQHWufEXafx3GPmi59FWYPjuLnursSA65rCLs1t",
+      "slot": 508051752,
+      "status": "finalized"
+    },
+    {
+      "label": "corroborate_sample",
+      "client": "typescript",
+      "signature": "2TUko5jXA5bRGdeoata9SX6Xp7YxSSzLNCBBjpH3w5BdaWxnCCThJ7j4TG3jXFEABqU7Cy96Z2MxNbrsQ2CptRct",
+      "slot": 508051760,
+      "status": "finalized"
+    },
+    {
+      "label": "submit_weights",
+      "client": "rust",
+      "signature": "5xzHdcS2pXSsx3rqrSEPAdei4ecSpATqk2GcnrdbBqsxvBAmpXa9uquD6rGtqMmzXocW5nR2cGry1siiXH4D3piv",
+      "slot": 508051808,
+      "status": "finalized"
+    },
+    {
+      "label": "submit_weights",
+      "client": "typescript",
+      "signature": "3NfKthiJpTCs4RCoXJaNrqwLiemvXVV4N4DWbcUWK5qnBiTcdvgP1EE6hd9jQ1b7wzepSzzS2QPytVCEUuFSyeYy",
+      "slot": 508051814,
+      "status": "finalized"
+    },
+    {
+      "label": "finalize_sample",
+      "client": "typescript",
+      "signature": "8zip4b8MQSadJLV1GCg13cXVTGrxBvy7o4sr9pkgCuVZ8uiZmUpA9TFMTELb4QeuGk4nsryPsN538ToUDFwEuqk",
+      "slot": 508051973,
+      "status": "finalized"
+    },
+    {
+      "label": "finalize_sample",
+      "client": "rust",
+      "signature": "5GwLjPbpsjbDM2ZBm56QMg1Vakmu7yp3CKMPM94aUNNSjAQzingjBgFNZr1DFPVURKnWFWsioWvjrbqKR7o5Uwjv",
+      "slot": 508051980,
+      "status": "finalized"
+    },
+    {
+      "label": "finalize_allocation",
+      "client": "rust",
+      "signature": "2JDF5EHuLAr46WcJ5oMhZEuxqZmA3LdjkSKog5HLBNnG2NNBfPm6ES2wtrnX5wduGYViemx1T84xAnHyNvJk852Q",
+      "slot": 508051991,
+      "status": "finalized"
+    },
+    {
+      "label": "remove_operator",
+      "client": "rust",
+      "signature": "2ChHqDCVnEktYwA1Mihmpjg2NSYNDJPXoyhaNuqPLM4t1i5c7mTadpiJFbCDbUgb1rgHCA4ssUVxWa7Drog11i9L",
+      "slot": 508052008,
+      "status": "finalized"
+    },
+    {
+      "label": "remove_operator",
+      "client": "typescript",
+      "signature": "4YX1DRJKRF2weNaBp4shuBcjDSkF1GRujsXAKqbeJ9sbRcwDrrG46wSsQwBC3nn862GizyM9Cjhovh538XVyFPb9",
+      "slot": 508052052,
+      "status": "finalized"
+    }
+  ],
+  "checks": [
+    "Rust/TypeScript instruction parity: init_registry",
+    "Rust/TypeScript instruction parity: add_operator",
+    "Rust/TypeScript instruction parity: remove_operator",
+    "Rust/TypeScript instruction parity: init_data_feed",
+    "Rust/TypeScript instruction parity: update_thresholds",
+    "Rust/TypeScript instruction parity: propose_sample",
+    "Rust/TypeScript instruction parity: corroborate_sample",
+    "Rust/TypeScript instruction parity: finalize_sample",
+    "Rust/TypeScript instruction parity: init_allocation_state",
+    "Rust/TypeScript instruction parity: open_allocation_round",
+    "Rust/TypeScript instruction parity: submit_weights",
+    "Rust/TypeScript instruction parity: finalize_allocation",
+    "both SDKs decode live DataFeedConsensus 0",
+    "unregistered operator rejected: expected program error 6001",
+    "duplicate vote rejected: expected program error 6013",
+    "early finalization rejected: expected program error 6011",
+    "both SDKs decode live DataFeedConsensus 1",
+    "both SDKs decode live AllocationConsensus",
+    "both SDKs decode live DataFeed 0, exact u64 above 2^53",
+    "both SDKs decode live DataFeed 1, exact u64 above 2^53",
+    "both SDKs decode live AllocationState; existing weights preserved",
+    "both SDKs decode OperatorRegistry; original membership restored"
+  ],
+  "genesis": "EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG",
+  "starting_admin_lamports": 3411153880,
+  "original_operators": [
+    "2FsDktWvyQqSMBSRxhJNCRyStkCBei2GdgQ7VJJBQTSa",
+    "CB9iysWffci9h9XFQrD4tAfbbjguWrpd9FAizdXGSbo8",
+    "GWW83EvWxt5VJr2keUmdBo6Mxfdy4uSkMQxCu931qP7q"
+  ],
+  "feeds": [
+    {
+      "address": "HTFEVHnX7j4zHMj44RUhZgJcUpEXgZBPeknFdqUHDHiz",
+      "pool_id": 210,
+      "data_id": 230
+    },
+    {
+      "address": "65Tk2mzgR4PpLWoPooxiD8MBKm6vEScwRzU5yDgVVVyA",
+      "pool_id": 210,
+      "data_id": 231
+    }
+  ],
+  "allocation": {
+    "round": "508051712",
+    "address": "Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S",
+    "consensus": "DKDmv5Noqkm6Szp1RUHzCVuU5j5EPQscpvhjWnLMXAm4",
+    "weights": [
+      3007,
+      2707,
+      2707,
+      0,
+      1579,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "values": [
+    "9007199254740993",
+    "9007199254740995"
+  ],
+  "window": "1984577",
+  "ending_admin_lamports": 3132496360,
+  "cleanup": "temporary operators removed; feed/consensus accounts retained as devnet fixtures",
+  "completed_at": "2026-10-06T09:45:24.843Z",
+  "rpc_gateway": {
+    "requests": 231,
+    "upstream_attempts": 235,
+    "rate_limit_retries": 4,
+    "methods": {
+      "getGenesisHash": 19,
+      "getAccountInfo": 21,
+      "getBalance": 2,
+      "getLatestBlockhash": 24,
+      "sendTransaction": 20,
+      "getSignatureStatuses": 60,
+      "isBlockhashValid": 12,
+      "getSlot": 70,
+      "simulateTransaction": 3
+    }
+  },
+  "idl_sha256": "dc52b2b6b3bc1f141efb0eb8f41eada3d2947c3b073ea357d0852899c024a43f"
+}
