@@ -52,9 +52,9 @@ Speaker notes: Each producer fetches only its assigned protocol using pinned SDK
 
 A RoundContext account fixes the values, ticks, sample slots, eligibility, policy and authorized consumer set.
 
-- Published round 509859720
-- Snapshot anchor slot 509859730
-- SHA-256 10d7df9c596ff35dc177da2f83d5c5ff717bb78680d940dbb8c39331812e98a9
+- Published round 509857083
+- Snapshot anchor slot 509857093
+- SHA-256 ca09e6fc4332314130baec5d18f78ed82c2d99d060095d3a77ac6070f9c86486
 
 Speaker notes: The open instruction reads all configured feed accounts atomically. Consumers need not wait for matching finalized slots. Every vote includes the exact input hash. The browser re-hashes the serialized snapshot bytes.
 
@@ -93,7 +93,7 @@ Speaker notes: Legacy allocation entrypoints are disabled to prevent bypassing t
 
 ## 10. A real published decision.
 
-USDC allocation read from devnet at 2026-10-11T09:40:11.849Z.
+USDC allocation read from devnet at 2026-10-11T09:29:57.938Z.
 
 - Marginfi | 50.00%
 - Save | 15.98%

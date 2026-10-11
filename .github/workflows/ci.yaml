@@ -38,12 +38,19 @@ jobs:
             docs/book/package-lock.json
             frontend/package-lock.json
             testing/devnet/package-lock.json
+            deployment/devnet/package-lock.json
+            demo-site/package-lock.json
       - run: npm --prefix docs/book ci
       - run: npm --prefix frontend ci
       - run: npm --prefix testing/devnet ci
+      - run: npm --prefix deployment/devnet ci
+      - run: npm --prefix demo-site ci
       - run: npm --prefix docs/book test
       - run: npm --prefix frontend run check
       - run: npm --prefix testing/devnet test
+      - run: npm --prefix deployment/devnet test
+      - name: Build the standalone live product
+        run: npm --prefix demo-site run build
 
   sdk:
     runs-on: ubuntu-24.04
@@ -80,6 +87,8 @@ jobs:
             dockerfile: docker/frontend.Dockerfile
           - image: workers
             dockerfile: docker/Dockerfile
+          - image: devnet-fleet
+            dockerfile: deployment/devnet/Dockerfile
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Validate Compose configuration

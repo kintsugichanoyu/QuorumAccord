@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-10-11T09:40:11.859Z",
+  "built_at": "2026-10-11T09:46:53.281Z",
   "slides": [
     {
       "kicker": "QUORUM / PRODUCT DEMO",
@@ -77,9 +77,9 @@
       "subtitle": "A RoundContext account fixes the values, ticks, sample slots, eligibility, policy and authorized consumer set.",
       "kind": "snapshot",
       "points": [
-        "Published round 509859720",
-        "Snapshot anchor slot 509859730",
-        "SHA-256 10d7df9c596ff35dc177da2f83d5c5ff717bb78680d940dbb8c39331812e98a9"
+        "Published round 509857083",
+        "Snapshot anchor slot 509857093",
+        "SHA-256 ca09e6fc4332314130baec5d18f78ed82c2d99d060095d3a77ac6070f9c86486"
       ],
       "notes": [
         "The open instruction reads all configured feed accounts atomically. Consumers need not wait for matching finalized slots. Every vote includes the exact input hash. The browser re-hashes the serialized snapshot bytes."
@@ -133,7 +133,7 @@
     {
       "kicker": "LIVE EVIDENCE",
       "title": "A real published decision.",
-      "subtitle": "USDC allocation read from devnet at 2026-10-11T09:40:11.849Z.",
+      "subtitle": "USDC allocation read from devnet at 2026-10-11T09:29:57.938Z.",
       "kind": "allocation",
       "points": [
         "Marginfi | 50.00%",
@@ -147,7 +147,7 @@
         },
         {
           "label": "Input snapshot",
-          "url": "https://explorer.solana.com/address/A8aR2KUx2G5P5XCQvRSiFtmHDHooK5abzM4GsFAH72C6?cluster=devnet"
+          "url": "https://explorer.solana.com/address/EUgWiz9WKv1PC7ArkAYj5btXw4PCpujNW32KC3sGmj67?cluster=devnet"
         },
         {
           "label": "Decoded publication transaction",
@@ -250,8 +250,8 @@
     }
   ],
   "captured_allocation": {
-    "round": "509859720",
-    "updated_slot": "509859884",
+    "round": "509857083",
+    "updated_slot": "509857252",
     "weights": [
       5000,
       1598,
