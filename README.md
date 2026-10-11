@@ -19,6 +19,7 @@ containers. All six confirmed contract review findings are addressed.
 
 - Reproduce the deployment: [deployment guide](deployment/devnet/README.md)
 - Open the local product: <http://localhost:18880/>; [demo source](demo-site/README.md)
+- Open the private hosted product: <https://quorum-usdc-live-demo.e-jarosevic.chatgpt.site>
 - Present the pitch: [HTML](demo-site/dist/pitch.html), [PDF](demo-site/dist/pitch.pdf), [editable PowerPoint](demo-site/dist/pitch.pptx)
 - Inspect public proofs and experiments: [v2 evidence](deployment/devnet/evidence/v2/)
 - See what is implemented and what remains: [implementation inventory](deployment/devnet/BUILT-AND-MISSING.md)
