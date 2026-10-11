@@ -1,0 +1,840 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quorum — Deployment and on-chain evidence</title><style>*{box-sizing:border-box}body{margin:0;background:#f3f5ee;color:#1e3022;font:17px/1.6 system-ui,sans-serif}section{max-width:1280px;min-height:100vh;margin:auto;padding:70px 65px;border-bottom:1px solid #bdcdb3}h1{font-size:42px;line-height:1.2;letter-spacing:-1px}.kicker{color:#718b60;font-size:11px;letter-spacing:2px}p{max-width:1100px}.lead{font-size:25px}a{color:#426626;overflow-wrap:anywhere}table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:12px;border-bottom:1px solid #d2dec9;overflow-wrap:anywhere}.table{overflow:auto}details{padding:15px 20px;margin:15px 0;background:#e9efdf;border-radius:8px}summary{cursor:pointer;font-size:14px}pre{font:12px/1.6 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto;padding:20px;background:#203225;color:#e9efdf}nav{position:fixed;bottom:20px;right:24px;display:flex;gap:8px}button{padding:12px 18px;background:#203225;color:#e9efdf;border:0;border-radius:8px;cursor:pointer}@media(max-width:700px){section{padding:35px 22px}h1{font-size:30px}}@media print{nav{display:none}section{break-before:page;min-height:0}details{break-inside:avoid}}</style></head><body><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 1 / 14</div><h1>From source rate to a verified allocation.</h1><p class="lead">A reproducible USDC signal pipeline: mainnet observations, devnet consensus, and a read-only product demo.</p><div class="table"><table><thead><tr><th>Observation</th><th>Result</th></tr></thead><tbody><tr><td>Captured interval</td><td>2026-10-11T09:25:57.304Z → 2026-10-11T09:38:32.743Z</td></tr><tr><td>Publications observed</td><td>6</td></tr><tr><td>Confirmed transactions fetched + decoded</td><td>308</td></tr><tr><td>Containers left running</td><td>15 / 15 healthy</td></tr></tbody></table></div><p><a href="/">Open live product ↗</a> · <a href="/pitch.html">Open product pitch ↗</a></p></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 2 / 14</div><h1>01 · Deploy and verify the program.</h1><p>Program DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz. The existing devnet program was upgraded, and deployed bytes checked against the local SBF build. Existing registry and AllocationState were reused.</p><details><summary>Slot 509632441 · upgrade policy-bound program</summary><a href="https://explorer.solana.com/tx/3CXGpVg2zHQFBAEtxj3Hqe9hLMS12g2zXmwbCCYKwGnsRyFYFfuCqvg9tcAjv61Y8zSXuWu8RsGYBHmiU3nT9rKP?cluster=devnet" target="_blank" rel="noreferrer">3CXGpVg2zHQFBAEtxj3Hqe9hLMS12g2zXmwbCCYKwGnsRyFYFfuCqvg9tcAjv61Y8zSXuWu8RsGYBHmiU3nT9rKP ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;BPFLoaderUpgradeab1e11111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;GeX9mtULBVsiDgtYwPcXL7WjMtFV9ZCEjuwYjhdrwuFN&quot;,
+      &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+      &quot;E5tKyJtozayh8QFRyVL3PHRgv3QnsCZo3ta4Lb86zt3m&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;SysvarRent111111111111111111111111111111111&quot;,
+      &quot;SysvarC1ock11111111111111111111111111111111&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;external_program&quot;,
+    &quot;data_base58&quot;: &quot;5Sxr3&quot;
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 3 / 14</div><h1>02 · Create separate wallets and fund them.</h1><p>Twelve worker wallets persist in ignored private state. All funding originates from the existing administrator wallet. Each Docker worker receives only its own key.</p><div class="table"><table><thead><tr><th>Role</th><th>Wallet</th></tr></thead><tbody><tr><td>producer-marginfi-1</td><td>6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH</td></tr><tr><td>producer-marginfi-2</td><td>7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf</td></tr><tr><td>producer-marginfi-3</td><td>FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L</td></tr><tr><td>producer-save-1</td><td>HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH</td></tr><tr><td>producer-save-2</td><td>E7T1c7kcGD42L4ZRQN6HXnRjTixZDmaspTZqZAM3wmmf</td></tr><tr><td>producer-save-3</td><td>BJVrpDAwMmQSsyfiAgt6BnXbnHpZ68ruyycV3gi7gjmW</td></tr><tr><td>producer-kamino-1</td><td>GPRwar8XXz9nGeEJta9uXh3jjXJTmqvtWByXe91YE4wC</td></tr><tr><td>producer-kamino-2</td><td>8xz7PSH5JKWRypmQbPaZXHzxvqWYgq9Uzdz9NiFJibFJ</td></tr><tr><td>producer-kamino-3</td><td>31tvv7pdjoQPMBenMSSM2JjC4hGwRxcbgBDdto8hCwVT</td></tr><tr><td>consumer-1</td><td>57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13</td></tr><tr><td>consumer-2</td><td>97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u</td></tr><tr><td>consumer-3</td><td>He5hU6S8L9mSV4hiLGvXyT1ZUNDZZR62VVy4Be3CN3wA</td></tr></tbody></table></div><details><summary>Slot 509633120 · fund producer-save-1 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/4PMyVdZQS2QgdTMdjNFJZ6p4zLZMyHxE41iwqsDTEW436qWdhfV1nTScWEmxzpsjBTpT7PvSa5vwu7HLx9XiBztT?cluster=devnet" target="_blank" rel="noreferrer">4PMyVdZQS2QgdTMdjNFJZ6p4zLZMyHxE41iwqsDTEW436qWdhfV1nTScWEmxzpsjBTpT7PvSa5vwu7HLx9XiBztT ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data_base58&quot;: &quot;3Bxs3zsCMdwtYDaF&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;120000000&quot;,
+      &quot;from&quot;: &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;to&quot;: &quot;HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509633130 · fund producer-save-2 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/4QbrdYXY3PVZ3fh7R8MjRuTxpTWR3UwafLeGSQ5nsRnGMcYbVYiybDFVcaPz3EgePrSXjDRKVsVwCq1Hq5b2LiEB?cluster=devnet" target="_blank" rel="noreferrer">4QbrdYXY3PVZ3fh7R8MjRuTxpTWR3UwafLeGSQ5nsRnGMcYbVYiybDFVcaPz3EgePrSXjDRKVsVwCq1Hq5b2LiEB ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;E7T1c7kcGD42L4ZRQN6HXnRjTixZDmaspTZqZAM3wmmf&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data_base58&quot;: &quot;3Bxs3zsCMdwtYDaF&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;120000000&quot;,
+      &quot;from&quot;: &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;to&quot;: &quot;E7T1c7kcGD42L4ZRQN6HXnRjTixZDmaspTZqZAM3wmmf&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509633140 · fund producer-save-3 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/HGuudrygZ8TohMVvVDyxADsUqJbG722k9caym3smSHXrfrb3zsnJh7vXDLyXthTVv5QhPxaxA7uUFTn2uFmUtH7?cluster=devnet" target="_blank" rel="noreferrer">HGuudrygZ8TohMVvVDyxADsUqJbG722k9caym3smSHXrfrb3zsnJh7vXDLyXthTVv5QhPxaxA7uUFTn2uFmUtH7 ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;BJVrpDAwMmQSsyfiAgt6BnXbnHpZ68ruyycV3gi7gjmW&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data_base58&quot;: &quot;3Bxs3zsCMdwtYDaF&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;120000000&quot;,
+      &quot;from&quot;: &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;to&quot;: &quot;BJVrpDAwMmQSsyfiAgt6BnXbnHpZ68ruyycV3gi7gjmW&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 4 / 14</div><h1>03 · Register signing operators.</h1><p>The administrator registers producer and consumer public keys. The frozen policy additionally restricts consumer membership for each allocation round.</p></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 5 / 14</div><h1>04 · Bind three real mainnet USDC sources.</h1><p>Each producer fetches only its assigned protocol. Source reads verify mainnet genesis, account owner, USDC mint and parent market/group. APY is base supply interest, excluding rewards.</p><div class="table"><table><thead><tr><th>Venue</th><th>Window slots</th><th>Stale after slots</th><th>Feed PDA</th></tr></thead><tbody><tr><td>Marginfi</td><td>120</td><td>240</td><td>5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8</td></tr><tr><td>Save</td><td>180</td><td>360</td><td>6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB</td></tr><tr><td>Kamino</td><td>240</td><td>480</td><td>783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm</td></tr></tbody></table></div></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 6 / 14</div><h1>05 · Freeze policy on chain.</h1><p>Venue caps, category limits, risk discounts, screening, feed freshness and authorized consumers are explicit policy fields. Demo risk settings are illustrative.</p><details><summary>Decoded current AllocationPolicy</summary><pre>{
+  &quot;version&quot;: &quot;1&quot;,
+  &quot;active_round&quot;: &quot;509857303&quot;,
+  &quot;published_round&quot;: &quot;509857083&quot;,
+  &quot;config&quot;: {
+    &quot;feeds&quot;: [
+      &quot;5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8&quot;,
+      &quot;6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB&quot;,
+      &quot;783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;max_stale_slots&quot;: [
+      240,
+      360,
+      480,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;risk_bps&quot;: [
+      500,
+      1000,
+      1500,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;caps_bps&quot;: [
+      5000,
+      5000,
+      5000,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;categories&quot;: [
+      0,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;category_caps_bps&quot;: [
+      10000,
+      7500,
+      0,
+      0
+    ],
+    &quot;risk_screen_bps&quot;: 6000,
+    &quot;min_consumers&quot;: 3,
+    &quot;max_round_slots&quot;: 360,
+    &quot;consumers&quot;: [
+      &quot;57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13&quot;,
+      &quot;97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u&quot;,
+      &quot;He5hU6S8L9mSV4hiLGvXyT1ZUNDZZR62VVy4Be3CN3wA&quot;
+    ]
+  },
+  &quot;bump&quot;: 255
+}</pre></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 7 / 14</div><h1>06 · Keep fifteen Docker services running.</h1><p>Nine single-feed producers, three consumers, coordinator, RPC gateway and web service use health checks and restart policies. They remain running after observation.</p><pre>./scripts/devnet/show-fleet.sh</pre><p>Show the local <a href="/#fleet">Fleet tab ↗</a> beside the terminal. Docker health and successful signed on-chain publications are separate evidence.</p><div class="table"><table><thead><tr><th>Service</th><th>State</th><th>Health</th></tr></thead><tbody><tr><td>consumer-1</td><td>running</td><td>healthy</td></tr><tr><td>consumer-2</td><td>running</td><td>healthy</td></tr><tr><td>consumer-3</td><td>running</td><td>healthy</td></tr><tr><td>coordinator</td><td>running</td><td>healthy</td></tr><tr><td>producer-kamino-1</td><td>running</td><td>healthy</td></tr><tr><td>producer-kamino-2</td><td>running</td><td>healthy</td></tr><tr><td>producer-kamino-3</td><td>running</td><td>healthy</td></tr><tr><td>producer-marginfi-1</td><td>running</td><td>healthy</td></tr><tr><td>producer-marginfi-2</td><td>running</td><td>healthy</td></tr><tr><td>producer-marginfi-3</td><td>running</td><td>healthy</td></tr><tr><td>producer-save-1</td><td>running</td><td>healthy</td></tr><tr><td>producer-save-2</td><td>running</td><td>healthy</td></tr><tr><td>producer-save-3</td><td>running</td><td>healthy</td></tr><tr><td>rpc</td><td>running</td><td>healthy</td></tr><tr><td>web</td><td>running</td><td>healthy</td></tr></tbody></table></div></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 8 / 14</div><h1>07 · Three signed reports establish each median.</h1><p>Different feed cadences are deliberate. Each venue has three distinct producer wallets; finalized sample consensus is archived before rent cleanup.</p><details><summary>Slot 509854564 · Save APY 167bps window=2832525</summary><a href="https://explorer.solana.com/tx/41ERFe4fuQMRXK7UmUFEbxVwPQmtTwS4YcGTf9pmZUW6L95EG6Wg7GLJtvq95vHVGzoK9GMwqpBMn92fiXTiuKME?cluster=devnet" target="_blank" rel="noreferrer">41ERFe4fuQMRXK7UmUFEbxVwPQmtTwS4YcGTf9pmZUW6L95EG6Wg7GLJtvq95vHVGzoK9GMwqpBMn92fiXTiuKME ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB&quot;,
+      &quot;7DWWVyjbG4zcdCyMo6Pfni5XZxbKs4iQ4U3HpVZtLQLe&quot;,
+      &quot;HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;propose_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2832525&quot;,
+      &quot;value&quot;: &quot;167&quot;,
+      &quot;slot_at_read&quot;: &quot;509854556&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509854585 · finalize Marginfi window=4248787</summary><a href="https://explorer.solana.com/tx/66tHFYXGmdZiitAzLKM5uwdW4PgDYFhNojXVh1FgBaKc1nXgdJ7pcMbNZ15ZUuchLxqQrkejVAc8wi2PraGNTCuy?cluster=devnet" target="_blank" rel="noreferrer">66tHFYXGmdZiitAzLKM5uwdW4PgDYFhNojXVh1FgBaKc1nXgdJ7pcMbNZ15ZUuchLxqQrkejVAc8wi2PraGNTCuy ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8&quot;,
+      &quot;B3oKzdMuh5XASdDZidFUr2yz9ga5HNdfYojZPqgicFNh&quot;,
+      &quot;6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH&quot;
+    ],
+    &quot;name&quot;: &quot;finalize_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;4248787&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509854589 · finalize Kamino window=2124393</summary><a href="https://explorer.solana.com/tx/2eTKd79yyy1UTpRKAmHdh8HKf5ug7EH1sseS5tgBgcPb2S9bfkPV5FgYT3EGfBJmJTTFziYNkcz6zLEzFNsT5j2c?cluster=devnet" target="_blank" rel="noreferrer">2eTKd79yyy1UTpRKAmHdh8HKf5ug7EH1sseS5tgBgcPb2S9bfkPV5FgYT3EGfBJmJTTFziYNkcz6zLEzFNsT5j2c ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm&quot;,
+      &quot;3U8vqf3g2RU1332bXz3eAfonM7F2ZjathRsSbQcosUmS&quot;,
+      &quot;8xz7PSH5JKWRypmQbPaZXHzxvqWYgq9Uzdz9NiFJibFJ&quot;
+    ],
+    &quot;name&quot;: &quot;finalize_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2124393&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 9 / 14</div><h1>08 · Open an atomic consumed-input snapshot.</h1><p>RoundContext captures values, ticks, sample slots, eligibility and the full policy. SHA-256 binds every allocation vote to those inputs. Feed slots need not align.</p><details><summary>Slot 509854736 · freeze asynchronous feed heads for allocation 509854720</summary><a href="https://explorer.solana.com/tx/4HpskLhqupbQvV9CadPkJ78sU6A1EwPKDt2ZX8y9XwxHyMQM443WXr1dmm6GyK3C8qY3rLP4yPMU5K6TGysSP9hS?cluster=devnet" target="_blank" rel="noreferrer">4HpskLhqupbQvV9CadPkJ78sU6A1EwPKDt2ZX8y9XwxHyMQM443WXr1dmm6GyK3C8qY3rLP4yPMU5K6TGysSP9hS ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;3BGmbTG3YdkuT7KKL4BNxu57CxouKFzRFB4BvMRUTstu&quot;,
+      &quot;7NBPtsADfayLuTmC3vrWGkesTwEpCtKk3AMGD1YBKr3U&quot;,
+      &quot;7bDuEwdAKBqDznZ36H1QK8zaQcZRQKNpK32ox3sktBbh&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;11111111111111111111111111111111&quot;,
+      &quot;5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8&quot;,
+      &quot;6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB&quot;,
+      &quot;783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm&quot;
+    ],
+    &quot;name&quot;: &quot;open_allocation_round_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854720&quot;,
+      &quot;closes_at_slot&quot;: &quot;509854840&quot;,
+      &quot;rule&quot;: 1,
+      &quot;trim_pct&quot;: 0
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Verified published RoundContext — decoded from bytes</summary><pre>{
+  &quot;pda&quot;: &quot;EUgWiz9WKv1PC7ArkAYj5btXw4PCpujNW32KC3sGmj67&quot;,
+  &quot;context_slot&quot;: &quot;509857339&quot;,
+  &quot;owner&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+  &quot;lamports&quot;: 16850360,
+  &quot;raw_base64&quot;: &quot;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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;,
+  &quot;decoded&quot;: {
+    &quot;round&quot;: &quot;509857083&quot;,
+    &quot;anchor_slot&quot;: &quot;509857093&quot;,
+    &quot;policy_version&quot;: &quot;1&quot;,
+    &quot;input_hash&quot;: [
+      202,
+      9,
+      230,
+      252,
+      67,
+      50,
+      49,
+      65,
+      48,
+      186,
+      236,
+      93,
+      24,
+      247,
+      142,
+      216,
+      44,
+      45,
+      153,
+      208,
+      96,
+      9,
+      93,
+      58,
+      119,
+      172,
+      96,
+      112,
+      249,
+      200,
+      100,
+      134
+    ],
+    &quot;values&quot;: [
+      &quot;700&quot;,
+      &quot;167&quot;,
+      &quot;459&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;
+    ],
+    &quot;ticks&quot;: [
+      &quot;11&quot;,
+      &quot;67&quot;,
+      &quot;125&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;
+    ],
+    &quot;sample_slots&quot;: [
+      &quot;509856960&quot;,
+      &quot;509857020&quot;,
+      &quot;509856960&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;,
+      &quot;0&quot;
+    ],
+    &quot;eligible&quot;: [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    &quot;outcome&quot;: 1,
+    &quot;config&quot;: {
+      &quot;feeds&quot;: [
+        &quot;5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8&quot;,
+        &quot;6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB&quot;,
+        &quot;783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;,
+        &quot;11111111111111111111111111111111&quot;
+      ],
+      &quot;max_stale_slots&quot;: [
+        240,
+        360,
+        480,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;risk_bps&quot;: [
+        500,
+        1000,
+        1500,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;caps_bps&quot;: [
+        5000,
+        5000,
+        5000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;categories&quot;: [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;category_caps_bps&quot;: [
+        10000,
+        7500,
+        0,
+        0
+      ],
+      &quot;risk_screen_bps&quot;: 6000,
+      &quot;min_consumers&quot;: 3,
+      &quot;max_round_slots&quot;: 360,
+      &quot;consumers&quot;: [
+        &quot;57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13&quot;,
+        &quot;97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u&quot;,
+        &quot;He5hU6S8L9mSV4hiLGvXyT1ZUNDZZR62VVy4Be3CN3wA&quot;
+      ]
+    },
+    &quot;bump&quot;: 255
+  }
+}</pre></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 10 / 14</div><h1>09 · Consumers independently sign weight vectors.</h1><p>Three authorized wallets sign the same snapshot hash. The program checks uniqueness, membership, deadline, normalization and policy constraints.</p><details><summary>Slot 509854769 · submit allocation 509854720 with frozen input hash</summary><a href="https://explorer.solana.com/tx/3BjDJp64TiCjEYi46vzxU5JDvxfdTsrg9B6hT1g5Uj6jMQiKux8yZRv2bJ8nKvfgLe7arRRgqNwYXVL4Gk7VSxtG?cluster=devnet" target="_blank" rel="noreferrer">3BjDJp64TiCjEYi46vzxU5JDvxfdTsrg9B6hT1g5Uj6jMQiKux8yZRv2bJ8nKvfgLe7arRRgqNwYXVL4Gk7VSxtG ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;7NBPtsADfayLuTmC3vrWGkesTwEpCtKk3AMGD1YBKr3U&quot;,
+      &quot;7bDuEwdAKBqDznZ36H1QK8zaQcZRQKNpK32ox3sktBbh&quot;,
+      &quot;57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13&quot;
+    ],
+    &quot;name&quot;: &quot;submit_weights_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854720&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;input_hash&quot;: [
+        190,
+        55,
+        103,
+        93,
+        138,
+        83,
+        75,
+        221,
+        168,
+        146,
+        64,
+        7,
+        108,
+        234,
+        184,
+        230,
+        146,
+        205,
+        161,
+        38,
+        28,
+        116,
+        99,
+        182,
+        167,
+        123,
+        74,
+        217,
+        224,
+        54,
+        99,
+        213
+      ]
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509854771 · submit allocation 509854720 with frozen input hash</summary><a href="https://explorer.solana.com/tx/cSixXKafFtcQGriuvWnqAgrBw11g97sjjJH1KZaa8j5JE8Fy6eBaTgEUGvDour37PbEKdVvMAtN7iM9n2ZsC2Us?cluster=devnet" target="_blank" rel="noreferrer">cSixXKafFtcQGriuvWnqAgrBw11g97sjjJH1KZaa8j5JE8Fy6eBaTgEUGvDour37PbEKdVvMAtN7iM9n2ZsC2Us ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;7NBPtsADfayLuTmC3vrWGkesTwEpCtKk3AMGD1YBKr3U&quot;,
+      &quot;7bDuEwdAKBqDznZ36H1QK8zaQcZRQKNpK32ox3sktBbh&quot;,
+      &quot;97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u&quot;
+    ],
+    &quot;name&quot;: &quot;submit_weights_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854720&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;input_hash&quot;: [
+        190,
+        55,
+        103,
+        93,
+        138,
+        83,
+        75,
+        221,
+        168,
+        146,
+        64,
+        7,
+        108,
+        234,
+        184,
+        230,
+        146,
+        205,
+        161,
+        38,
+        28,
+        116,
+        99,
+        182,
+        167,
+        123,
+        74,
+        217,
+        224,
+        54,
+        99,
+        213
+      ]
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509854988 · submit allocation 509854952 with frozen input hash</summary><a href="https://explorer.solana.com/tx/4RZqRL8ivDHQNcWhoew2yeNsDZCtGvpEPhBRsf1qdeMnmM4zvabRwMNmN94SJ7BpECqdtt9yePBDJJPB5KVCaWvV?cluster=devnet" target="_blank" rel="noreferrer">4RZqRL8ivDHQNcWhoew2yeNsDZCtGvpEPhBRsf1qdeMnmM4zvabRwMNmN94SJ7BpECqdtt9yePBDJJPB5KVCaWvV ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;GKWKH7MU2DzhhFu63jTRqNsYp441zLbXxoLmVD7YCM2M&quot;,
+      &quot;AzW8of9w3hq7gKNhDVs4WR4qWRqkovM1jw29MMA27N1y&quot;,
+      &quot;57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13&quot;
+    ],
+    &quot;name&quot;: &quot;submit_weights_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854952&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      &quot;input_hash&quot;: [
+        51,
+        209,
+        23,
+        252,
+        149,
+        145,
+        129,
+        110,
+        197,
+        209,
+        7,
+        190,
+        64,
+        252,
+        131,
+        73,
+        73,
+        178,
+        30,
+        74,
+        210,
+        158,
+        161,
+        133,
+        118,
+        154,
+        197,
+        34,
+        74,
+        62,
+        18,
+        255
+      ]
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Published consensus — individual signatures and vectors</summary><pre>{
+  &quot;round&quot;: &quot;509857083&quot;,
+  &quot;closes&quot;: &quot;509857203&quot;,
+  &quot;status&quot;: 2,
+  &quot;quorum&quot;: 3,
+  &quot;count&quot;: 3,
+  &quot;output&quot;: [
+    5000,
+    1598,
+    3402,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  &quot;submissions&quot;: [
+    {
+      &quot;operator&quot;: &quot;57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      &quot;operator&quot;: &quot;97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      &quot;operator&quot;: &quot;He5hU6S8L9mSV4hiLGvXyT1ZUNDZZR62VVy4Be3CN3wA&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1598,
+        3402,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}</pre></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 11 / 14</div><h1>10 · Finalize only a valid allocation.</h1><p>Final publication preserves zero positions and venue/category limits. No quorum, stale inputs, infeasible capacity and zero medians leave the prior AllocationState intact.</p><details><summary>Slot 509854681 · finalize allocation 509854495</summary><a href="https://explorer.solana.com/tx/52t8hB2WVrE35VoBdeSyUg1izFNrA6sFz6djcDecFfU3p5SFWSnpX1RuDB3YufhrafpBwvcnGak4PLN6orKqD5h8?cluster=devnet" target="_blank" rel="noreferrer">52t8hB2WVrE35VoBdeSyUg1izFNrA6sFz6djcDecFfU3p5SFWSnpX1RuDB3YufhrafpBwvcnGak4PLN6orKqD5h8 ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;3BGmbTG3YdkuT7KKL4BNxu57CxouKFzRFB4BvMRUTstu&quot;,
+      &quot;3Ak29RyuGC1nqjFzf9YARdiVa5oNuFGCr5deZHbakoQ6&quot;,
+      &quot;3Exu8pnANBxevMJ3UYMnAfxePDsv5EGo27YeKsHWuWjS&quot;,
+      &quot;Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;finalize_allocation_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854495&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><details><summary>Slot 509854875 · finalize allocation 509854720</summary><a href="https://explorer.solana.com/tx/4q7myM2wPzYUfmUuYctU3Hi4XKCAAjWRzqAyticXpVyzF4d7ZiWfJ5dAqPtRyPBdaswd6XWAqWaKNpSEjapxdopx?cluster=devnet" target="_blank" rel="noreferrer">4q7myM2wPzYUfmUuYctU3Hi4XKCAAjWRzqAyticXpVyzF4d7ZiWfJ5dAqPtRyPBdaswd6XWAqWaKNpSEjapxdopx ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;3BGmbTG3YdkuT7KKL4BNxu57CxouKFzRFB4BvMRUTstu&quot;,
+      &quot;7NBPtsADfayLuTmC3vrWGkesTwEpCtKk3AMGD1YBKr3U&quot;,
+      &quot;7bDuEwdAKBqDznZ36H1QK8zaQcZRQKNpK32ox3sktBbh&quot;,
+      &quot;Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;finalize_allocation_v2&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509854720&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p></details><pre>{
+  &quot;round&quot;: &quot;509857083&quot;,
+  &quot;updated_slot&quot;: &quot;509857252&quot;,
+  &quot;weights&quot;: [
+    5000,
+    1598,
+    3402,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}</pre><p>AllocationState: <a href="https://explorer.solana.com/address/Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S?cluster=devnet" target="_blank" rel="noreferrer">Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S ↗</a></p></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 12 / 14</div><h1>11 · Reclaim terminal accounts; retain the latest proof.</h1><p>The v2 coordinator archives completed consensus and context bytes, then returns rent. 73 closed accounts have refunds checked against fetched transaction pre/post balances and fees. The latest published proof is retained by v2 cleanup.</p><details><summary>Slot 509854625 · reclaim Kamino sample rent window=2124393</summary><a href="https://explorer.solana.com/tx/h4FCDTaqZgf1sCiSGnLL6TjmYk21jMHDU4mS2sG6JMK4Ggmo2FRZi71sMorvJVJNnvqkLPhbNh5zzxtJKmDd6sV?cluster=devnet" target="_blank" rel="noreferrer">h4FCDTaqZgf1sCiSGnLL6TjmYk21jMHDU4mS2sG6JMK4Ggmo2FRZi71sMorvJVJNnvqkLPhbNh5zzxtJKmDd6sV ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm&quot;,
+      &quot;3U8vqf3g2RU1332bXz3eAfonM7F2ZjathRsSbQcosUmS&quot;,
+      &quot;GPRwar8XXz9nGeEJta9uXh3jjXJTmqvtWByXe91YE4wC&quot;
+    ],
+    &quot;name&quot;: &quot;close_sample_consensus&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2124393&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p><pre>{
+  &quot;recipient&quot;: &quot;GPRwar8XXz9nGeEJta9uXh3jjXJTmqvtWByXe91YE4wC&quot;,
+  &quot;closed_accounts&quot;: [
+    &quot;3U8vqf3g2RU1332bXz3eAfonM7F2ZjathRsSbQcosUmS&quot;
+  ],
+  &quot;rent_lamports&quot;: 21336000,
+  &quot;net_returned_lamports&quot;: 21331000
+}</pre></details><details><summary>Slot 509854628 · reclaim Marginfi sample rent window=4248787</summary><a href="https://explorer.solana.com/tx/49Zu3n2Tah5mGUDqb9qtG8gC3GyysZkSqzaBHUWhH41XyQiDnC8cUawrifnh8GkXXZ1uEJrDok87Ecc1c9vN3gUn?cluster=devnet" target="_blank" rel="noreferrer">49Zu3n2Tah5mGUDqb9qtG8gC3GyysZkSqzaBHUWhH41XyQiDnC8cUawrifnh8GkXXZ1uEJrDok87Ecc1c9vN3gUn ↗</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8&quot;,
+      &quot;B3oKzdMuh5XASdDZidFUr2yz9ga5HNdfYojZPqgicFNh&quot;,
+      &quot;6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH&quot;
+    ],
+    &quot;name&quot;: &quot;close_sample_consensus&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;4248787&quot;
+    }
+  }
+]</pre><p>Transaction fee: 5000 lamports · chain error: null</p><pre>{
+  &quot;recipient&quot;: &quot;6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH&quot;,
+  &quot;closed_accounts&quot;: [
+    &quot;B3oKzdMuh5XASdDZidFUr2yz9ga5HNdfYojZPqgicFNh&quot;
+  ],
+  &quot;rent_lamports&quot;: 21336000,
+  &quot;net_returned_lamports&quot;: 21331000
+}</pre></details></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 13 / 14</div><h1>12 · Demonstrate disagreement and recovery.</h1><div class="table"><table><thead><tr><th>Devnet experiment</th><th>Observed outcome</th></tr></thead><tbody><tr><td>One extreme producer cannot move the median</td><td>Injected 999,999 bps into one Marginfi producer. Three signed reports finalized to 700 bps, the median of the reports.</td></tr><tr><td>Losing one consumer prevents publication</td><td>With consumer-3 stopped, a round collected two votes and closed with no quorum. AllocationState retained an earlier published round.</td></tr><tr><td>Restart recovers from on-chain round state</td><td>The restarted consumer resumed with its existing wallet, read the active snapshot, and restored a three-signature publication with no duplicate operator votes.</td></tr><tr><td>Stale inputs do not force an invalid allocation</td><td>After all Marginfi producers stopped, its feed exceeded the configured freshness limit. Save and Kamino share a 75% category cap, so every consumer abstained. The round closed and the previous allocation was retained.</td></tr><tr><td>The full pipeline resumes after feed recovery</td><td>All producers resumed from persistent state, refreshed the independent feeds, and three consumers published a valid allocation with all inputs eligible.</td></tr></tbody></table></div><p>Five experiments passed. Their public signatures and account snapshots are displayed in the <a href="/#resilience">Resilience tab ↗</a>.</p></section><section><div class="kicker">QUORUM · DEPLOYMENT PROOF · 14 / 14</div><h1>13 · Inspect the result and remaining scope.</h1><p>The observer verified snapshot commitments, three consumer votes, venue/category limits and repeated publication over 240 seconds. Native, compiled-program and client tests exercise invalid paths.</p><p>Remaining: more feeds/protocols, full risk methodology, independent hosts/providers, v2 migration of older Rust consumers, Jito, operational automation, security audit and capital execution.</p><p><a href="/evidence.json">Public evidence index ↓</a> · Repository evidence includes fetched raw transactions, raw/decoded account bytes, journals and SHA-256 hashes.</p></section><nav><button id="previous">←</button><button id="next">→</button></nav><script>const slides=[...document.querySelectorAll('section')];let i=0;function go(d){i=Math.max(0,Math.min(slides.length-1,i+d));slides[i].scrollIntoView({behavior:'smooth'})}document.querySelector('#previous').onclick=()=>go(-1);document.querySelector('#next').onclick=()=>go(1);document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(1)}if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}});const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)i=slides.indexOf(e.target)}),{threshold:.4});slides.forEach(s=>observer.observe(s));</script></body></html>

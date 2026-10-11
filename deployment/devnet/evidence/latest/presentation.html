@@ -1,0 +1,369 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Quorum devnet deployment · USDC</title><style>:root{color-scheme:dark;--bg:#07121c;--ink:#eaf6f5;--muted:#91abb4;--mint:#6de8bf;--gold:#f2c779}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.55 system-ui,sans-serif}main{max-width:1440px;margin:auto}section{min-height:900px;padding:70px 80px;border-bottom:1px solid #24404e;position:relative;overflow:hidden}.kicker{color:var(--mint);letter-spacing:.2em;font-size:13px;font-weight:700}.number{float:right;color:var(--muted)}h1{font-size:54px;line-height:1.1;letter-spacing:-.035em;margin:26px 0 32px}p{max-width:1110px}.lead{font-size:27px;color:#b9d1d6;max-width:900px}.muted{color:var(--muted);font-size:14px}.mono{font:14px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}a{color:var(--mint);overflow-wrap:anywhere}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 ui-monospace,monospace;padding:20px;background:#0c202d;border-left:3px solid var(--mint);max-height:330px;overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th{color:var(--gold);text-align:left;padding:12px}td{padding:14px 12px;border-top:1px solid #28434e;overflow-wrap:anywhere}td:nth-child(2),td:nth-child(3){font-size:13px}details{margin:14px 0;padding:10px 14px;border:1px solid #264553;border-radius:8px;font-size:14px}summary{cursor:pointer}details a{display:block;margin:10px 0;font:12px monospace}.pill{color:var(--gold);font:12px monospace;margin-right:12px}.stats,.weights{display:flex;gap:20px;margin:60px 0}.stats>div,.weights>div{flex:1;border-top:3px solid var(--mint);padding:20px;background:#0c202d}.stats b,.weights b{font-size:42px;display:block}.stats span,.weights span{font-size:15px;color:var(--muted)}.flow{display:flex;align-items:center;gap:10px;margin:60px 0}.flow div{flex:1;padding:18px;background:#0c202d;font-size:12px;border:1px solid #244756}.flow b{display:block;color:var(--mint);font-size:16px}.flow i{color:var(--gold)}.callout{border-left:3px solid var(--gold);padding:14px 22px;background:#14212b}.links{display:flex;flex-wrap:wrap;gap:20px;margin:40px 0}nav{position:fixed;bottom:20px;right:24px;z-index:5;display:flex;gap:10px}button{border:1px solid #385b69;background:#0c202d;color:var(--ink);padding:10px 18px;border-radius:8px;cursor:pointer}footer{position:absolute;bottom:28px;left:80px;color:var(--muted);font-size:12px}svg text{font:12px system-ui;fill:var(--muted)}@media(max-width:800px){section{padding:40px 24px;min-height:100vh}h1{font-size:36px}.stats,.weights,.flow{flex-wrap:wrap}.flow div{min-width:140px}table{font-size:11px}footer{left:24px}}@media print{body{font-size:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}section{height:810px;min-height:810px;width:1440px;padding:48px 70px;page-break-after:always;break-after:page}h1{font-size:46px;margin:20px 0 24px}.stats{margin:35px 0}pre{max-height:290px}nav{display:none}details{font-size:12px}summary{list-style:none}section:last-child{page-break-after:auto}@page{size:1440px 810px;margin:0}}</style><main><section id="s0"><span class="kicker">QUORUM · DEVNET FIELD REPORT</span><span class="number">01 / 15</span><h1>Three oracles. One allocation.</h1><p class="lead">Live USDC supply APY from Marginfi, Save and Kamino, published by three independent signing processes.</p><div class="stats"><div><b>3 / 3</b><span>sample quorum</span></div><div><b>4</b><span>observed allocations</span></div><div><b>203</b><span>fetched transactions</span></div><div><b>4</b><span>running containers</span></div></div><p class="muted">2026-10-10T12:27:31.708Z → 2026-10-10T12:36:41.151Z · mainnet reads / devnet writes</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s1"><span class="kicker">01 · SYSTEM</span><span class="number">02 / 15</span><h1>From protocol state to allocation</h1><div class="flow"><div>MAINNET<br><b>USDC × 3 venues</b></div><i>→</i><div>ORACLES 1 / 2 / 3<br><b>separate wallets</b></div><i>→</i><div>DEVNET FEEDS<br><b>median · quorum 3</b></div><i>→</i><div>CONSUMER<br><b>integer rubric</b></div><i>→</i><div>ALLOCATION STATE<br><b>10000 bps</b></div></div><p>All three oracles independently read all three protocols. Each signs one vote per venue and devnet slot window. The consumer reads finalized feed heads from chain.</p><p class="callout">240-slot sample windows. One consumer ⇒ allocation quorum 1. Agreement is proven; source independence and consumer decentralization are outside this demo.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s2"><span class="kicker">02 · DEPLOY</span><span class="number">03 / 15</span><h1>Deploy and verify the main program</h1><p class="mono">DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz</p><p>The existing devnet program was upgraded. Deployed bytecode was compared with the local SBF build, and upgrade authority was checked against the funding wallet.</p><details><summary><span class="pill">slot 509534320</span> deploy / upgrade main program</summary><a href="https://explorer.solana.com/tx/3AZWKwDDCbDURRiQcSPCch2kfW3qkHDpxWPWDtrYkKN2djkWmJoECymiwh7ofgKuU9Me3hFDQWdnJ7ER6BaSmvC6?cluster=devnet" target="_blank" rel="noopener">3AZWKwDDCbDURRiQcSPCch2kfW3qkHDpxWPWDtrYkKN2djkWmJoECymiwh7ofgKuU9Me3hFDQWdnJ7ER6BaSmvC6</a><pre>[
+  {
+    &quot;program&quot;: &quot;BPFLoaderUpgradeab1e11111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;GeX9mtULBVsiDgtYwPcXL7WjMtFV9ZCEjuwYjhdrwuFN&quot;,
+      &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+      &quot;E5tKyJtozayh8QFRyVL3PHRgv3QnsCZo3ta4Lb86zt3m&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;SysvarRent111111111111111111111111111111111&quot;,
+      &quot;SysvarC1ock11111111111111111111111111111111&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;upgradeable_loader&quot;,
+    &quot;data&quot;: {
+      &quot;variant&quot;: 3
+    }
+  }
+]</pre></details><p>The registry and AllocationState already existed and were reused after identity and authority checks.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s3"><span class="kicker">03 · WALLETS</span><span class="number">04 / 15</span><h1>One funding wallet → three producers</h1><table><thead><tr><th>Role</th><th>Public key</th><th>Funding</th></tr></thead><tbody><tr><td>oracle-1</td><td>6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH</td><td>0.25 devnet SOL</td></tr><tr><td>oracle-2</td><td>7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf</td><td>0.25 devnet SOL</td></tr><tr><td>oracle-3</td><td>FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L</td><td>0.25 devnet SOL</td></tr></tbody></table><p>Funding wallet: <span class="mono">2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc</span></p><details><summary><span class="pill">slot 509535891</span> fund oracle-1 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/5j8VkZ14dKg8xZEVpQ7Q4smW4na9RBQ9nnNqQcmkHZEfD32CYkLSCNLP4eXi1TbVjneXAz6vL7R123BezBb2zh1k?cluster=devnet" target="_blank" rel="noopener">5j8VkZ14dKg8xZEVpQ7Q4smW4na9RBQ9nnNqQcmkHZEfD32CYkLSCNLP4eXi1TbVjneXAz6vL7R123BezBb2zh1k</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;250000000&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535900</span> fund oracle-2 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/4X6sdupzCYrPJiaYoeNygmR4XRi4uUD9B9RRj32xGqChWhw6yJ8qcWbuDZEkAd4rRSin5ZdsYXLcLtguGNj9HTZb?cluster=devnet" target="_blank" rel="noopener">4X6sdupzCYrPJiaYoeNygmR4XRi4uUD9B9RRj32xGqChWhw6yJ8qcWbuDZEkAd4rRSin5ZdsYXLcLtguGNj9HTZb</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;250000000&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535911</span> fund oracle-3 from existing devnet wallet</summary><a href="https://explorer.solana.com/tx/3RBGftDnSdPuxGo2anPhkUf4eRKd9CHnK4CWafHJ7aEJzjmoKu7AdnDXRmqSwhVkpsrcyjteEJz4F51EuyuywDNn?cluster=devnet" target="_blank" rel="noopener">3RBGftDnSdPuxGo2anPhkUf4eRKd9CHnK4CWafHJ7aEJzjmoKu7AdnDXRmqSwhVkpsrcyjteEJz4F51EuyuywDNn</a><pre>[
+  {
+    &quot;program&quot;: &quot;11111111111111111111111111111111&quot;,
+    &quot;accounts&quot;: [
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;
+    ],
+    &quot;name&quot;: &quot;system_transfer&quot;,
+    &quot;data&quot;: {
+      &quot;lamports&quot;: &quot;250000000&quot;
+    }
+  }
+]</pre></details><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s4"><span class="kicker">04 · MEMBERSHIP</span><span class="number">05 / 15</span><h1>Register every signing producer</h1><p>The admin registered the three new oracle keys. The devnet admin also signs the single consumer.</p><details><summary><span class="pill">slot 509535922</span> register 6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH</summary><a href="https://explorer.solana.com/tx/4hCsf2LwFGxLLJieBMaSGihPDo911p5XAfHMeapPCLAfASC4XcUuvGkjRaXJnTG5fd4FuVVKmmjCLoWpRTXGCJpH?cluster=devnet" target="_blank" rel="noopener">4hCsf2LwFGxLLJieBMaSGihPDo911p5XAfHMeapPCLAfASC4XcUuvGkjRaXJnTG5fd4FuVVKmmjCLoWpRTXGCJpH</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;add_operator&quot;,
+    &quot;data&quot;: {
+      &quot;operator&quot;: &quot;6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535932</span> register 7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf</summary><a href="https://explorer.solana.com/tx/3pZYk6HQwuK5iU5hpghHdUJS29FaZtRYakkWFpLwVmsLahPrV3p4pBUP1Kdk5JQkyuXwf3Xmrncx4fpZ5rQiT7TD?cluster=devnet" target="_blank" rel="noopener">3pZYk6HQwuK5iU5hpghHdUJS29FaZtRYakkWFpLwVmsLahPrV3p4pBUP1Kdk5JQkyuXwf3Xmrncx4fpZ5rQiT7TD</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;add_operator&quot;,
+    &quot;data&quot;: {
+      &quot;operator&quot;: &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535940</span> register FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L</summary><a href="https://explorer.solana.com/tx/4DavqzKvEJY4uUyq2LPSnxhXynoKLcw2CYohiLmiQkjq2R45juxTjsVf5kUb6znLVrjNJ5uZnrY7EokkTGHccJQD?cluster=devnet" target="_blank" rel="noopener">4DavqzKvEJY4uUyq2LPSnxhXynoKLcw2CYohiLmiQkjq2R45juxTjsVf5kUb6znLVrjNJ5uZnrY7EokkTGHccJQD</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;add_operator&quot;,
+    &quot;data&quot;: {
+      &quot;operator&quot;: &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;
+    }
+  }
+]</pre></details><p class="callout">Decoded OperatorRegistry contains all three new keys. Existing registered test operators remain present.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s5"><span class="kicker">05 · SOURCE BINDINGS</span><span class="number">06 / 15</span><h1>The same asset on all three venues</h1><table><thead><tr><th>Venue</th><th>APY sample</th><th>Verified account</th></tr></thead><tbody><tr><td>Marginfi</td><td>6.99%</td><td>2s37akK2eyBbp8DZgCm7RtsaEz8eJP3Nxd4urLHQv7yB</td></tr><tr><td>Save</td><td>1.64%</td><td>BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw</td></tr><tr><td>Kamino</td><td>4.51%</td><td>D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59</td></tr></tbody></table><p>Mint: <span class="mono">EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</span></p><p>Independent fetches verify mainnet genesis, account owner, mint, market and supported layout. Raw bytes and RPC context slots are retained.</p><p class="muted">Base lending APY excludes token incentives. Kamino legacy reserves use the SDK nominal 500ms slot convention.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s6"><span class="kicker">06 · FEEDS</span><span class="number">07 / 15</span><h1>Three APY feeds, three votes required</h1><table><thead><tr><th>Venue</th><th>Pool / data</th><th>Feed PDA</th></tr></thead><tbody><tr><td>Marginfi</td><td>80 / 0</td><td>A5XBGuLiiFmhn83BZXNz6kF5PR6vehVRDtaFvjq4mV65</td></tr><tr><td>Save</td><td>81 / 0</td><td>HXTs2z35oLW5DvUiyMuEnWo7yNXRDp3FYrG7oA22Jvtb</td></tr><tr><td>Kamino</td><td>82 / 0</td><td>H2WGBKwRwRxagHUvsaCUTVPBAjPisC6L9JWDV1E5gsSp</td></tr></tbody></table><p>1 bps = 0.01%. Median aggregation. Minimum and maximum interval = 240 slots. Ring capacity = 256 samples.</p><details><summary><span class="pill">slot 509535960</span> initialize Marginfi USDC supply APY feed</summary><a href="https://explorer.solana.com/tx/65E676L5jVENaim1vzuP9tRAuhLs6CMqkaBEBghkVDpbDPj9tBu5Eo9ruh8aLG2xSm5mqZ1g5KaTNxWc3Wdhu3LK?cluster=devnet" target="_blank" rel="noopener">65E676L5jVENaim1vzuP9tRAuhLs6CMqkaBEBghkVDpbDPj9tBu5Eo9ruh8aLG2xSm5mqZ1g5KaTNxWc3Wdhu3LK</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;A5XBGuLiiFmhn83BZXNz6kF5PR6vehVRDtaFvjq4mV65&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;init_data_feed&quot;,
+    &quot;data&quot;: {
+      &quot;pool_id&quot;: 80,
+      &quot;data_id&quot;: 0,
+      &quot;config&quot;: {
+        &quot;measurand&quot;: 0,
+        &quot;window_slots&quot;: 240,
+        &quot;threshold_bps&quot;: 1,
+        &quot;min_interval_slots&quot;: 240,
+        &quot;max_interval_slots&quot;: 240,
+        &quot;min_number&quot;: 3,
+        &quot;rule&quot;: 1,
+        &quot;trim_pct&quot;: 0
+      }
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535972</span> initialize Save USDC supply APY feed</summary><a href="https://explorer.solana.com/tx/44vbrYhDYpqPPX6vGLZ89pMhjZQ4G5Qkk7SomgYBgwC63zPXnAku96gKD52Rta7GwE5GtwcCNjhMz6QooWyg9Bp7?cluster=devnet" target="_blank" rel="noopener">44vbrYhDYpqPPX6vGLZ89pMhjZQ4G5Qkk7SomgYBgwC63zPXnAku96gKD52Rta7GwE5GtwcCNjhMz6QooWyg9Bp7</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;HXTs2z35oLW5DvUiyMuEnWo7yNXRDp3FYrG7oA22Jvtb&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;init_data_feed&quot;,
+    &quot;data&quot;: {
+      &quot;pool_id&quot;: 81,
+      &quot;data_id&quot;: 0,
+      &quot;config&quot;: {
+        &quot;measurand&quot;: 0,
+        &quot;window_slots&quot;: 240,
+        &quot;threshold_bps&quot;: 1,
+        &quot;min_interval_slots&quot;: 240,
+        &quot;max_interval_slots&quot;: 240,
+        &quot;min_number&quot;: 3,
+        &quot;rule&quot;: 1,
+        &quot;trim_pct&quot;: 0
+      }
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509535978</span> initialize Kamino USDC supply APY feed</summary><a href="https://explorer.solana.com/tx/2YMqA3rargAYgsaukvWkqgyscGuwpQstCKDMy19w2XWhA8ComzcWiEbtPY9meyu5bUMPjsMbafYA2x8YeDcCcYvd?cluster=devnet" target="_blank" rel="noopener">2YMqA3rargAYgsaukvWkqgyscGuwpQstCKDMy19w2XWhA8ComzcWiEbtPY9meyu5bUMPjsMbafYA2x8YeDcCcYvd</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;H2WGBKwRwRxagHUvsaCUTVPBAjPisC6L9JWDV1E5gsSp&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;init_data_feed&quot;,
+    &quot;data&quot;: {
+      &quot;pool_id&quot;: 82,
+      &quot;data_id&quot;: 0,
+      &quot;config&quot;: {
+        &quot;measurand&quot;: 0,
+        &quot;window_slots&quot;: 240,
+        &quot;threshold_bps&quot;: 1,
+        &quot;min_interval_slots&quot;: 240,
+        &quot;max_interval_slots&quot;: 240,
+        &quot;min_number&quot;: 3,
+        &quot;rule&quot;: 1,
+        &quot;trim_pct&quot;: 0
+      }
+    }
+  }
+]</pre></details><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s7"><span class="kicker">07 · CONTAINERS</span><span class="number">08 / 15</span><h1>Four isolated processes stay running</h1><table><thead><tr><th>Container</th><th>Signer</th><th>Status</th></tr></thead><tbody><tr><td>oracle-1</td><td>6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH</td><td>running / healthy</td></tr><tr><td>oracle-2</td><td>7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf</td><td>running / healthy</td></tr><tr><td>oracle-3</td><td>FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L</td><td>running / healthy</td></tr><tr><td>consumer</td><td>2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc</td><td>running / healthy</td></tr></tbody></table><p>Each producer receives only its own secret. The consumer receives the devnet admin secret. Services restart unless stopped and use read-only filesystems apart from mounted journals.</p><pre>sudo docker compose -f deployment/devnet/compose.yaml ps</pre><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s8"><span class="kicker">08 · SAMPLE CONSENSUS</span><span class="number">09 / 15</span><h1>Decode the three signed votes</h1><p class="callout">Window 2123087 · closes at 509541120 · finalized · votes 3 / 3 · median 452 bps</p><table><thead><tr><th>Signing operator</th><th>Submitted APY (bps)</th></tr></thead><tbody><tr><td>FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L</td><td>452</td></tr><tr><td>7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf</td><td>452</td></tr><tr><td>6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH</td><td>452</td></tr></tbody></table><p class="mono">R7ejTyc5gwVFooSBpxi9GcYogdCb4d4vTJzi3t955tn</p><details><summary><span class="pill">slot 509540912</span> propose_sample / corroborate_sample USDC venues window=2123087</summary><a href="https://explorer.solana.com/tx/3SEM2FxmhLJs9SCzcTG6TWZmYbJoLbfqMwVqJahmGN626oZf98SMVvigE2mqJ4EgtX42nxBW6bWoJsfydy2qzTuJ?cluster=devnet" target="_blank" rel="noopener">3SEM2FxmhLJs9SCzcTG6TWZmYbJoLbfqMwVqJahmGN626oZf98SMVvigE2mqJ4EgtX42nxBW6bWoJsfydy2qzTuJ</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;A5XBGuLiiFmhn83BZXNz6kF5PR6vehVRDtaFvjq4mV65&quot;,
+      &quot;3ZYTKkWt5xwDuc6BgWNwxbENuzDQsKGcPyN44qdfoVzY&quot;,
+      &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;propose_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;699&quot;,
+      &quot;slot_at_read&quot;: &quot;509540905&quot;
+    }
+  },
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;HXTs2z35oLW5DvUiyMuEnWo7yNXRDp3FYrG7oA22Jvtb&quot;,
+      &quot;9kCRfnJQZo6xFWKT6xYB1Ftk2hnQ4F19kT9bHfCzSo5p&quot;,
+      &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;propose_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;164&quot;,
+      &quot;slot_at_read&quot;: &quot;509540905&quot;
+    }
+  },
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;H2WGBKwRwRxagHUvsaCUTVPBAjPisC6L9JWDV1E5gsSp&quot;,
+      &quot;R7ejTyc5gwVFooSBpxi9GcYogdCb4d4vTJzi3t955tn&quot;,
+      &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;propose_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;452&quot;,
+      &quot;slot_at_read&quot;: &quot;509540905&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509540968</span> propose_sample / corroborate_sample USDC venues window=2123087</summary><a href="https://explorer.solana.com/tx/5Hgiq3Jfp75s1T5r7yAbp1EcbULiwmG9BP4ac12rJ6MMNfYADrRDpYEUkS7rkkbZfVHvN9yzHhqvha3v6wQt3JbQ?cluster=devnet" target="_blank" rel="noopener">5Hgiq3Jfp75s1T5r7yAbp1EcbULiwmG9BP4ac12rJ6MMNfYADrRDpYEUkS7rkkbZfVHvN9yzHhqvha3v6wQt3JbQ</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;A5XBGuLiiFmhn83BZXNz6kF5PR6vehVRDtaFvjq4mV65&quot;,
+      &quot;3ZYTKkWt5xwDuc6BgWNwxbENuzDQsKGcPyN44qdfoVzY&quot;,
+      &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    ],
+    &quot;name&quot;: &quot;corroborate_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;699&quot;,
+      &quot;slot_at_read&quot;: &quot;509540917&quot;
+    }
+  },
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;HXTs2z35oLW5DvUiyMuEnWo7yNXRDp3FYrG7oA22Jvtb&quot;,
+      &quot;9kCRfnJQZo6xFWKT6xYB1Ftk2hnQ4F19kT9bHfCzSo5p&quot;,
+      &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    ],
+    &quot;name&quot;: &quot;corroborate_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;164&quot;,
+      &quot;slot_at_read&quot;: &quot;509540917&quot;
+    }
+  },
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;H2WGBKwRwRxagHUvsaCUTVPBAjPisC6L9JWDV1E5gsSp&quot;,
+      &quot;R7ejTyc5gwVFooSBpxi9GcYogdCb4d4vTJzi3t955tn&quot;,
+      &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    ],
+    &quot;name&quot;: &quot;corroborate_sample&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123087&quot;,
+      &quot;value&quot;: &quot;452&quot;,
+      &quot;slot_at_read&quot;: &quot;509540917&quot;
+    }
+  }
+]</pre></details><p class="muted">The observer re-decodes archived bytes, verifies the three submitters and recomputes the median.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s9"><span class="kicker">09 · MATH</span><span class="number">10 / 15</span><h1>Yield → normalize → cap</h1><table><thead><tr><th>Venue</th><th>Input APY bps</th><th>Risk</th><th>Cap</th><th>Weight</th></tr></thead><tbody><tr><td>Marginfi</td><td>699</td><td>0 bps</td><td>50%</td><td>50.00%</td></tr><tr><td>Save</td><td>164</td><td>0 bps</td><td>50%</td><td>14.70%</td></tr><tr><td>Kamino</td><td>452</td><td>0 bps</td><td>50%</td><td>35.30%</td></tr></tbody></table><p>Integer arithmetic; largest-remainder rounding; cap redistribution proportional to available headroom. The demo JS calculation was checked against the production Rust rubric.</p><p class="callout">Risk discount = 0 is a neutral demonstration policy, not a protocol risk assessment.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s10"><span class="kicker">10 · WEIGHT ROUND</span><span class="number">11 / 15</span><h1>Open, submit, finalize on chain</h1><details><summary><span class="pill">slot 509539012</span> open allocation 509539005 quorum=1</summary><a href="https://explorer.solana.com/tx/3akvoLNC4LQT1Y8m9ToodbZG4geTfC5ajVmh8YkBBixAdowTced8rtzSQhUGB4KvJCwHBNAqGJQ2HHs7cDvwzfN2?cluster=devnet" target="_blank" rel="noopener">3akvoLNC4LQT1Y8m9ToodbZG4geTfC5ajVmh8YkBBixAdowTced8rtzSQhUGB4KvJCwHBNAqGJQ2HHs7cDvwzfN2</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;7kKAGHd1cS7Wak9aMpKgKpbPNxVs1fQKDuqYD65oyXUw&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;,
+      &quot;11111111111111111111111111111111&quot;
+    ],
+    &quot;name&quot;: &quot;open_allocation_round&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509539005&quot;,
+      &quot;closes_at_slot&quot;: &quot;509539085&quot;,
+      &quot;min_number&quot;: 1,
+      &quot;rule&quot;: 1,
+      &quot;trim_pct&quot;: 0
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509539020</span> submit allocation 509539005</summary><a href="https://explorer.solana.com/tx/QcaAPddUsXN4gasqjZwPAPJAtdeHcp7ZhS1Ns3BxXwxBRnuGK7h87VgDxDEccHas2iiwacRduyZ7hTpUGLRNUnW?cluster=devnet" target="_blank" rel="noopener">QcaAPddUsXN4gasqjZwPAPJAtdeHcp7ZhS1Ns3BxXwxBRnuGK7h87VgDxDEccHas2iiwacRduyZ7hTpUGLRNUnW</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG&quot;,
+      &quot;7kKAGHd1cS7Wak9aMpKgKpbPNxVs1fQKDuqYD65oyXUw&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;submit_weights&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509539005&quot;,
+      &quot;weights&quot;: [
+        5000,
+        1474,
+        3526,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509539116</span> finalize allocation 509539005</summary><a href="https://explorer.solana.com/tx/3z8zSz2AS2dmdNQEB9GTvy1ozBKyZ8aJP6dZ1TKaty1keHHfhaFUGeEDkiAqTpNZa67EWqrAHKpaLwoFg8G7Si6x?cluster=devnet" target="_blank" rel="noopener">3z8zSz2AS2dmdNQEB9GTvy1ozBKyZ8aJP6dZ1TKaty1keHHfhaFUGeEDkiAqTpNZa67EWqrAHKpaLwoFg8G7Si6x</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;7kKAGHd1cS7Wak9aMpKgKpbPNxVs1fQKDuqYD65oyXUw&quot;,
+      &quot;Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S&quot;,
+      &quot;2rH2YbtCjFxNV4JL6JC1AQixxxviBEmMk8aBYBABoukc&quot;
+    ],
+    &quot;name&quot;: &quot;finalize_allocation&quot;,
+    &quot;data&quot;: {
+      &quot;round&quot;: &quot;509539005&quot;
+    }
+  }
+]</pre></details><p>The consumer starts a fresh round when all three feed heads advance together, waits for the closing slot, and finalizes the weights.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s11"><span class="kicker">11 · OBSERVE</span><span class="number">12 / 15</span><h1>AllocationState advances over time</h1><p class="mono">Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S</p><div id="chart"></div><p>15 snapshots over 240 seconds; 4 allocations published during observation.</p><pre>{
+  &quot;round&quot;: &quot;509541197&quot;,
+  &quot;updated_slot&quot;: &quot;509541307&quot;,
+  &quot;weights&quot;: [
+    5000,
+    1470,
+    3530,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}</pre><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s12"><span class="kicker">12 · CONTINUITY</span><span class="number">13 / 15</span><h1>Archive proof, then return rent</h1><details><summary><span class="pill">slot 509536852</span> reclaim Save sample rent 2123069</summary><a href="https://explorer.solana.com/tx/5ForkM8WXant49sVojYktsKdpq6aTPYv1pdq8hi3gdRYhwKNhNHMQqHexoqKwRW5bAmt2vSeQRfr5dJbL32xgoFv?cluster=devnet" target="_blank" rel="noopener">5ForkM8WXant49sVojYktsKdpq6aTPYv1pdq8hi3gdRYhwKNhNHMQqHexoqKwRW5bAmt2vSeQRfr5dJbL32xgoFv</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;HXTs2z35oLW5DvUiyMuEnWo7yNXRDp3FYrG7oA22Jvtb&quot;,
+      &quot;3nhG7dQ8zd6k8fgUrvsrDvTdDkk16tXDKSJKkuqmdQAk&quot;,
+      &quot;FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L&quot;
+    ],
+    &quot;name&quot;: &quot;close_sample_consensus&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123069&quot;
+    }
+  }
+]</pre></details><details><summary><span class="pill">slot 509536864</span> reclaim Kamino sample rent 2123069</summary><a href="https://explorer.solana.com/tx/4qYbFU8d6GNzUDSFBY43biN5id5Zpe8q1k9nTEqACPj9HtTVMSoS2GoKD9qGjMc5sGm5Y6oNuXJtLemTeHmvLHVc?cluster=devnet" target="_blank" rel="noopener">4qYbFU8d6GNzUDSFBY43biN5id5Zpe8q1k9nTEqACPj9HtTVMSoS2GoKD9qGjMc5sGm5Y6oNuXJtLemTeHmvLHVc</a><pre>[
+  {
+    &quot;program&quot;: &quot;DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz&quot;,
+    &quot;accounts&quot;: [
+      &quot;H2WGBKwRwRxagHUvsaCUTVPBAjPisC6L9JWDV1E5gsSp&quot;,
+      &quot;HWiBnG6z9pCB7CvXc6YbKzWuUZdbUn6zwV4jYyQhGE8Q&quot;,
+      &quot;7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf&quot;
+    ],
+    &quot;name&quot;: &quot;close_sample_consensus&quot;,
+    &quot;data&quot;: {
+      &quot;window_index&quot;: &quot;2123069&quot;
+    }
+  }
+]</pre></details><p>Persistent ring buffers and AllocationState remain on chain. Completed consensus bytes are archived before closing. Submissions and finalization instructions remain verifiable in fetched transactions.</p><p>Devnet checks rejected open-account closure and unauthorized rent reclamation. The allocation closure test returned rent minus its transaction fee.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s13"><span class="kicker">13 · OUTCOME</span><span class="number">14 / 15</span><h1>Verified and still running</h1><div class="weights"><div><span>Marginfi</span><b>50.00%</b></div><div><span>Save</span><b>14.70%</b></div><div><span>Kamino</span><b>35.30%</b></div></div><p>Weights sum to 100%. The three oracles and consumer were verified running and healthy after observation.</p><p>34 finalized venue windows verified; 203 confirmed transactions fetched and decoded.</p><p class="muted">Devnet fee funding is finite. This system publishes allocation signals; it does not move capital.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section><section id="s14"><span class="kicker">14 · AUDIT</span><span class="number">15 / 15</span><h1>Reproduce and inspect every step</h1><pre>./scripts/devnet/deploy-system.sh</pre><div class="links"><a href="outcome.json">Outcome</a><a href="snapshots.json">Raw + decoded PDAs</a><a href="transactions.json">Fetched + decoded transactions</a><a href="events.json">Sources + consensus archives</a><a href="SHA256SUMS">SHA-256 manifest</a></div><p>Official SDKs: <a href="https://github.com/0dotxyz/p0-ts-sdk">Marginfi</a> · <a href="https://github.com/solendprotocol/solend-sdk">Save</a> · <a href="https://github.com/Kamino-Finance/klend-sdk">Kamino</a></p><p class="muted">Static neutral risk discount (0 bps) and 50% per-venue caps are an explicit demo policy.<br>Base supply interest APY excludes token incentive emissions.<br>The single consumer uses the devnet registry admin to open rounds; producer containers only receive their own key.<br>Samples attest agreement by three operators using the same public mainnet RPC; this is not source decentralization.<br>Latest feed reads have an RPC context lower bound; historical input commitments are not implemented.</p><footer>QUORUM · PUBLIC DEVNET EVIDENCE · 2026-10-10</footer></section></main><nav><button id="prev" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button onclick="window.print()">Print / PDF</button></nav><script>const slides=[...document.querySelectorAll('section')];let current=0;const go=d=>{current=Math.max(0,Math.min(slides.length-1,current+d));slides[current].scrollIntoView({behavior:'smooth'})};document.querySelector('#prev').onclick=()=>go(-1);document.querySelector('#next').onclick=()=>go(1);document.addEventListener('keydown',e=>{if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();go(1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(-1)}});const data=[{"at":"2026-10-10T12:27:32.694Z","round":"509540263","weights":[5000,1474,3526]},{"at":"2026-10-10T12:27:48.131Z","round":"509540263","weights":[5000,1474,3526]},{"at":"2026-10-10T12:28:03.199Z","round":"509540471","weights":[5000,1474,3526]},{"at":"2026-10-10T12:28:18.352Z","round":"509540471","weights":[5000,1474,3526]},{"at":"2026-10-10T12:28:40.310Z","round":"509540471","weights":[5000,1474,3526]},{"at":"2026-10-10T12:28:55.769Z","round":"509540700","weights":[5000,1474,3526]},{"at":"2026-10-10T12:29:11.224Z","round":"509540700","weights":[5000,1474,3526]},{"at":"2026-10-10T12:29:29.345Z","round":"509540700","weights":[5000,1474,3526]},{"at":"2026-10-10T12:29:44.700Z","round":"509540700","weights":[5000,1474,3526]},{"at":"2026-10-10T12:29:59.847Z","round":"509540920","weights":[5000,1474,3526]},{"at":"2026-10-10T12:30:14.991Z","round":"509540920","weights":[5000,1474,3526]},{"at":"2026-10-10T12:30:39.917Z","round":"509540920","weights":[5000,1474,3526]},{"at":"2026-10-10T12:30:55.458Z","round":"509541197","weights":[5000,1470,3530]},{"at":"2026-10-10T12:31:10.919Z","round":"509541197","weights":[5000,1470,3530]},{"at":"2026-10-10T12:31:29.055Z","round":"509541197","weights":[5000,1470,3530]}];const colors=['#6de8bf','#f2c779','#8db6ff'];const pts=i=>data.map((d,j)=>[60+j*1060/Math.max(1,data.length-1),230-d.weights[i]*.02].join(',')).join(' ');document.querySelector('#chart').innerHTML='<svg viewBox="0 0 1180 285" role="img" aria-label="Allocation weights over observed rounds"><line x1="60" y1="230" x2="1120" y2="230" stroke="#385b69"/>'+[0,2500,5000,7500,10000].map(w=>'<text x="8" y="'+(234-w*.02)+'">'+(w/100)+'%</text>').join('')+colors.map((co,i)=>'<polyline points="'+pts(i)+'" fill="none" stroke="'+co+'" stroke-width="3"/>').join('')+'<text x="60" y="265">'+data[0].at.slice(11,19)+' UTC</text><text x="970" y="265">'+data.at(-1).at.slice(11,19)+' UTC</text></svg>';document.querySelector('#chart').insertAdjacentHTML('beforeend','<p style="font-size:13px;margin:0">'+['Marginfi','Save','Kamino'].map((n,i)=>'<span style="color:'+colors[i]+';margin-right:30px">● '+n+'</span>').join('')+'</p>');const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)current=slides.indexOf(e.target)}),{threshold:.5});slides.forEach(s=>observer.observe(s));</script></html>

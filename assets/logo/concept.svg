@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="960" viewBox="0 0 1400 960" role="img" aria-labelledby="title description">
+  <title id="title">Quorum logo proposal: Common Ground</title>
+  <desc id="description">A Q colored violet, blue, green in a repeating sequence, built from seven identical, evenly spaced rounded arcs and an eighth blue diagonal segment overlaid equally on both neighboring arcs at the bottom right, shown with the Quorum name, in monochrome, on a dark background, and at small sizes.</desc>
+  <defs>
+    <symbol id="mark" viewBox="0 0 256 256">
+      <g fill="none" stroke-width="26" stroke-linecap="round">
+        <path stroke="#7C3AED" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395"/>
+        <path stroke="#2563EB" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(51.428571 128 128)"/>
+        <path stroke="#16A34A" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(102.857143 128 128)"/>
+        <path stroke="#7C3AED" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(154.285714 128 128)"/>
+        <path stroke="#2563EB" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(205.714286 128 128)"/>
+        <path stroke="#16A34A" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(257.142857 128 128)"/>
+        <path stroke="#7C3AED" d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(308.571429 128 128)"/>
+        <path stroke="#2563EB" d="M162.397 162.397 L212.397 212.397" transform="rotate(-6.428571 128 128)"/>
+      </g>
+    </symbol>
+    <symbol id="mark-mono" viewBox="0 0 256 256">
+      <g fill="none" stroke="currentColor" stroke-width="26" stroke-linecap="round">
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(51.428571 128 128)"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(102.857143 128 128)"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(154.285714 128 128)"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(205.714286 128 128)"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(257.142857 128 128)"/>
+        <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(308.571429 128 128)"/>
+        <path d="M162.397 162.397 L212.397 212.397" transform="rotate(-6.428571 128 128)"/>
+      </g>
+    </symbol>
+  </defs>
+  <rect width="1400" height="960" fill="#F7F7F2"/>
+  <g font-family="DejaVu Sans, sans-serif">
+    <text x="80" y="80" font-size="13" letter-spacing="3" fill="#68716D">QUORUM / LOGO CONCEPT 01</text>
+    <text x="1320" y="80" text-anchor="end" font-size="13" fill="#68716D">COMMON GROUND</text>
+    <path d="M80 110 H1320" stroke="#DDDFD6"/>
+
+    <use href="#mark" x="205" y="185" width="270" height="270"/>
+    <text x="510" y="357" font-size="112" font-weight="600" letter-spacing="-5" fill="#202727">Quorum</text>
+    <text x="518" y="406" font-size="22" letter-spacing=".5" fill="#68716D">Many voices. One accord.</text>
+
+    <text x="80" y="532" font-size="27" font-weight="500" fill="#202727">Independent voices. Shared ground.</text>
+    <text x="80" y="568" font-size="17" fill="#68716D">Seven identical arcs form the circle; an eighth overlaps both neighboring arcs to complete the Q.</text>
+
+    <rect x="80" y="615" width="390" height="235" rx="14" fill="#FFFFFF" stroke="#DDDFD6"/>
+    <text x="105" y="651" font-size="11" letter-spacing="2" fill="#68716D">ONE COLOR</text>
+    <use href="#mark-mono" x="208" y="675" width="132" height="132" color="#202727"/>
+
+    <rect x="505" y="615" width="390" height="235" rx="14" fill="#182B39"/>
+    <text x="530" y="651" font-size="11" letter-spacing="2" fill="#A6B8BF">ON DARK</text>
+    <use href="#mark" x="634" y="675" width="132" height="132"/>
+
+    <rect x="930" y="615" width="390" height="235" rx="14" fill="#FFFFFF" stroke="#DDDFD6"/>
+    <text x="955" y="651" font-size="11" letter-spacing="2" fill="#68716D">SMALL SIZES</text>
+    <use href="#mark" x="997" y="717" width="24" height="24"/>
+    <use href="#mark" x="1078" y="713" width="32" height="32"/>
+    <use href="#mark" x="1168" y="697" width="64" height="64"/>
+    <g font-size="11" fill="#68716D" text-anchor="middle">
+      <text x="1009" y="795">24 px</text>
+      <text x="1094" y="795">32 px</text>
+      <text x="1200" y="795">64 px</text>
+    </g>
+
+    <text x="80" y="911" font-size="12" fill="#68716D">Violet #7C3AED · Blue #2563EB · Green #16A34A</text>
+    <text x="1320" y="911" text-anchor="end" font-size="12" fill="#68716D">Proposed identity / Editable vector mark</text>
+  </g>
+</svg>

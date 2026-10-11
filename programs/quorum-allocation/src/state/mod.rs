@@ -5,3 +5,6 @@ mod registry;
 pub use allocation::*;
 pub use data_feed::*;
 pub use registry::*;
+
+pub mod policy;
+pub use policy::*;

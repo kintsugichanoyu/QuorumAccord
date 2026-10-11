@@ -40,4 +40,16 @@ pub enum QuorumError {
     MathOverflow,
     #[msg("An older round cannot overwrite more recent published state")]
     StaleRound,
+    #[msg("Existing feed window width is immutable; create a new feed")]
+    ImmutableWindow,
+    #[msg("Use policy-bound allocation v2 instructions")]
+    LegacyAllocationDisabled,
+    #[msg("Submission violates frozen allocation policy")]
+    InvalidAllocationPolicy,
+    #[msg("Submission does not match the round input commitment")]
+    SnapshotMismatch,
+    #[msg("Signer is not an authorized consumer for this round")]
+    UnauthorizedConsumer,
+    #[msg("Latest published input snapshot must remain available")]
+    RetainPublishedSnapshot,
 }

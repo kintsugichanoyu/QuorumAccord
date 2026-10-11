@@ -29,6 +29,7 @@ graphify-out
 /frontend/playwright-report/
 /docker/*.env
 /docker/secrets/
+/deployment/devnet/.state/
 **/*keypair*.json
 **/*.pem
 **/*.key

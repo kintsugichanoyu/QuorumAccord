@@ -5,6 +5,42 @@ use crate::constants::*;
 use crate::error::QuorumError;
 use crate::state::{DataFeed, DataFeedConsensus, OperatorRegistry};
 
+/// Reclaim a completed window's rent to the operator that paid for its creation.
+/// A closed window cannot be proposed again because its slot range has ended.
+#[derive(Accounts)]
+#[instruction(window_index: u64)]
+pub struct CloseSampleConsensus<'info> {
+    pub data_feed: AccountLoader<'info, DataFeed>,
+    #[account(
+        mut,
+        close = recipient,
+        seeds = [TICK_CONSENSUS_SEED, data_feed.key().as_ref(), &window_index.to_le_bytes()],
+        bump
+    )]
+    pub consensus: AccountLoader<'info, DataFeedConsensus>,
+    #[account(mut)]
+    pub recipient: Signer<'info>,
+}
+
+pub fn close_sample_consensus(
+    ctx: Context<CloseSampleConsensus>,
+    _window_index: u64,
+) -> Result<()> {
+    let c = ctx.accounts.consensus.load()?;
+    require!(c.status != state_flags::OPEN, QuorumError::RoundNotOpen);
+    require!(
+        Clock::get()?.slot >= c.closes_at_slot,
+        QuorumError::WindowStillOpen
+    );
+    require!(c.count > 0, QuorumError::InvalidConfig);
+    require_keys_eq!(
+        c.submissions[0].submitter,
+        ctx.accounts.recipient.key(),
+        QuorumError::Unauthorized
+    );
+    Ok(())
+}
+
 // ---- propose_sample -----------------------------------------------------------
 // Opens the consensus round for the current window and records the first vote.
 // (An operator races to `propose`; if the account already exists they fall back
@@ -155,24 +191,19 @@ pub enum FinalizeOutcome {
     QuorumNotMet,
     Brake,
     NoTrigger,
+    Superseded,
 }
 
 pub fn finalize_sample(ctx: Context<FinalizeSample>, window_index: u64) -> Result<()> {
     let clock = Clock::get()?;
     let mut c = ctx.accounts.consensus.load_mut()?;
 
-    require!(
-        c.status == state_flags::OPEN,
-        QuorumError::AlreadyFinalized
-    );
+    require!(c.status == state_flags::OPEN, QuorumError::AlreadyFinalized);
     require!(
         c.data_feed == ctx.accounts.data_feed.key() && c.window_index == window_index,
         QuorumError::IdentityMismatch
     );
-    require!(
-        clock.slot >= c.closes_at_slot,
-        QuorumError::WindowStillOpen
-    );
+    require!(clock.slot >= c.closes_at_slot, QuorumError::WindowStillOpen);
 
     // Quorum: too few votes -> round ends without advancing the ring.
     if (c.count as usize) < (c.min_number as usize) {
@@ -190,10 +221,11 @@ pub fn finalize_sample(ctx: Context<FinalizeSample>, window_index: u64) -> Resul
     let agg = aggregation::aggregate_scalar(&mut buf[..n], c.rule, c.trim_pct);
 
     let mut df = ctx.accounts.data_feed.load_mut()?;
-    require!(
-        c.closes_at_slot > df.last_finalized_slot,
-        QuorumError::StaleRound
-    );
+    if c.closes_at_slot <= df.last_finalized_slot {
+        c.status = state_flags::CLOSED;
+        msg!("finalize: {:?}", FinalizeOutcome::Superseded);
+        return Ok(());
+    }
     let first = df.last_finalized_slot == 0 && df.tick == 0;
 
     // Brake: min_interval_slots since the last finalize must have elapsed.

@@ -39,6 +39,11 @@ impl DataFeedConfig {
     fn validate(&self) -> Result<()> {
         require!(self.window_slots > 0, QuorumError::InvalidConfig);
         require!(
+            self.min_interval_slots <= self.max_interval_slots,
+            QuorumError::InvalidConfig
+        );
+        require!(self.measurand <= data_type::U16, QuorumError::InvalidConfig);
+        require!(
             self.min_number > 0 && (self.min_number as usize) <= MAX_OPERATORS,
             QuorumError::InvalidQuorum
         );
@@ -100,7 +105,13 @@ pub fn update_thresholds(ctx: Context<UpdateThresholds>, config: DataFeedConfig)
     );
     config.validate()?;
 
+    // A width change would reuse window-index PDA addresses. A new cadence needs a new feed.
     let mut df = ctx.accounts.data_feed.load_mut()?;
+    require!(
+        df.window_slots == config.window_slots,
+        QuorumError::ImmutableWindow
+    );
+    require!(df.measurand == config.measurand, QuorumError::InvalidConfig);
     df.measurand = config.measurand;
     df.window_slots = config.window_slots;
     df.threshold_bps = config.threshold_bps;
@@ -110,4 +121,25 @@ pub fn update_thresholds(ctx: Context<UpdateThresholds>, config: DataFeedConfig)
     df.rule = config.rule;
     df.trim_pct = config.trim_pct;
     Ok(())
+}
+
+#[cfg(test)]
+mod config_regressions {
+    use super::*;
+    #[test]
+    fn contradictory_intervals_are_rejected() {
+        let mut c = DataFeedConfig {
+            measurand: 0,
+            window_slots: 10,
+            threshold_bps: 10,
+            min_interval_slots: 1000,
+            max_interval_slots: 1,
+            min_number: 1,
+            rule: 0,
+            trim_pct: 0,
+        };
+        assert!(c.validate().is_err());
+        c.max_interval_slots = 1000;
+        assert!(c.validate().is_ok());
+    }
 }

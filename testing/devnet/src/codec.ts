@@ -100,7 +100,8 @@ export function decodeSample(data: Buffer) {
   const count = data[68]!;
   assert(count <= 100, 'invalid sample count');
   assert(data[64]! <= 2, 'invalid sample status');
-  return { window: data.readBigUInt64LE(8), closes: data.readBigUInt64LE(16), status: data[64]!, count,
+  return { window: data.readBigUInt64LE(8), closes: data.readBigUInt64LE(16), output: data.readBigUInt64LE(24),
+    feed: new PublicKey(data.subarray(32,64)).toBase58(), status: data[64]!, quorum: data[65]!, count,
     submissions: Array.from({ length: count }, (_, i) => ({ value: data.readBigUInt64LE(72 + i * 40), operator: new PublicKey(data.subarray(80 + i * 40, 112 + i * 40)).toBase58() })) };
 }
 export function decodeRegistry(data: Buffer): string[] {

@@ -1,0 +1,288 @@
+{
+  "network": "local validator",
+  "passed": 12,
+  "results": [
+    {
+      "name": "legacy allocation cannot bypass policy"
+    },
+    {
+      "name": "atomic snapshot accepts independent feed cadences",
+      "slots": [
+        "60",
+        "80",
+        "100",
+        "120"
+      ]
+    },
+    {
+      "name": "wrong snapshot, unauthorized consumer and cap violation rejected"
+    },
+    {
+      "name": "concentrated median aborts safely and rent is reclaimable",
+      "ctx": {
+        "round": "100",
+        "anchor_slot": "126",
+        "policy_version": "1",
+        "input_hash": [
+          243,
+          98,
+          140,
+          164,
+          16,
+          213,
+          143,
+          241,
+          100,
+          172,
+          253,
+          167,
+          136,
+          241,
+          159,
+          37,
+          68,
+          43,
+          29,
+          196,
+          154,
+          220,
+          23,
+          226,
+          37,
+          39,
+          237,
+          95,
+          161,
+          6,
+          177,
+          223
+        ],
+        "values": [
+          "200",
+          "300",
+          "400",
+          "500",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "ticks": [
+          "1",
+          "1",
+          "1",
+          "1",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "sample_slots": [
+          "60",
+          "80",
+          "100",
+          "120",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "eligible": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "outcome": 4,
+        "config": {
+          "feeds": [
+            "D3uawDCJdPbbYY4R8t2RGYifv3dYrYV67FGH93QiKLdy",
+            "6ofJrqsNQrk1kxFiQJ8HhviGRikZ3bBBQaUBRLviSCih",
+            "DdKPTaiUjFLBJ6A9kG5kcLQWs1dxdKZPfNQhHVEsbvNw",
+            "3ToPj9TyKpJFcjttjrci47qe3CXdBveSFrwhzohf1pB7",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111",
+            "11111111111111111111111111111111"
+          ],
+          "max_stale_slots": [
+            100000,
+            100000,
+            100000,
+            100000,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "risk_bps": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "caps_bps": [
+            5000,
+            5000,
+            5000,
+            5000,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "categories": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "category_caps_bps": [
+            10000,
+            10000,
+            10000,
+            10000
+          ],
+          "risk_screen_bps": 6000,
+          "min_consumers": 3,
+          "max_round_slots": 300,
+          "consumers": [
+            "GZCdYvVZtSg2gXTiS4998ygqL6bQNjDcn5qtQKMGN4p1",
+            "E2BxFe6J6chqYVSPBuWT7aDf6NBvhaYaJKS4G1PJNyL4",
+            "BtQYpgAcoXSrRXnqpBx3pZAJqmKav8YPFUXMTzmdsFMY"
+          ]
+        },
+        "bump": 250
+      },
+      "signature": "2uwURPW1YPHb9MKqVoD6oA5C3v3EQzBKisPGtg3QgfGADpV4PKAi8bVHNpfr9Ym5LzjXpBC9xDkUxAyeq4kG22Pv"
+    },
+    {
+      "name": "zero median closes without publication",
+      "signature": "CbtdRSzWeyVY4CEB6iCSbVqeMbeAfXVeV9YjDQH8kvXUQcxa2w6oJTmWCy6aTfzmJW8BjUwoqCCregMd3xCQxYY"
+    },
+    {
+      "name": "three consumers publish exact frozen-policy computation; latest proof retained",
+      "signature": "2ui77X9tdLctn729QfDdSSAqrgjn27w7rPC1X7x2pd34q12fAA7LV5fgptYdN1wYsv7VFk6FXm5wB2ihdwYn7bCe",
+      "weights": [
+        3000,
+        2143,
+        2857,
+        2000,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "superseded allocation closes; older published proof can now be reclaimed"
+    },
+    {
+      "name": "two of three consumers cannot publish"
+    },
+    {
+      "name": "stale input excluded on chain and consumers abstain"
+    },
+    {
+      "name": "late finalizer cannot publish expired snapshot"
+    },
+    {
+      "name": "contradictory intervals and mutable window rejected"
+    },
+    {
+      "name": "superseded sample closes and returns payer rent"
+    }
+  ]
+}

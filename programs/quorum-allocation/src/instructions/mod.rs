@@ -7,3 +7,6 @@ pub use allocation::*;
 pub use data_feed::*;
 pub use registry::*;
 pub use sample::*;
+
+pub mod policy;
+pub use policy::*;

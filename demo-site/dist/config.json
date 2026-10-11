@@ -1,0 +1,166 @@
+{
+  "schema_version": 2,
+  "network": "devnet",
+  "rpc_url": "https://api.devnet.solana.com",
+  "program_id": "DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz",
+  "producers": [
+    {
+      "role": "producer-marginfi-1",
+      "venue": 0,
+      "operator": 1,
+      "key": "6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH"
+    },
+    {
+      "role": "producer-marginfi-2",
+      "venue": 0,
+      "operator": 2,
+      "key": "7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf"
+    },
+    {
+      "role": "producer-marginfi-3",
+      "venue": 0,
+      "operator": 3,
+      "key": "FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L"
+    },
+    {
+      "role": "producer-save-1",
+      "venue": 1,
+      "operator": 1,
+      "key": "HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH"
+    },
+    {
+      "role": "producer-save-2",
+      "venue": 1,
+      "operator": 2,
+      "key": "E7T1c7kcGD42L4ZRQN6HXnRjTixZDmaspTZqZAM3wmmf"
+    },
+    {
+      "role": "producer-save-3",
+      "venue": 1,
+      "operator": 3,
+      "key": "BJVrpDAwMmQSsyfiAgt6BnXbnHpZ68ruyycV3gi7gjmW"
+    },
+    {
+      "role": "producer-kamino-1",
+      "venue": 2,
+      "operator": 1,
+      "key": "GPRwar8XXz9nGeEJta9uXh3jjXJTmqvtWByXe91YE4wC"
+    },
+    {
+      "role": "producer-kamino-2",
+      "venue": 2,
+      "operator": 2,
+      "key": "8xz7PSH5JKWRypmQbPaZXHzxvqWYgq9Uzdz9NiFJibFJ"
+    },
+    {
+      "role": "producer-kamino-3",
+      "venue": 2,
+      "operator": 3,
+      "key": "31tvv7pdjoQPMBenMSSM2JjC4hGwRxcbgBDdto8hCwVT"
+    }
+  ],
+  "consumers": [
+    {
+      "role": "consumer-1",
+      "operator": 1,
+      "key": "57AbUvCR39cvg6VmtgYXVvyXLPoxczG9qEtRTmzbuH13"
+    },
+    {
+      "role": "consumer-2",
+      "operator": 2,
+      "key": "97fvbqBaxnoohDFSNrg1nbxqbkzpaFN28EpsCeZfot5u"
+    },
+    {
+      "role": "consumer-3",
+      "operator": 3,
+      "key": "He5hU6S8L9mSV4hiLGvXyT1ZUNDZZR62VVy4Be3CN3wA"
+    }
+  ],
+  "operators": [
+    "6mTM9YQcxGdkPmAzGCF25vCkdCpJqbjEYHxChvHfeTwH",
+    "7tx3XxRt1u1bfsiwrjpaJ59hbr483Fvw1YiRmvs7ohZf",
+    "FLj3KsBGXCh9uM7PY3ttKz13MpLvrj98i2qWY8daaa6L",
+    "HoY3NuyQgtCtwcwXthujWpSpFG3MMqHvA436jqx4d4HH",
+    "E7T1c7kcGD42L4ZRQN6HXnRjTixZDmaspTZqZAM3wmmf",
+    "BJVrpDAwMmQSsyfiAgt6BnXbnHpZ68ruyycV3gi7gjmW",
+    "GPRwar8XXz9nGeEJta9uXh3jjXJTmqvtWByXe91YE4wC",
+    "8xz7PSH5JKWRypmQbPaZXHzxvqWYgq9Uzdz9NiFJibFJ",
+    "31tvv7pdjoQPMBenMSSM2JjC4hGwRxcbgBDdto8hCwVT"
+  ],
+  "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+  "asset": "USDC",
+  "sample_quorum": 3,
+  "allocation_quorum": 3,
+  "risk_discount_bps": [
+    500,
+    1000,
+    1500
+  ],
+  "caps_bps": [
+    5000,
+    5000,
+    5000
+  ],
+  "categories": [
+    0,
+    1,
+    1
+  ],
+  "category_caps_bps": [
+    10000,
+    7500,
+    0,
+    0
+  ],
+  "category_names": [
+    "Independent lending",
+    "Shared demo category"
+  ],
+  "round_vote_slots": 120,
+  "max_round_slots": 360,
+  "feeds": [
+    {
+      "name": "Marginfi",
+      "pool_id": 90,
+      "venue": 0,
+      "account": "2s37akK2eyBbp8DZgCm7RtsaEz8eJP3Nxd4urLHQv7yB",
+      "owner": "MFv2hWf31Z9kbCa1snEPYctwafyhdvnV7FZnsebVacA",
+      "market": "4qp6Fx6tnZkY5Wropq9wUYgtFxXKwE6viZxFHg3rdAG8",
+      "sdk": "@0dotxyz/p0-ts-sdk@2.10.0",
+      "data_id": 0,
+      "window_slots": 120,
+      "stale_slots": 240,
+      "pda": "5vt8JH8nyi6KxB33Ae95Hv84E4KT7A3ZDeNXJ6Gsmfh8"
+    },
+    {
+      "name": "Save",
+      "pool_id": 91,
+      "venue": 1,
+      "account": "BgxfHJDzm44T7XG68MYKx7YisTjZu73tVovyZSjJMpmw",
+      "owner": "So1endDq2YkqhipRh3WViPa8hdiSpxWy6z3Z6tMCpAo",
+      "market": "4UpD2fh7xH3VP9QQaXtsS1YY3bxzWhtfpks7FatyKvdY",
+      "sdk": "@solendprotocol/solend-sdk@0.14.27",
+      "data_id": 0,
+      "window_slots": 180,
+      "stale_slots": 360,
+      "pda": "6Zj4PgtTAreUXk1Rg6ULzKnnN3yZRB866rt9CMzr8LeB"
+    },
+    {
+      "name": "Kamino",
+      "pool_id": 92,
+      "venue": 2,
+      "account": "D6q6wuQSrifJKZYpR1M8R4YawnLDtDsMmWM1NbBmgJ59",
+      "owner": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD",
+      "market": "7u3HeHxYDLhnCoErrtycNokbQYbWGzLs6JSDqGAv5PfF",
+      "sdk": "@kamino-finance/klend-sdk@13.0.2",
+      "data_id": 0,
+      "window_slots": 240,
+      "stale_slots": 480,
+      "pda": "783HFHqzHD2By3gxtPLvuA9hpc64KbsFKc7aoprtQEFm"
+    }
+  ],
+  "consumer_uses_registry_admin": false,
+  "registry": "8gqgUdLzwjcJViRZCc3u2SFBQxbmb2HdGaQZHw82wiqG",
+  "allocation_state": "Fxm3c6cfmHb3taPdqVcka6USRAHkytZn3zyBUAwPbS8S",
+  "policy": "3BGmbTG3YdkuT7KKL4BNxu57CxouKFzRFB4BvMRUTstu"
+}

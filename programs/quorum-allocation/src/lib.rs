@@ -28,6 +28,45 @@ declare_id!("DZGzK8wkxRWyhEorA8SSfPbUvHRAwog8vSsKeLEx4Coz");
 pub mod quorum_allocation {
     use super::*;
 
+    pub fn init_allocation_policy(
+        ctx: Context<InitAllocationPolicy>,
+        config: state::PolicyConfig,
+    ) -> Result<()> {
+        instructions::init_allocation_policy(ctx, config)
+    }
+    pub fn update_allocation_policy(
+        ctx: Context<UpdateAllocationPolicy>,
+        config: state::PolicyConfig,
+    ) -> Result<()> {
+        instructions::update_allocation_policy(ctx, config)
+    }
+    pub fn open_allocation_round_v2(
+        ctx: Context<OpenAllocationRoundV2>,
+        round: u64,
+        closes_at_slot: u64,
+        rule: u8,
+        trim_pct: u8,
+    ) -> Result<()> {
+        instructions::open_allocation_round_v2(ctx, round, closes_at_slot, rule, trim_pct)
+    }
+    pub fn submit_weights_v2(
+        ctx: Context<SubmitWeightsV2>,
+        round: u64,
+        weights: [u16; N_VENUES],
+        input_hash: [u8; 32],
+    ) -> Result<()> {
+        instructions::submit_weights_v2(ctx, round, weights, input_hash)
+    }
+    pub fn finalize_allocation_v2(ctx: Context<FinalizeAllocationV2>, round: u64) -> Result<()> {
+        instructions::finalize_allocation_v2(ctx, round)
+    }
+    pub fn close_allocation_round_v2(
+        ctx: Context<CloseAllocationRoundV2>,
+        round: u64,
+    ) -> Result<()> {
+        instructions::close_allocation_round_v2(ctx, round)
+    }
+
     // ---- registry / admin ----
     pub fn init_registry(ctx: Context<InitRegistry>) -> Result<()> {
         instructions::init_registry(ctx)
@@ -72,6 +111,12 @@ pub mod quorum_allocation {
     pub fn finalize_sample(ctx: Context<FinalizeSample>, window_index: u64) -> Result<()> {
         instructions::finalize_sample(ctx, window_index)
     }
+    pub fn close_sample_consensus(
+        ctx: Context<CloseSampleConsensus>,
+        window_index: u64,
+    ) -> Result<()> {
+        instructions::close_sample_consensus(ctx, window_index)
+    }
 
     // ---- allocation consensus (consumers) ----
     pub fn init_allocation_state(ctx: Context<InitAllocationState>) -> Result<()> {
@@ -96,6 +141,12 @@ pub mod quorum_allocation {
     }
     pub fn finalize_allocation(ctx: Context<FinalizeAllocation>, round: u64) -> Result<()> {
         instructions::finalize_allocation(ctx, round)
+    }
+    pub fn close_allocation_consensus(
+        ctx: Context<CloseAllocationConsensus>,
+        round: u64,
+    ) -> Result<()> {
+        instructions::close_allocation_consensus(ctx, round)
     }
 }
 

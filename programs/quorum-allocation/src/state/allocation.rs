@@ -52,7 +52,7 @@ impl AllocationConsensus {
 
     /// Per-venue aggregation across all submissions, then renormalise to MAX_BPS.
     /// Uses a single reusable column buffer to keep the stack frame small.
-    pub fn aggregate(&self) -> [u16; N_VENUES] {
+    pub fn aggregate_raw(&self) -> [u16; N_VENUES] {
         let n = self.count as usize;
         let mut out = [0u16; N_VENUES];
         let mut col = [0u64; MAX_SUBMISSIONS];
@@ -62,7 +62,6 @@ impl AllocationConsensus {
             }
             *slot = aggregation::aggregate_scalar(&mut col[..n], self.rule, self.trim_pct) as u16;
         }
-        aggregation::renormalize_to_bps(&mut out);
         out
     }
 }

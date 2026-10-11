@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Quorum — Common Ground, monochrome</title>
+  <desc id="description">Seven identical, evenly spaced rounded arcs form a circle. An eighth diagonal segment overlays both neighboring arcs at the bottom right, half inside and half outside, to complete the Q.</desc>
+  <g stroke="currentColor" stroke-width="26" stroke-linecap="round">
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(51.428571 128 128)"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(102.857143 128 128)"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(154.285714 128 128)"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(205.714286 128 128)"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(257.142857 128 128)"/>
+    <path d="M108.085 46.395 A84 84 0 0 1 147.915 46.395" transform="rotate(308.571429 128 128)"/>
+    <path d="M162.397 162.397 L212.397 212.397" transform="rotate(-6.428571 128 128)"/>
+  </g>
+</svg>

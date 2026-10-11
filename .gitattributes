@@ -1,0 +1,4 @@
+# The generated browser bundle includes upstream multiline message literals.
+demo-site/dist/app.js linguist-generated=true whitespace=-blank-at-eol
+demo-site/dist/*.json linguist-generated=true
+deployment/devnet/evidence/** linguist-generated=true

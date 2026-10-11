@@ -1,0 +1,17 @@
+# Quorum live product demo
+
+Build with Node 24: `npm ci && npm run build`. The static output is `dist/`.
+The source is self-contained: its Anchor IDL and fixed-point simulation code are
+included. When built inside the full repository, the build refreshes those files
+from the authoritative contract IDL and deployment rubric.
+
+The repository Docker deployment serves the local dashboard at port 18880 with a
+read-only RPC route and a host-generated `fleet.json`. The hosted static site reads
+public Solana devnet RPC directly. Its Docker status is an explicitly timestamped
+capture; it has no connection to your local Docker daemon.
+
+The dashboard never signs transactions. Live account reads validate owners and
+Anchor discriminators. Published RoundContext hashes are recomputed from actual
+serialized bytes. On RPC failure the last successful read remains visible with
+an explicit connection error. Recorded fault experiments are labeled separately
+from live chain state. The pitch's allocation slide is a captured observation.

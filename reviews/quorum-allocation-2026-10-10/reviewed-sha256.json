@@ -1,0 +1,17 @@
+{
+  "programs/quorum-allocation/src/aggregation.rs": "b45a01679587ea8dd0b44867439fbe0c70ef4ca1f979de86305aba087508d368",
+  "programs/quorum-allocation/src/constants.rs": "0b41d873ad8fc2ace3624e553d92dc9d7940267ea090c7f5bc704406b7efdf51",
+  "programs/quorum-allocation/src/error.rs": "18650e6d9ec9bed9ea7639aaf579d44fff9cb6a44eeee53dca978868cbb51f8f",
+  "programs/quorum-allocation/src/instructions/allocation.rs": "b3571cd0689b5e102a03e2becc2e5d4222431b5320511cf79c82c31de363979d",
+  "programs/quorum-allocation/src/instructions/data_feed.rs": "bb1fbfadd4042efc23c18d91a91e35a72f6522e086bea5d419cd4cd31cba66d7",
+  "programs/quorum-allocation/src/instructions/mod.rs": "0c861578959bd6f27f38be70442706936fff0a0343b760c032925e44a8b6a365",
+  "programs/quorum-allocation/src/instructions/registry.rs": "da39f06d421439f8dfcc42c323ddea7877dd7bf1b54cb4d50c063b5f4d3a9154",
+  "programs/quorum-allocation/src/instructions/sample.rs": "2a4c651756830282017f63ab6259e6431465b04d74f753dc7983dbf75d5922cc",
+  "programs/quorum-allocation/src/lib.rs": "bc9d6d1fd2e66568098b1adb0b4ca88d531f735c96c6effa60e089b32f877978",
+  "programs/quorum-allocation/src/state/allocation.rs": "9e67b83f06408134c98efc993e3e97d9fede4b4b46fd9c335d7029d5a2e8399a",
+  "programs/quorum-allocation/src/state/data_feed.rs": "3a08196d07a2f35db7001e1ba0c91e4ece08878ea61a8a06999211831e3710e7",
+  "programs/quorum-allocation/src/state/mod.rs": "3921e265b70def7b49b03cc9277962b7deb40fd7cd643f08b3a13ffb9dfce5d4",
+  "programs/quorum-allocation/src/state/registry.rs": "c83d862e676a0adeaf219e2ce46f32d9747fd64e1e3878723355e02109d4bc88",
+  "target/deploy/quorum_allocation.so": "e4498a29153d303af81c11ca59bf6346134a9d7b3497f77f4ea93ab21903228c",
+  "../task.pdf": "e47dc47a588e28f3101c20194a2c6a1e902242bf83676f5ae8468405ca57d78d"
+}

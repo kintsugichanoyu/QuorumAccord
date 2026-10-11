@@ -4,8 +4,27 @@ Quorum is a Solana allocation-oracle MVP. Registered operators publish metric
 samples by consensus into on-chain ring buffers. Allocation consumers read those
 feeds, apply an integer-only risk rubric and submit weight vectors by consensus.
 It publishes data and weights; it does not move capital or implement Jito NCN
-restaking yet. Production drivers currently support generic on-chain u64 fields,
-not complete integrations with named lending protocols.
+restaking yet. The current devnet demonstration reads real Marginfi, Save and
+Kamino USDC supply APY through a JavaScript reference fleet. The older Rust
+drivers support generic account fields and still need the policy-bound v2
+consumer migration.
+
+## Current product demo
+
+The devnet program freezes asynchronous feed inputs and policy in an on-chain
+RoundContext, checks authorized consumer votes against that commitment, and
+enforces venue/category limits at publication. Nine producers, three consumers,
+a coordinator, an RPC gateway and a read-only web service run in separate Docker
+containers. All six confirmed contract review findings are addressed.
+
+- Reproduce the deployment: [deployment guide](deployment/devnet/README.md)
+- Open the local product: <http://localhost:18880/>; [demo source](demo-site/README.md)
+- Present the pitch: [HTML](demo-site/dist/pitch.html), [PDF](demo-site/dist/pitch.pdf), [editable PowerPoint](demo-site/dist/pitch.pptx)
+- Inspect public proofs and experiments: [v2 evidence](deployment/devnet/evidence/v2/)
+- See what is implemented and what remains: [implementation inventory](deployment/devnet/BUILT-AND-MISSING.md)
+- Show actual container status: `./scripts/devnet/show-fleet.sh` or the local Fleet tab
+
+Wallets, generated environments and private runtime state are excluded from Git.
 
 The [protocol roadmap](ROADMAP.md) moves account-derived metrics toward on-chain
 Rust validation and calculation, with off-chain keepers triggering transactions.
@@ -27,9 +46,9 @@ milestones are planned; the current deployment still uses operator submissions.
 - Rename and compatibility: [docs/book/src/migration.md](docs/book/src/migration.md)
 - Public protocol research: [docs/research/solana-protocol-opportunities-2026-10-05.md](docs/research/solana-protocol-opportunities-2026-10-05.md)
 
-The production program, workers, and allocation rubric are **Rust**. The web
-server is Rust too; **TypeScript** handles browser interactions, documentation
-assets, SDK generation, and the isolated testing package.
+The on-chain program and original worker/rubric workspace are **Rust**.
+The current devnet reference fleet is JavaScript; the live browser demo uses
+TypeScript-compatible client libraries and a read-only Node web service.
 
 ## Layout
 

@@ -37,6 +37,112 @@
       ]
     },
     {
+      "name": "close_allocation_consensus",
+      "discriminator": [
+        79,
+        150,
+        134,
+        40,
+        50,
+        77,
+        66,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "close_allocation_round_v2",
+      "discriminator": [
+        137,
+        51,
+        53,
+        43,
+        209,
+        111,
+        144,
+        113
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "policy"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "round_context",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "close_sample_consensus",
+      "discriminator": [
+        116,
+        205,
+        87,
+        226,
+        181,
+        182,
+        139,
+        183
+      ],
+      "accounts": [
+        {
+          "name": "data_feed"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "recipient",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "window_index",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "corroborate_sample",
       "discriminator": [
         241,
@@ -113,6 +219,47 @@
       ]
     },
     {
+      "name": "finalize_allocation_v2",
+      "discriminator": [
+        207,
+        25,
+        167,
+        90,
+        116,
+        106,
+        1,
+        128
+      ],
+      "accounts": [
+        {
+          "name": "policy",
+          "writable": true
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "round_context",
+          "writable": true
+        },
+        {
+          "name": "allocation_state",
+          "writable": true
+        },
+        {
+          "name": "cranker",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        }
+      ]
+    },
+    {
       "name": "finalize_sample",
       "discriminator": [
         101,
@@ -142,6 +289,46 @@
         {
           "name": "window_index",
           "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_allocation_policy",
+      "discriminator": [
+        37,
+        33,
+        21,
+        48,
+        87,
+        92,
+        155,
+        188
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "policy",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "PolicyConfig"
+            }
+          }
         }
       ]
     },
@@ -311,6 +498,62 @@
       ]
     },
     {
+      "name": "open_allocation_round_v2",
+      "discriminator": [
+        229,
+        223,
+        54,
+        206,
+        83,
+        6,
+        189,
+        154
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "policy",
+          "writable": true
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "round_context",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        },
+        {
+          "name": "closes_at_slot",
+          "type": "u64"
+        },
+        {
+          "name": "rule",
+          "type": "u8"
+        },
+        {
+          "name": "trim_pct",
+          "type": "u8"
+        }
+      ]
+    },
+    {
       "name": "propose_sample",
       "discriminator": [
         23,
@@ -428,6 +671,95 @@
       ]
     },
     {
+      "name": "submit_weights_v2",
+      "discriminator": [
+        79,
+        217,
+        254,
+        80,
+        61,
+        255,
+        206,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "consensus",
+          "writable": true
+        },
+        {
+          "name": "round_context"
+        },
+        {
+          "name": "operator",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "round",
+          "type": "u64"
+        },
+        {
+          "name": "weights",
+          "type": {
+            "array": [
+              "u16",
+              16
+            ]
+          }
+        },
+        {
+          "name": "input_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "update_allocation_policy",
+      "discriminator": [
+        127,
+        62,
+        160,
+        57,
+        133,
+        7,
+        173,
+        113
+      ],
+      "accounts": [
+        {
+          "name": "registry"
+        },
+        {
+          "name": "policy",
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "config",
+          "type": {
+            "defined": {
+              "name": "PolicyConfig"
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "update_thresholds",
       "discriminator": [
         226,
@@ -476,6 +808,19 @@
         111,
         198,
         216
+      ]
+    },
+    {
+      "name": "AllocationPolicy",
+      "discriminator": [
+        144,
+        52,
+        154,
+        233,
+        36,
+        167,
+        63,
+        233
       ]
     },
     {
@@ -528,6 +873,19 @@
         209,
         36,
         100
+      ]
+    },
+    {
+      "name": "RoundContext",
+      "discriminator": [
+        84,
+        110,
+        217,
+        82,
+        247,
+        202,
+        4,
+        85
       ]
     }
   ],
@@ -626,6 +984,36 @@
       "code": 6018,
       "name": "StaleRound",
       "msg": "An older round cannot overwrite more recent published state"
+    },
+    {
+      "code": 6019,
+      "name": "ImmutableWindow",
+      "msg": "Existing feed window width is immutable; create a new feed"
+    },
+    {
+      "code": 6020,
+      "name": "LegacyAllocationDisabled",
+      "msg": "Use policy-bound allocation v2 instructions"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidAllocationPolicy",
+      "msg": "Submission violates frozen allocation policy"
+    },
+    {
+      "code": 6022,
+      "name": "SnapshotMismatch",
+      "msg": "Submission does not match the round input commitment"
+    },
+    {
+      "code": 6023,
+      "name": "UnauthorizedConsumer",
+      "msg": "Signer is not an authorized consumer for this round"
+    },
+    {
+      "code": 6024,
+      "name": "RetainPublishedSnapshot",
+      "msg": "Latest published input snapshot must remain available"
     }
   ],
   "types": [
@@ -704,6 +1092,38 @@
                 2
               ]
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AllocationPolicy",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "version",
+            "type": "u64"
+          },
+          {
+            "name": "active_round",
+            "type": "u64"
+          },
+          {
+            "name": "published_round",
+            "type": "u64"
+          },
+          {
+            "name": "config",
+            "type": {
+              "defined": {
+                "name": "PolicyConfig"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }
@@ -1012,6 +1432,170 @@
                 64
               ]
             }
+          }
+        ]
+      }
+    },
+    {
+      "name": "PolicyConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "feeds",
+            "type": {
+              "array": [
+                "pubkey",
+                16
+              ]
+            }
+          },
+          {
+            "name": "max_stale_slots",
+            "type": {
+              "array": [
+                "u32",
+                16
+              ]
+            }
+          },
+          {
+            "name": "risk_bps",
+            "type": {
+              "array": [
+                "u16",
+                16
+              ]
+            }
+          },
+          {
+            "name": "caps_bps",
+            "type": {
+              "array": [
+                "u16",
+                16
+              ]
+            }
+          },
+          {
+            "name": "categories",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "category_caps_bps",
+            "type": {
+              "array": [
+                "u16",
+                4
+              ]
+            }
+          },
+          {
+            "name": "risk_screen_bps",
+            "type": "u16"
+          },
+          {
+            "name": "min_consumers",
+            "type": "u8"
+          },
+          {
+            "name": "max_round_slots",
+            "type": "u32"
+          },
+          {
+            "name": "consumers",
+            "type": {
+              "vec": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundContext",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "round",
+            "type": "u64"
+          },
+          {
+            "name": "anchor_slot",
+            "type": "u64"
+          },
+          {
+            "name": "policy_version",
+            "type": "u64"
+          },
+          {
+            "name": "input_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "values",
+            "type": {
+              "array": [
+                "u64",
+                16
+              ]
+            }
+          },
+          {
+            "name": "ticks",
+            "type": {
+              "array": [
+                "u64",
+                16
+              ]
+            }
+          },
+          {
+            "name": "sample_slots",
+            "type": {
+              "array": [
+                "u64",
+                16
+              ]
+            }
+          },
+          {
+            "name": "eligible",
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "outcome",
+            "docs": [
+              "0=open, 1=published, 2=no quorum, 3=superseded, 4=infeasible, 5=zero median, 6=expired."
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "config",
+            "type": {
+              "defined": {
+                "name": "PolicyConfig"
+              }
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }

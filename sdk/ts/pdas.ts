@@ -34,3 +34,6 @@ export async function getSampleConsensusAddress(
 export const getAllocationConsensusAddress = (round: bigint) =>
   derive(["consensus", new Uint8Array(getU64Encoder().encode(round))]);
 export const getAllocationStateAddress = () => derive(["allocation_state"]);
+export const getAllocationPolicyAddress = () => derive(["allocation_policy"]);
+export const getRoundContextAddress = (round: bigint) =>
+  derive(["round_context", new Uint8Array(getU64Encoder().encode(round))]);

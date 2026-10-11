@@ -1,0 +1,223 @@
+name: quorum-devnet
+x-worker: &worker
+  image: quorum-devnet-fleet:local
+  pull_policy: never
+  user: "${FLEET_UID:-1000}:${FLEET_GID:-1000}"
+  restart: unless-stopped
+  init: true
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  logging:
+    driver: json-file
+    options: {max-size: "10m", max-file: "3"}
+  healthcheck:
+    test: [CMD, node, -e, "const f=require('fs');const p=process.env.FLEET_STATE+'/'+process.env.ROLE+'/health.json';process.exit(Date.now()-JSON.parse(f.readFileSync(p)).at<180000?0:1)"]
+    interval: 30s
+    timeout: 5s
+    start_period: 120s
+    retries: 3
+services:
+  rpc:
+    <<: *worker
+    build:
+      context: ../..
+      dockerfile: deployment/devnet/Dockerfile
+    command: [node, rpc.mjs]
+    env_file: [.state/rpc.env]
+    ports: ["127.0.0.1:${FLEET_RPC_PORT:-18789}:8799"]
+    volumes:
+      - ./.state/runtime/rpc:/state/rpc
+      - ./.state/config.json:/state/config.json:ro
+  coordinator:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, coordinator.mjs]
+    env_file: [.state/coordinator.env]
+    volumes:
+      - ./.state/runtime/coordinator:/state/coordinator
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: coordinator-key
+        target: operator.json
+  producer-marginfi-1:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-marginfi-1.env]
+    volumes:
+      - ./.state/runtime/producer-marginfi-1:/state/producer-marginfi-1
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-marginfi-1-key
+        target: operator.json
+  producer-marginfi-2:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-marginfi-2.env]
+    volumes:
+      - ./.state/runtime/producer-marginfi-2:/state/producer-marginfi-2
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-marginfi-2-key
+        target: operator.json
+  producer-marginfi-3:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-marginfi-3.env]
+    volumes:
+      - ./.state/runtime/producer-marginfi-3:/state/producer-marginfi-3
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-marginfi-3-key
+        target: operator.json
+  producer-save-1:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-save-1.env]
+    volumes:
+      - ./.state/runtime/producer-save-1:/state/producer-save-1
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-save-1-key
+        target: operator.json
+  producer-save-2:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-save-2.env]
+    volumes:
+      - ./.state/runtime/producer-save-2:/state/producer-save-2
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-save-2-key
+        target: operator.json
+  producer-save-3:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-save-3.env]
+    volumes:
+      - ./.state/runtime/producer-save-3:/state/producer-save-3
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-save-3-key
+        target: operator.json
+  producer-kamino-1:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-kamino-1.env]
+    volumes:
+      - ./.state/runtime/producer-kamino-1:/state/producer-kamino-1
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-kamino-1-key
+        target: operator.json
+  producer-kamino-2:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-kamino-2.env]
+    volumes:
+      - ./.state/runtime/producer-kamino-2:/state/producer-kamino-2
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-kamino-2-key
+        target: operator.json
+  producer-kamino-3:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, producer.mjs]
+    env_file: [.state/producer-kamino-3.env]
+    volumes:
+      - ./.state/runtime/producer-kamino-3:/state/producer-kamino-3
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: producer-kamino-3-key
+        target: operator.json
+  consumer-1:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, consumer.mjs]
+    env_file: [.state/consumer-1.env]
+    volumes:
+      - ./.state/runtime/consumer-1:/state/consumer-1
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: consumer-1-key
+        target: operator.json
+  consumer-2:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, consumer.mjs]
+    env_file: [.state/consumer-2.env]
+    volumes:
+      - ./.state/runtime/consumer-2:/state/consumer-2
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: consumer-2-key
+        target: operator.json
+  consumer-3:
+    <<: *worker
+    depends_on: {rpc: {condition: service_healthy}}
+    command: [node, consumer.mjs]
+    env_file: [.state/consumer-3.env]
+    volumes:
+      - ./.state/runtime/consumer-3:/state/consumer-3
+      - ./.state/config.json:/state/config.json:ro
+      - ./.state/control:/control:ro
+    secrets:
+      - source: consumer-3-key
+        target: operator.json
+  web:
+    image: quorum-devnet-fleet:local
+    pull_policy: never
+    user: "${FLEET_UID:-1000}:${FLEET_GID:-1000}"
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    command: [node, web.mjs]
+    depends_on: {rpc: {condition: service_healthy}}
+    environment:
+      WEB_ROOT: /site
+      RPC_URL: http://rpc:8799
+    ports: ["127.0.0.1:${FLEET_WEB_PORT:-18880}:8080"]
+    volumes:
+      - ../../demo-site/dist:/site:ro
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8080/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+secrets:
+  coordinator-key: {file: .state/keys/coordinator.json}
+  producer-marginfi-1-key: {file: .state/keys/producer-marginfi-1.json}
+  producer-marginfi-2-key: {file: .state/keys/producer-marginfi-2.json}
+  producer-marginfi-3-key: {file: .state/keys/producer-marginfi-3.json}
+  producer-save-1-key: {file: .state/keys/producer-save-1.json}
+  producer-save-2-key: {file: .state/keys/producer-save-2.json}
+  producer-save-3-key: {file: .state/keys/producer-save-3.json}
+  producer-kamino-1-key: {file: .state/keys/producer-kamino-1.json}
+  producer-kamino-2-key: {file: .state/keys/producer-kamino-2.json}
+  producer-kamino-3-key: {file: .state/keys/producer-kamino-3.json}
+  consumer-1-key: {file: .state/keys/consumer-1.json}
+  consumer-2-key: {file: .state/keys/consumer-2.json}
+  consumer-3-key: {file: .state/keys/consumer-3.json}

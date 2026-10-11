@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {computeSnapshot,constrainWeights,validPolicyWeights} from './policy-math.mjs';
+const pad=(a,v=0)=>[...a,...Array(16-a.length).fill(v)];
+const cfg={risk_bps:pad([500,1000,1500]),caps_bps:pad([5000,5000,5000]),categories:pad([0,1,1]),category_caps_bps:[10000,7500,0,0],risk_screen_bps:6000};
+test('median concentration and all-zero median cannot manufacture capacity',()=>{assert.equal(constrainWeights(pad([5000]),cfg,pad([1,1,1])),null);assert.equal(constrainWeights(pad([]),cfg,pad([1,1,1])),null);});
+test('consumer has a full, policy-valid allocation only with enough eligible capacity',()=>{const s={values:pad([701n,168n,453n],0n),config:cfg,eligible:pad([1,1,1])};const normal=computeSnapshot(s).weights;assert(normal&&validPolicyWeights(normal,cfg,s.eligible));assert.deepEqual(computeSnapshot({...s,eligible:pad([1,1,0])}).weights,pad([5000,5000]));assert.equal(computeSnapshot({...s,eligible:pad([0,1,1])}).weights,null);});
+test('random median normalization preserves all on-chain constraints',()=>{let seed=27n;for(let t=0;t<2000;t++){const raw=[],eligible=[],caps=[],categories=[];for(let i=0;i<16;i++){seed=BigInt.asUintN(64,seed*6364136223846793005n+1n);raw.push(Number(seed%10001n));caps.push(Number((seed>>16n)%10001n));categories.push(i%4);eligible.push(Number((seed>>32n)%2n));}const c={...cfg,caps_bps:caps,categories,category_caps_bps:[3000,4000,5000,6000]};const out=constrainWeights(raw,c,eligible);if(out)assert(validPolicyWeights(out,c,eligible));}});

@@ -4,6 +4,36 @@ use crate::constants::*;
 use crate::error::QuorumError;
 use crate::state::{AllocationConsensus, AllocationState, OperatorRegistry};
 
+/// Reclaim completed allocation-round rent to its original registry admin.
+#[derive(Accounts)]
+#[instruction(round: u64)]
+pub struct CloseAllocationConsensus<'info> {
+    #[account(seeds = [REGISTRY_SEED], bump)]
+    pub registry: AccountLoader<'info, OperatorRegistry>,
+    #[account(mut, close = admin, seeds = [ALLOCATION_CONSENSUS_SEED, &round.to_le_bytes()], bump)]
+    pub consensus: AccountLoader<'info, AllocationConsensus>,
+    #[account(mut)]
+    pub admin: Signer<'info>,
+}
+
+pub fn close_allocation_consensus(
+    ctx: Context<CloseAllocationConsensus>,
+    _round: u64,
+) -> Result<()> {
+    require_keys_eq!(
+        ctx.accounts.registry.load()?.admin,
+        ctx.accounts.admin.key(),
+        QuorumError::Unauthorized
+    );
+    let c = ctx.accounts.consensus.load()?;
+    require!(c.status != state_flags::OPEN, QuorumError::RoundNotOpen);
+    require!(
+        Clock::get()?.slot >= c.closes_at_slot,
+        QuorumError::WindowStillOpen
+    );
+    Ok(())
+}
+
 // ---- init_allocation_state ----------------------------------------------------
 
 #[derive(Accounts)]
@@ -57,41 +87,16 @@ pub struct OpenAllocationRound<'info> {
     pub system_program: Program<'info, System>,
 }
 
+/// Legacy unbound rounds are disabled after the policy/snapshot upgrade.
 pub fn open_allocation_round(
-    ctx: Context<OpenAllocationRound>,
-    round: u64,
-    closes_at_slot: u64,
-    min_number: u8,
-    rule: u8,
-    trim_pct: u8,
+    _ctx: Context<OpenAllocationRound>,
+    _round: u64,
+    _closes_at_slot: u64,
+    _min_number: u8,
+    _rule: u8,
+    _trim_pct: u8,
 ) -> Result<()> {
-    require_keys_eq!(
-        ctx.accounts.registry.load()?.admin,
-        ctx.accounts.admin.key(),
-        QuorumError::Unauthorized
-    );
-    require!(
-        min_number > 0 && (min_number as usize) <= MAX_OPERATORS,
-        QuorumError::InvalidQuorum
-    );
-    require!(rule <= rule_flags::TRIMMED_MEAN, QuorumError::InvalidRule);
-    require!(trim_pct < 50, QuorumError::InvalidConfig);
-    require!(
-        closes_at_slot > Clock::get()?.slot,
-        QuorumError::InvalidConfig
-    );
-
-    let mut c = ctx.accounts.consensus.load_init()?;
-    c.round = round;
-    c.closes_at_slot = closes_at_slot;
-    c.status = state_flags::OPEN;
-    c.min_number = min_number;
-    c.rule = rule;
-    c.trim_pct = trim_pct;
-    c.count = 0;
-    c.bump = ctx.bumps.consensus;
-    c.output = [0u16; N_VENUES];
-    Ok(())
+    err!(QuorumError::LegacyAllocationDisabled)
 }
 
 // ---- submit_weights -----------------------------------------------------------
@@ -111,21 +116,11 @@ pub struct SubmitWeights<'info> {
 }
 
 pub fn submit_weights(
-    ctx: Context<SubmitWeights>,
+    _ctx: Context<SubmitWeights>,
     _round: u64,
-    weights: [u16; N_VENUES],
+    _weights: [u16; N_VENUES],
 ) -> Result<()> {
-    let clock = Clock::get()?;
-    require!(
-        ctx.accounts
-            .registry
-            .load()?
-            .is_operator(&ctx.accounts.operator.key()),
-        QuorumError::UnauthorizedOperator
-    );
-    let mut c = ctx.accounts.consensus.load_mut()?;
-    require!(clock.slot < c.closes_at_slot, QuorumError::WindowClosed);
-    c.add_submission(ctx.accounts.operator.key(), weights)
+    err!(QuorumError::LegacyAllocationDisabled)
 }
 
 // ---- finalize_allocation ------------------------------------------------------
@@ -148,40 +143,16 @@ pub struct FinalizeAllocation<'info> {
     pub cranker: Signer<'info>,
 }
 
+/// Expired legacy accounts can still terminate and return rent; they cannot publish.
 pub fn finalize_allocation(ctx: Context<FinalizeAllocation>, _round: u64) -> Result<()> {
-    let clock = Clock::get()?;
     let mut c = ctx.accounts.consensus.load_mut()?;
     require!(
-        c.status == state_flags::OPEN,
-        QuorumError::AlreadyFinalized
-    );
-    require!(
-        clock.slot >= c.closes_at_slot,
+        Clock::get()?.slot >= c.closes_at_slot,
         QuorumError::WindowStillOpen
     );
-    require!(
-        ctx.accounts.allocation_state.updated_slot == 0
-            || c.round > ctx.accounts.allocation_state.round,
-        QuorumError::StaleRound
-    );
-
-    if (c.count as usize) < (c.min_number as usize) {
-        c.status = state_flags::CLOSED;
-        msg!("finalize_allocation: quorum not met");
-        return Ok(());
-    }
-
-    let out = c.aggregate();
-    require!(
-        crate::aggregation::valid_ratios(&out),
-        QuorumError::InvalidRatios
-    );
-    c.output = out;
-    c.status = state_flags::FINALIZED;
-
-    let st = &mut ctx.accounts.allocation_state;
-    st.round = c.round;
-    st.updated_slot = clock.slot;
-    st.weights = out;
+    require!(c.status == state_flags::OPEN, QuorumError::AlreadyFinalized);
+    require!(c._pad[0] != 2, QuorumError::LegacyAllocationDisabled);
+    c.status = state_flags::CLOSED;
+    msg!("finalize_allocation: legacy round retired; use snapshot-bound v2 instructions");
     Ok(())
 }

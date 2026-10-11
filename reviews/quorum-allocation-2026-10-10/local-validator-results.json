@@ -1,0 +1,63 @@
+[
+  {
+    "case": "median_breaks_50_percent_caps",
+    "output": [
+      10000,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "signature": "5fd6i9v84HjvbAyLHXch2z5QrzZQ3Ps9yLG1FLJqw4apfDNBe6bvwK6gyUUqhVzcqheQfQ44a35pop9z2g5Kc2aH"
+  },
+  {
+    "case": "zero_median_round_remains_open_and_cannot_close",
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 6016
+        }
+      ]
+    },
+    "status": 0
+  },
+  {
+    "case": "stale_allocation_cannot_close",
+    "status": 0
+  },
+  {
+    "case": "stale_sample_cannot_close",
+    "status": 0
+  },
+  {
+    "case": "contradictory_intervals_accepted",
+    "min": 1000,
+    "max": 1
+  },
+  {
+    "case": "window_width_change_collides_with_old_pda",
+    "old_width": 80,
+    "new_width": 87,
+    "index": "11",
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 0
+        }
+      ]
+    }
+  }
+]

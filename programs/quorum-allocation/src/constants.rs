@@ -52,3 +52,8 @@ pub mod data_type {
     pub const U32: u8 = 1;
     pub const U16: u8 = 2;
 }
+
+// Frozen allocation policy and input snapshots.
+pub const N_CATEGORIES: usize = 4;
+pub const POLICY_SEED: &[u8] = b"allocation_policy";
+pub const ROUND_CONTEXT_SEED: &[u8] = b"round_context";

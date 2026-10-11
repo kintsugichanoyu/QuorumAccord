@@ -15,6 +15,7 @@ graphify-out
 test-ledger
 keys
 testing/devnet/.state
+deployment/devnet/.state
 docker/secrets
 **/.env
 **/.env.*

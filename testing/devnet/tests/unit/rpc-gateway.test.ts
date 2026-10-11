@@ -56,3 +56,31 @@ test('RPC gateway exposes persistent upstream failures and rejects invalid reque
     assert.equal(await response.text(), 'still limited');
   } finally { await gateway.close(); }
 });
+test('slow responses do not serialize independent request completions', async () => {
+  const starts: number[]=[];
+  let release!:()=>void;
+  const blocked=new Promise<void>(r=>{release=r;});
+  const gateway=await startRpcGateway('https://unused.example',{intervalMs:10,methodIntervalMs:10,fetch:async(_url,init)=>{
+    const request=JSON.parse(String(init?.body));starts.push(Date.now());
+    if(request.method==='getBalance')await blocked;
+    return new Response(JSON.stringify({jsonrpc:'2.0',id:request.id,result:request.method}));
+  }});
+  try{
+    const slow=fetch(gateway.url,{method:'POST',body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getBalance'})});
+    await new Promise(r=>setTimeout(r,30));
+    const fast=await fetch(gateway.url,{method:'POST',body:JSON.stringify({jsonrpc:'2.0',id:2,method:'getSlot'})});
+    assert.equal((await fast.json()).result,'getSlot');assert.equal(starts.length,2);
+    release();assert.equal((await(await slow).json()).result,'getBalance');
+  }finally{release();await gateway.close();}
+});
+test('identical in-flight reads share response data and retain each caller id', async()=>{
+  let calls=0;
+  const gateway=await startRpcGateway('https://unused.example',{intervalMs:0,methodIntervalMs:0,fetch:async(_url,init)=>{
+    calls++;await new Promise(r=>setTimeout(r,40));const request=JSON.parse(String(init?.body));
+    return new Response(JSON.stringify({jsonrpc:'2.0',id:request.id,result:{context:{slot:42},value:'chain-bytes'}}));
+  }});
+  try{
+    const responses=await Promise.all([11,12,13].map(async id=>(await fetch(gateway.url,{method:'POST',body:JSON.stringify({jsonrpc:'2.0',method:'getAccountInfo',params:['pda',{commitment:'confirmed'}],id})})).json()));
+    assert.equal(calls,1);assert.deepEqual(responses.map(r=>r.id),[11,12,13]);assert(responses.every(r=>r.result.context.slot===42));assert.equal(gateway.stats.cache_hits,2);
+  }finally{await gateway.close();}
+});

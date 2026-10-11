@@ -12,7 +12,7 @@ use crate::constants::{rule_flags, MAX_BPS, N_VENUES};
 /// `|current - last| * 10_000 / max(last, 1)`. Saturating to avoid overflow.
 pub fn divergence_bps(current: u64, last: u64) -> u64 {
     let diff = current.abs_diff(last);
-    diff.saturating_mul(MAX_BPS) / last.max(1)
+    ((diff as u128 * MAX_BPS as u128) / last.max(1) as u128).min(u64::MAX as u128) as u64
 }
 
 /// Aggregate a set of scalar submissions under the given rule.
@@ -207,5 +207,18 @@ mod tests {
         assert!(valid_ratios(&w));
         w[0] = 9999;
         assert!(!valid_ratios(&w));
+    }
+}
+
+#[cfg(test)]
+mod overflow_regressions {
+    #[test]
+    fn large_changes_use_full_precision_before_division() {
+        assert_eq!(
+            super::divergence_bps(2_000_000_000_000_000_000, 1_000_000_000_000_000_000),
+            10000
+        );
+        assert_eq!(super::divergence_bps(u64::MAX, 0), u64::MAX);
+        assert_eq!(super::divergence_bps(0, u64::MAX), 10000);
     }
 }
