@@ -37,14 +37,12 @@ health check verifies both the landing page and worker handbook.
 
 ## Publish with GitHub Pages
 
-Once Pages is enabled, the project website URL is
+The project website URL is
 <https://kintsugichanoyu.github.io/QuorumAccord/>, with the complete handbook at
 <https://kintsugichanoyu.github.io/QuorumAccord/book/>.
 
-Activation requires a GitHub plan that supports Pages for the repository's
-visibility. GitHub rejected activation for this private repository on
-2026-10-12 because its current plan does not support private-repository Pages.
-Upgrade the plan or explicitly choose a public repository before activating.
+GitHub Pages is enabled for this public repository with GitHub Actions as the
+publishing source.
 
 `.github/workflows/pages.yaml` builds the landing page and handbook with Node
 24.16.0, locked npm dependencies, and checksum-verified mdBook 0.5.4. It uploads
