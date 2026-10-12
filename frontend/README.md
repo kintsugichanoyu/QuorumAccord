@@ -11,6 +11,14 @@ real devnet reads are available in the handbook's existing read-only inspector.
 
 ## Run
 
+Once Pages is enabled, the website URL is
+<https://kintsugichanoyu.github.io/QuorumAccord/> and the handbook URL is
+<https://kintsugichanoyu.github.io/QuorumAccord/book/>.
+The [Pages workflow](../.github/workflows/pages.yaml) builds and publishes
+`frontend/dist/` after every push to `main`; pull requests validate the build.
+See [GitHub Pages setup](../docs/book/src/deployment.md#publish-with-github-pages)
+for repository settings and manual deployment.
+
 For a fresh GitHub checkout, Docker builds the frontend and mdBook without a
 host Rust/Node installation:
 

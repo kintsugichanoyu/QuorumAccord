@@ -35,6 +35,35 @@ The root `compose.yaml` starts only the web service. It binds the host's loopbac
 interface, uses a non-root container, and serves a read-only filesystem. Its
 health check verifies both the landing page and worker handbook.
 
+## Publish with GitHub Pages
+
+Once Pages is enabled, the project website URL is
+<https://kintsugichanoyu.github.io/QuorumAccord/>, with the complete handbook at
+<https://kintsugichanoyu.github.io/QuorumAccord/book/>.
+
+Activation requires a GitHub plan that supports Pages for the repository's
+visibility. GitHub rejected activation for this private repository on
+2026-10-12 because its current plan does not support private-repository Pages.
+Upgrade the plan or explicitly choose a public repository before activating.
+
+`.github/workflows/pages.yaml` builds the landing page and handbook with Node
+24.16.0, locked npm dependencies, and checksum-verified mdBook 0.5.4. It uploads
+only `frontend/dist/` and deploys after pushes to `main`. Pull requests build
+the same output without publishing. Relative asset and handbook links support
+the repository path on Pages and the existing local Docker server.
+
+For a fork, enable **Settings → Pages → Build and deployment → Source → GitHub
+Actions**, then push to `main` or run **Publish project website and handbook**
+from the Actions tab. Update the branch filter if your default branch differs.
+The site URL follows `https://OWNER.github.io/REPOSITORY/`; the deployment's
+`github-pages` environment links to the actual URL.
+
+GitHub Pages serves the static website and browser handbook, including the
+read-only devnet inspector. The Docker fleet continues to run on its own host.
+The workflow does not deploy containers or require operator wallets. The book
+builder bundles committed public evidence and does not read `.state/` files.
+See [GitHub's custom workflow guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
 ## Configure the web service
 
 No environment file is required for the default build. Optionally copy

@@ -5,6 +5,10 @@ inspector. No signing keys, price backend access or transactions in the browser.
 Named protocol pages explicitly distinguish planned adapters from implemented
 generic decoding and fictional fixture data.
 
+The repository's GitHub Pages workflow publishes the
+[handbook](https://kintsugichanoyu.github.io/QuorumAccord/book/) with the
+[project website](https://kintsugichanoyu.github.io/QuorumAccord/) once Pages
+is enabled in repository settings.
 The [project frontend](../../frontend/README.md) serves this book at `/book/`
 alongside the Quorum landing page. Begin with
 [Integrate Quorum workers](src/workers.md) for Rust producer and consumer setup.
@@ -30,7 +34,8 @@ npm --prefix docs/book run serve   # http://127.0.0.1:4100
 The build bundles the TypeScript reader, invokes mdBook and copies only the latest
 committed **public** devnet report. No `.state/` or wallet file is read by the book
 builder. Generated browser assets, snapshots and HTML remain ignored; sources
-and dependency lockfiles are committed. No website publishing is performed.
+and dependency lockfiles are committed. Building locally does not publish;
+the Pages workflow uploads the bundled static site after pushes to `main`.
 
 The live reader verifies devnet identity and confirmed account ownership/layout,
 shows stale/unset/future data explicitly and uses exact bigint fixed-point prices.
