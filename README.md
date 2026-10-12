@@ -18,12 +18,10 @@ a coordinator, an RPC gateway and a read-only web service run in separate Docker
 containers. All six confirmed contract review findings are addressed.
 
 - Reproduce the deployment: [deployment guide](deployment/devnet/README.md)
-- Open the local product: <http://localhost:18880/>; [demo source](demo-site/README.md)
-- Open the private hosted product: <https://quorum-usdc-live-demo.e-jarosevic.chatgpt.site>
-- Present the pitch: [HTML](demo-site/dist/pitch.html), [PDF](demo-site/dist/pitch.pdf), [editable PowerPoint](demo-site/dist/pitch.pptx)
+- Build the demo: [demo source](demo-site/README.md)
 - Inspect public proofs and experiments: [v2 evidence](deployment/devnet/evidence/v2/)
 - See what is implemented and what remains: [implementation inventory](deployment/devnet/BUILT-AND-MISSING.md)
-- Show actual container status: `./scripts/devnet/show-fleet.sh` or the local Fleet tab
+- Show actual container status: `./scripts/devnet/show-fleet.sh`
 
 Wallets, generated environments and private runtime state are excluded from Git.
 

@@ -1,11 +1,5 @@
 # Quorum USDC product demonstration
 
-The live product is at **http://localhost:18880**. The pitch is at
-**http://localhost:18880/pitch.html**, with PDF and editable PowerPoint downloads.
-The **Fleet** tab shows actual Docker state, health checks, worker heartbeat age,
-and latest observed slots. Its check time is explicit. A hosted static copy shows
-its captured check time; only the local page has a continuously updated host monitor.
-
 ```bash
 ./scripts/devnet/show-fleet.sh
 # Or, a single status check:
@@ -43,7 +37,7 @@ configuration, and starts **15 containers** with restart policies:
 | Consumers | 3 | Compute weights from the same frozen on-chain snapshot and submit independent votes |
 | Coordinator | 1 | Open/finalize rounds, archive outcomes and reclaim old consensus rent |
 | RPC gateway | 1 | Pace genuine RPC request starts, coalesce short identical reads, and retry throttling |
-| Demo web | 1 | Serve the live read-only dashboard, simulation, evidence and pitch |
+| Demo web | 1 | Serve the live read-only dashboard, simulation and evidence |
 
 The host monitor polls Docker every 15 seconds and writes only public service status.
 Docker health means recent loop completion; **functional success is verified
@@ -86,7 +80,7 @@ The regenerated TypeScript/Rust SDK includes policy and snapshot instructions/co
 Old feed widths cannot change; a different cadence requires a new feed ID/PDA.
 `AllocationState` and existing feed layouts remain compatible.
 
-## Evidence and presentation
+## Evidence
 
 Current evidence is in [evidence/v2](evidence/v2/). Earlier `evidence/latest` is the
 historical four-container demonstration; its claims describe that older run.
@@ -100,10 +94,6 @@ node deployment/devnet/audit-v2.mjs
 node deployment/devnet/walkthrough.mjs
 # Run explicitly labeled devnet fault experiments; restores stopped services:
 node deployment/devnet/scenarios.mjs
-# Refresh the evidence-backed pitch:
-node deployment/devnet/pitch.mjs
-# Optional editable PowerPoint export (python-pptx required):
-python deployment/devnet/render_pitch.py
 ```
 
 The dashboard exposes current feed heads separately from the exact consumed snapshot,
@@ -112,9 +102,8 @@ The policy sliders run browser-only simulations; they do not sign or publish.
 
 The current [deployment walkthrough](evidence/v2/presentation.html) shows fourteen
 steps with fetched transaction signatures, decoded instructions and account bytes.
-Open it at <http://localhost:18880/walkthrough.html>. The four-minute capture
-verified six publications, 308 confirmed transactions and refunds for 73 closed
-accounts. Five devnet fault experiments passed.
+The four-minute capture verified six publications, 308 confirmed transactions and
+refunds for 73 closed accounts. Five devnet fault experiments passed.
 
 ## Validation and remaining scope
 
